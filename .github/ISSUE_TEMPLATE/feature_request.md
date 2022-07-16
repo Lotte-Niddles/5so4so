@@ -3,7 +3,7 @@ name: Feature request
 about: "Suggest an idea for this project"
 title: '[기능] 이슈는 명사형으로 작성'
 labels: ''
-assignees: soulgchoi
+assignees: ''
 
 ---
 
