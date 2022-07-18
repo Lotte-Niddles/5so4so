@@ -43,7 +43,6 @@ public class ClientResponseConverter {
         try {
             return objectMapper.readValue(json, KakaoUserInfo.class);
         } catch (IOException e) {
-            e.printStackTrace();
             throw new IllegalArgumentException();
         }
     }

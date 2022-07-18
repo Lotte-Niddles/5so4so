@@ -23,7 +23,11 @@ public class MemberService {
 
         return memberDao.findByProviderId(kakaoUserInfo.getProviderId())
                 .orElseGet(() -> {
-                    final Member member = new Member(kakaoUserInfo.getProviderId(), kakaoUserInfo.getNickname(), kakaoUserInfo.getAgeRange());
+                    final Member member = new Member(
+                            kakaoUserInfo.getProviderId(),
+                            kakaoUserInfo.getNickname(),
+                            kakaoUserInfo.getAgeRange()
+                    );
                     memberDao.save(member);
                     return member;
                 });
