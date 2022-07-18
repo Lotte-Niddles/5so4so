@@ -1,5 +1,6 @@
 package com.needle.fsofso.member;
 
+import com.needle.fsofso.member.kakao.dto.KakaoOauthInfo;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

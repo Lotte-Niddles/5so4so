@@ -1,7 +1,8 @@
-package com.needle.fsofso.member;
+package com.needle.fsofso.member.kakao;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.needle.fsofso.member.kakao.dto.KakaoUserInfo;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -26,6 +27,16 @@ public class ClientResponseConverter {
         try {
             return objectMapper.readTree(json).get(dataKey).asText();
         } catch (IOException e) {
+
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public KakaoUserInfo extractDataAsAccount(String json) {
+        try {
+            return objectMapper.readValue(json, KakaoUserInfo.class);
+        } catch (IOException e) {
+            e.printStackTrace();
             throw new IllegalArgumentException();
         }
     }

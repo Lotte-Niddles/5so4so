@@ -1,5 +1,9 @@
-package com.needle.fsofso.member;
+package com.needle.fsofso.member.kakao;
 
+import com.needle.fsofso.member.MemberService;
+import com.needle.fsofso.member.kakao.dto.KakaoOauthInfo;
+import com.needle.fsofso.member.kakao.dto.KakaoTokenRequest;
+import com.needle.fsofso.member.kakao.dto.KakaoUserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -29,7 +33,7 @@ public class KakaoClient {
         this.kakaoOauthInfo = kakaoOauthInfo;
     }
 
-    public void kakaoInfo(String code) {
+    public KakaoUserInfo kakaoInfo(String code) {
         final String accessToken = accessToken(code);
         final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(AUTHORIZATION, String.format(BEARER_FORM, accessToken));
@@ -40,6 +44,7 @@ public class KakaoClient {
                 new HttpEntity<>(httpHeaders),
                 String.class
         );
+        return converter.extractDataAsAccount(response.getBody());
     }
 
     private void unlink(String accessToken) {
@@ -62,12 +67,12 @@ public class KakaoClient {
                 kakaoOauthInfo.getTokenUrl(),
                 HttpMethod.POST,
                 new HttpEntity<>(
-                        new KakaoTokenRequest(
+                        converter.convertHttpBody(new KakaoTokenRequest(
                                 GRANT_TYPE,
                                 kakaoOauthInfo.getClientId(),
                                 kakaoOauthInfo.getRedirectUrl(),
                                 code
-                        ),
+                        )),
                         httpHeaders
                 ),
                 String.class

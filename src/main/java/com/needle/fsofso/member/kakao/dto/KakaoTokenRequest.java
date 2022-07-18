@@ -1,4 +1,4 @@
-package com.needle.fsofso.member;
+package com.needle.fsofso.member.kakao.dto;
 
 public class KakaoTokenRequest {
 

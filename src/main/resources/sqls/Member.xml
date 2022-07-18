@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+    <insert id="save" parameterType="com.needle.fsofso.member.Member">
+        insert into member(provider_id, nickname, age_range, created_at, updated_at)
+        values (#{providerId}, #{nickname}, #{ageRange}, #{createdAt}, #{updatedAt});
+    </insert>
+</mapper>
