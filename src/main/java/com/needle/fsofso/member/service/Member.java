@@ -1,6 +1,4 @@
-package com.needle.fsofso.member;
-
-import org.slf4j.LoggerFactory;
+package com.needle.fsofso.member.service;
 
 import java.time.Instant;
 

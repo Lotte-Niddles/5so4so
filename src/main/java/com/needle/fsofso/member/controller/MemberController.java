@@ -1,10 +1,15 @@
-package com.needle.fsofso.member;
+package com.needle.fsofso.member.controller;
 
+import com.needle.fsofso.member.service.Member;
+import com.needle.fsofso.member.service.MemberService;
 import com.needle.fsofso.member.kakao.dto.KakaoOauthInfo;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @PropertySource("classpath:properties/oauth.properties")
@@ -25,7 +30,9 @@ public class MemberController {
     }
 
     @GetMapping("/oauth.do")
-    public void oauthRedirect(String code) {
-        memberService.kakaoLogin(code);
+    public String oauthRedirect(String code, HttpServletRequest request) {
+        final Member member = memberService.login(code);
+        request.getSession().setAttribute("member", member);
+        return "main";
     }
 }

@@ -1,5 +1,6 @@
-package com.needle.fsofso.member;
+package com.needle.fsofso.member.service;
 
+import com.needle.fsofso.member.dao.MemberDao;
 import com.needle.fsofso.member.kakao.KakaoClient;
 import com.needle.fsofso.member.kakao.dto.KakaoUserInfo;
 import org.springframework.stereotype.Service;
@@ -15,14 +16,14 @@ public class MemberService {
         this.memberDao = memberDao;
     }
 
-    public void kakaoLogin(String code) {
+    public Member login(String code) {
         final KakaoUserInfo kakaoUserInfo = kakaoClient.kakaoInfo(code);
-        if (kakaoUserInfo.hasAgeRange()) {
-            final Member member = new Member(kakaoUserInfo.getProviderId(), kakaoUserInfo.getNickname(), kakaoUserInfo.getAgeRange());
-            memberDao.save(member);
-            return;
-        }
-        final Member member = new Member(kakaoUserInfo.getProviderId(), kakaoUserInfo.getNickname(), null);
-        memberDao.save(member);
+
+        return memberDao.findByProviderId(kakaoUserInfo.getProviderId())
+                .orElseGet(() -> {
+                    final Member member = new Member(kakaoUserInfo.getProviderId(), kakaoUserInfo.getNickname(), kakaoUserInfo.getAgeRange());
+                    memberDao.save(member);
+                    return member;
+                });
     }
 }
