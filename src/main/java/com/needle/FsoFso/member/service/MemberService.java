@@ -26,6 +26,7 @@ public class MemberService {
                     final Member member = new Member(
                             kakaoUserInfo.getProviderId(),
                             kakaoUserInfo.getNickname(),
+                            kakaoUserInfo.getGender(),
                             kakaoUserInfo.getAgeRange()
                     );
                     memberDao.save(member);

@@ -36,8 +36,16 @@ public class KakaoUserInfo {
         return getKakaoAccount().hasAgeRance();
     }
 
+    public boolean hasGender() {
+        return getKakaoAccount().hasGender();
+    }
+
     public String getNickname() {
         return getKakaoAccount().getNickname();
+    }
+
+    public String getGender() {
+        return getKakaoAccount().getGender();
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -49,6 +57,10 @@ public class KakaoUserInfo {
         private Boolean hasAgeRange;
         @JsonProperty(value = "age_range")
         private String ageRange;
+        @JsonProperty(value = "has_gender")
+        private Boolean hasGender;
+        @JsonProperty(value = "gender")
+        private String gender;
 
         public KakaoAccount() {
         }
@@ -71,6 +83,10 @@ public class KakaoUserInfo {
             return ageRange;
         }
 
+        public String getGender() {
+            return gender;
+        }
+
         public String getNickname() {
             return getProfile().getNickname();
         }
@@ -87,8 +103,16 @@ public class KakaoUserInfo {
             this.ageRange = ageRange;
         }
 
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+
         public boolean hasAgeRance() {
             return hasAgeRange;
+        }
+
+        public boolean hasGender() {
+            return hasGender;
         }
     }
 
