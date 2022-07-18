@@ -1,8 +1,8 @@
-package com.needle.fsofso.member.service;
+package com.needle.FsoFso.member.service;
 
-import com.needle.fsofso.member.dao.MemberDao;
-import com.needle.fsofso.member.kakao.KakaoClient;
-import com.needle.fsofso.member.kakao.dto.KakaoUserInfo;
+import com.needle.FsoFso.member.dao.MemberDao;
+import com.needle.FsoFso.member.kakao.KakaoClient;
+import com.needle.FsoFso.member.kakao.dto.KakaoUserInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

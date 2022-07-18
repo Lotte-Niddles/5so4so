@@ -1,4 +1,4 @@
-<%@ page import="com.needle.fsofso.member.kakao.dto.KakaoOauthInfo" %>
+<%@ page import="com.needle.FsoFso.member.kakao.dto.KakaoOauthInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     final KakaoOauthInfo kakaoClientId = (KakaoOauthInfo) request.getAttribute("kakaoInfo");

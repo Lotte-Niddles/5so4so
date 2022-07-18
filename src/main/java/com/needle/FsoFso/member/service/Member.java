@@ -1,4 +1,4 @@
-package com.needle.fsofso.member.service;
+package com.needle.FsoFso.member.service;
 
 import java.time.Instant;
 

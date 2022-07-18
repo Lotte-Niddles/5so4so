@@ -1,4 +1,4 @@
-<%@ page import="com.needle.fsofso.member.service.Member" %>
+<%@ page import="com.needle.FsoFso.member.service.Member" %>
 <%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%

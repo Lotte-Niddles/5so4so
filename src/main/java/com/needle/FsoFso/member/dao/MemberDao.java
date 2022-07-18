@@ -1,6 +1,6 @@
-package com.needle.fsofso.member.dao;
+package com.needle.FsoFso.member.dao;
 
-import com.needle.fsofso.member.service.Member;
+import com.needle.FsoFso.member.service.Member;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

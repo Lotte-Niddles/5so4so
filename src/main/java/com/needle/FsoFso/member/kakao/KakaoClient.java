@@ -1,11 +1,11 @@
-package com.needle.fsofso.member.kakao;
+package com.needle.FsoFso.member.kakao;
 
-import com.needle.fsofso.member.kakao.dto.KakaoLogoutRequest;
-import com.needle.fsofso.member.kakao.dto.KakaoOauthInfo;
-import com.needle.fsofso.member.kakao.dto.KakaoTokenRequest;
-import com.needle.fsofso.member.kakao.dto.KakaoUserInfo;
-import com.needle.fsofso.member.service.Member;
-import com.needle.fsofso.member.service.MemberService;
+import com.needle.FsoFso.member.kakao.dto.KakaoLogoutRequest;
+import com.needle.FsoFso.member.kakao.dto.KakaoOauthInfo;
+import com.needle.FsoFso.member.kakao.dto.KakaoTokenRequest;
+import com.needle.FsoFso.member.kakao.dto.KakaoUserInfo;
+import com.needle.FsoFso.member.service.Member;
+import com.needle.FsoFso.member.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;

@@ -1,8 +1,8 @@
-package com.needle.fsofso.member.kakao;
+package com.needle.FsoFso.member.kakao;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.needle.fsofso.member.kakao.dto.KakaoUserInfo;
+import com.needle.FsoFso.member.kakao.dto.KakaoUserInfo;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;

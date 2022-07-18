@@ -1,4 +1,4 @@
-package com.needle.fsofso.member.kakao.dto;
+package com.needle.FsoFso.member.kakao.dto;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

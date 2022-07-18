@@ -4,18 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Member">
-    <insert id="save" parameterType="com.needle.fsofso.member.service.Member">
+    <insert id="save" parameterType="com.needle.FsoFso.member.service.Member">
         insert into member(provider_id, nickname, age_range, created_at, updated_at)
         values (#{providerId}, #{nickname}, #{ageRange}, #{createdAt}, #{updatedAt});
     </insert>
 
-    <select id="findByProviderId" parameterType="Long" resultType="com.needle.fsofso.member.service.Member">
+    <select id="findByProviderId" parameterType="Long" resultType="com.needle.FsoFso.member.service.Member">
         select id, provider_id as providerId, nickname, age_range as ageRange, created_at as createdAt, updated_at as updatedAt
         from member
         where provider_id = #{providerId};
     </select>
 
-    <select id="findById" parameterType="Long" resultType="com.needle.fsofso.member.service.Member">
+    <select id="findById" parameterType="Long" resultType="com.needle.FsoFso.member.service.Member">
         select id, provider_id as providerId, nickname, age_range as ageRange, created_at as createdAt, updated_at as updatedAt
         from member
         where id = #{id};
