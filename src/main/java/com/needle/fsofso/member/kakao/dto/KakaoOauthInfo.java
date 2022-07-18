@@ -18,6 +18,8 @@ public class KakaoOauthInfo {
     private String unlinkUrl;
     @Value("${kakao.redirect}")
     private String redirectUrl;
+    @Value("${kakao.client.adminKey}")
+    private String adminKey;
 
     public KakaoOauthInfo() {
     }
@@ -40,5 +42,9 @@ public class KakaoOauthInfo {
 
     public String getRedirectUrl() {
         return redirectUrl;
+    }
+
+    public String getAdminKey() {
+        return adminKey;
     }
 }

@@ -1,15 +1,14 @@
 package com.needle.fsofso.member.controller;
 
+import com.needle.fsofso.member.kakao.dto.KakaoOauthInfo;
 import com.needle.fsofso.member.service.Member;
 import com.needle.fsofso.member.service.MemberService;
-import com.needle.fsofso.member.kakao.dto.KakaoOauthInfo;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @PropertySource("classpath:properties/oauth.properties")
@@ -34,5 +33,14 @@ public class MemberController {
         final Member member = memberService.login(code);
         request.getSession().setAttribute("member", member);
         return "main";
+    }
+
+    @GetMapping("/logout.do")
+    public String logout(Long id, HttpServletRequest request) {
+        final boolean logout = memberService.logout(id);
+        if (logout) {
+            request.getSession().removeAttribute("member");
+        }
+        return "logout";
     }
 }

@@ -27,7 +27,14 @@ public class ClientResponseConverter {
         try {
             return objectMapper.readTree(json).get(dataKey).asText();
         } catch (IOException e) {
+            throw new IllegalArgumentException();
+        }
+    }
 
+    public Long extractDataAsLong(String json, String dataKey) {
+        try {
+            return objectMapper.readTree(json).get(dataKey).asLong();
+        } catch (IOException e) {
             throw new IllegalArgumentException();
         }
     }

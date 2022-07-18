@@ -14,5 +14,6 @@
 </head>
 <body>
 <h2>메인페이지</h2>
+<a href="/logout.do?id=<%=member.getId()%>">로그아웃</a>
 </body>
 </html>

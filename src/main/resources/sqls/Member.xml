@@ -14,4 +14,10 @@
         from member
         where provider_id = #{providerId};
     </select>
+
+    <select id="findById" parameterType="Long" resultType="com.needle.fsofso.member.service.Member">
+        select id, provider_id as providerId, nickname, age_range as ageRange, created_at as createdAt, updated_at as updatedAt
+        from member
+        where id = #{id};
+    </select>
 </mapper>

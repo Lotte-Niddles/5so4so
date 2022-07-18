@@ -24,4 +24,8 @@ public class MemberDao {
     public Optional<Member> findByProviderId(Long providerId) {
         return Optional.ofNullable(session.selectOne(NAME_SPACE + "findByProviderId", providerId));
     }
+
+    public Optional<Member> findById(Long id) {
+        return Optional.ofNullable(session.selectOne(NAME_SPACE + "findById", id));
+    }
 }

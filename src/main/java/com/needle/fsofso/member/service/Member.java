@@ -4,6 +4,7 @@ import java.time.Instant;
 
 public class Member {
 
+    private Long id;
     private Long providerId;
     private String nickname;
     private String ageRange;
@@ -13,12 +14,25 @@ public class Member {
     public Member() {
     }
 
+    public Member(Long id, Long providerId, String nickname, String ageRange, Instant createdAt, Instant updatedAt) {
+        this.id = id;
+        this.providerId = providerId;
+        this.nickname = nickname;
+        this.ageRange = ageRange;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     public Member(Long providerId, String nickname, String ageRange) {
         this.providerId = providerId;
         this.nickname = nickname;
         this.ageRange = ageRange;
         this.createdAt = Instant.now();
         this.updatedAt = Instant.now();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Long getProviderId() {

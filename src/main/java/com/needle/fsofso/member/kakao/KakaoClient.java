@@ -1,8 +1,10 @@
 package com.needle.fsofso.member.kakao;
 
+import com.needle.fsofso.member.kakao.dto.KakaoLogoutRequest;
 import com.needle.fsofso.member.kakao.dto.KakaoOauthInfo;
 import com.needle.fsofso.member.kakao.dto.KakaoTokenRequest;
 import com.needle.fsofso.member.kakao.dto.KakaoUserInfo;
+import com.needle.fsofso.member.service.Member;
 import com.needle.fsofso.member.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,8 @@ public class KakaoClient {
     private static final String GRANT_TYPE = "authorization_code";
     private static final String BEARER_FORM = "Bearer %s";
     private static final String ACCESS_TOKEN = "access_token";
+    private static final String KAKAO_AK = "KakaoAK %s";
+    private static final String TARGET_ID_TYPE = "user_id";
 
     private final Logger log = LoggerFactory.getLogger(MemberService.class);
     private final RestTemplate restTemplate = new RestTemplate();
@@ -47,16 +51,24 @@ public class KakaoClient {
         return converter.extractDataAsAccount(response.getBody());
     }
 
-    private void unlink(String accessToken) {
+    public Long unlink(Member member) {
         final RestTemplate restTemplate = new RestTemplate();
         final HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(AUTHORIZATION, String.format(BEARER_FORM, accessToken));
-        restTemplate.exchange(
+        httpHeaders.add(AUTHORIZATION, String.format(KAKAO_AK, kakaoOauthInfo.getAdminKey()));
+        final ResponseEntity<String> response = restTemplate.exchange(
                 kakaoOauthInfo.getUnlinkUrl(),
                 HttpMethod.POST,
-                new HttpEntity<>(httpHeaders),
+                new HttpEntity<>(
+                        converter.convertHttpBody(new KakaoLogoutRequest(
+                                TARGET_ID_TYPE,
+                                member.getProviderId()
+                        )),
+                        httpHeaders
+                ),
                 String.class
         );
+
+        return converter.extractDataAsLong(response.getBody(), "id");
     }
 
     private String accessToken(String code) {
