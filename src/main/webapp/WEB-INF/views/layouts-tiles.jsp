@@ -7,11 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>5so4so</title>
 
 <tiles:insertAttribute name="header"/>		<!-- link 파일 (bootstrap, jquery) -->
-
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/style.css">
 
 </head>
 <body>
@@ -19,14 +17,10 @@
 <div id="body_wrap">
 	<div id="main_wrap">
 		<tiles:insertAttribute name="top_inc"/>
-		<tiles:insertAttribute name="top_menu"/>
 	</div>
 	
 	<div id="middle_wrap">
-		<div id="content_wrap">
-			<div id="content_title_wrap">
-				<div class="title">${doc_title}</div>
-			</div>
+		<div id="content_wrap" style="height: 600px">
 			<tiles:insertAttribute name="main"/>
 		</div>
 	</div>
@@ -38,8 +32,4 @@
 
 </body>
 </html>
-
-
-
-
 

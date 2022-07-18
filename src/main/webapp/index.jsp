@@ -11,4 +11,3 @@
 	response.sendRedirect("productList.do");
 %>
 </body>
-</html>
