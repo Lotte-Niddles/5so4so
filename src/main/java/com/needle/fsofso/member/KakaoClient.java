@@ -7,8 +7,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Component
@@ -22,6 +20,7 @@ public class KakaoClient {
     private static final String ACCESS_TOKEN = "access_token";
 
     private final Logger log = LoggerFactory.getLogger(MemberService.class);
+    private final RestTemplate restTemplate = new RestTemplate();
     private final ClientResponseConverter converter;
     private final KakaoOauthInfo kakaoOauthInfo;
 
@@ -32,14 +31,8 @@ public class KakaoClient {
 
     public void kakaoInfo(String code) {
         final String accessToken = accessToken(code);
-//        log.info(TOKEN);
-
-
-//        unlink(TOKEN);
-
         final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(AUTHORIZATION, String.format(BEARER_FORM, accessToken));
-        final RestTemplate restTemplate = new RestTemplate();
 
         final ResponseEntity<String> response = restTemplate.exchange(
                 kakaoOauthInfo.getUserProfileUrl(),
@@ -47,8 +40,6 @@ public class KakaoClient {
                 new HttpEntity<>(httpHeaders),
                 String.class
         );
-        log.info(response.getBody());
-
     }
 
     private void unlink(String accessToken) {
@@ -63,27 +54,25 @@ public class KakaoClient {
         );
     }
 
-
     private String accessToken(String code) {
         final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(CONTENT_TYPE, DEFAULT_CHARSET);
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        final MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.add("grant_type", GRANT_TYPE);
-        multiValueMap.add("client_id", kakaoOauthInfo.getClientId());
-        multiValueMap.add("redirect_uri", kakaoOauthInfo.getRedirectUrl());
-        multiValueMap.add("code", code);
 
         final ResponseEntity<String> response = restTemplate.exchange(
                 kakaoOauthInfo.getTokenUrl(),
                 HttpMethod.POST,
                 new HttpEntity<>(
-                        multiValueMap, httpHeaders
+                        new KakaoTokenRequest(
+                                GRANT_TYPE,
+                                kakaoOauthInfo.getClientId(),
+                                kakaoOauthInfo.getRedirectUrl(),
+                                code
+                        ),
+                        httpHeaders
                 ),
                 String.class
         );
+
         return converter.extractDataAsString(response.getBody(), ACCESS_TOKEN);
     }
 

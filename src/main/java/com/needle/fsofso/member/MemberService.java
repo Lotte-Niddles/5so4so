@@ -11,7 +11,6 @@ public class MemberService {
         this.kakaoClient = kakaoClient;
     }
 
-
     public void kakaoLogin(String code) {
         kakaoClient.kakaoInfo(code);
     }
