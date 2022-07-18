@@ -5,22 +5,17 @@
        
 <tiles-definitions>
 
-<definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+<definition name="productList.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
-	<put-attribute name="top_inc" value="/WEB-INF/views/commons/top_inc.jsp"/>
+	<put-attribute name="top_inc" value="/WEB-INF/views/commons/top_inc.jsp"/>	
+	<put-attribute name="top_menu" value="/WEB-INF/views/commons/top_menu.jsp"/>
 	<put-attribute name="main" value="/WEB-INF/views/main.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/commons/bottom_inc.jsp"/>
 </definition>
 
-<!-- 
-<definition name="pdslist.tiles" extends="main.tiles">
-	<put-attribute name="left_menu" value="/WEB-INF/views/pds/pds_leftmenu.jsp"/>
-	<put-attribute name="main" value="/WEB-INF/views/pds/pdslist.jsp"/>
+<definition name="searchList.tiles" extends="productList.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/search/searchList.jsp"/>
 </definition>
- -->
+
 
 </tiles-definitions>
-
-
-
-
