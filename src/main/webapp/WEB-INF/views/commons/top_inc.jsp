@@ -1,9 +1,7 @@
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <header>
 <div class="sticky-container">
 	<div class="css-i7a8i3">
@@ -18,23 +16,7 @@
 					<img alt="" src="<%=request.getContextPath()%>/images/logo.png">
 				</a>
 			</div>
-			
-			<div class="css-1h0hlgo">
-			
-				<!-- <a class="css-1scjy81" href="/">
-					<style data-emotion="css 18nk785">
-						.css-18nk785{display:inline-block;margin:-4px;padding:4px;border-radius:3px;}
-					</style>
-					<span class="css-18nk785">커뮤니티</span>
-				</a>
-				<a class="css-1scjy81" href="/store">
-					<span class="css-18nk785">스토어</span>
-				</a>
-				<a class="css-1scjy81" href="/experts">
-					<span class="css-18nk785">맞춤업체찾기</span>
-				</a> -->
-			</div>
-		
+			<div class="css-1h0hlgo"></div>
 			<div class="css-ff6c76">
 				<div class="css-10vibjk">
 					<div class="css-1o64euu">
@@ -44,7 +26,7 @@
 								<span>
 									<img alt="" src="<%=request.getContextPath()%>/images/glass.png">
 								</span>
-								<input type="text" value="" placeholder="통합검색" autoComplete="off" aria-autocomplete="list" class="css-16px0cl"/>
+								<input id="search" type="text" placeholder="통합검색" autoComplete="off" aria-autocomplete="list" class="css-16px0cl"/>
 								<div class="css-s5xdrg"></div>
 							</div>
 						</div>
@@ -66,7 +48,6 @@
 								로그인
 							</a>
 						</div>
-						
 						<span class="css-1amee4m">
 						</span>
 					</div>
@@ -76,4 +57,23 @@
 	</div>
 </div>
 </header>
+<script>
+//TODO: 검색 버튼 event
+$(function () {		
+	//Block Enter key events . 엔터키 이벤트 막기.		
+	$(document).keypress(function (e) {
+		if (e.keyCode == 13) {
+			e.preventDefault();		
+		}
+	});		//Click the Search button when you press Enter in the search TextBox. 검색 TextBox에서 Enter 키를 누를 때 검색 버튼을 클릭.		
+	$('#txtFind').keypress(function (e) {		 
+		var key = e.which;		 
+		if (key == 13) {		
+		// the enter key code		 
+		$('input[name = btnFind]').click();			
+			return false;  
+		}		
+	});   	
+});
+</script>
 

@@ -10,14 +10,17 @@ import com.needle.FsoFso.product.dto.ProductDto;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
-	@Autowired
-	SqlSession session;
-
-	String ns = "Product.";
+	
+	private static final String NAME_SPACE = "Product.";
+	
+	private final SqlSession session;
+	
+	public ProductDaoImpl(SqlSession session) {
+		this.session = session;
+	}
 
 	@Override
 	public List<ProductDto> productList() {
-		return session.selectList(ns + "productList");
+		return session.selectList(NAME_SPACE + "productList");
 	}
-
 }
