@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+    <insert id="save" parameterType="com.needle.FsoFso.member.service.Member">
+        insert into members(provider_id, nickname, age_range, created_at, updated_at)
+        values (#{providerId}, #{nickname}, #{ageRange}, #{createdAt}, #{updatedAt});
+    </insert>
+
+    <select id="findByProviderId" parameterType="Long" resultType="com.needle.FsoFso.member.service.Member">
+        select id, provider_id as providerId, nickname, age_range as ageRange, created_at as createdAt, updated_at as updatedAt
+        from members
+        where provider_id = #{providerId};
+    </select>
+
+    <select id="findById" parameterType="Long" resultType="com.needle.FsoFso.member.service.Member">
+        select id, provider_id as providerId, nickname, age_range as ageRange, created_at as createdAt, updated_at as updatedAt
+        from members
+        where id = #{id};
+    </select>
+</mapper>
