@@ -14,16 +14,16 @@ public class SellerProductDaoImpl implements SellerProductDao{
 	@Autowired
 	SqlSession session;
 	
-	String ns = "SellerProduct.";
+	private static final String NAME_SPACE = "SellerProduct.";
 	
 	@Override
 	public int addProduct(SellerProductDto productDto) {
-		return session.insert(ns + "addProduct", productDto);
+		return session.insert(NAME_SPACE + "addProduct", productDto);
 	}
 
 	@Override
 	public List<SellerProductDto> getAllProduct() {
-		return session.selectList(ns + "getAllProduct");
+		return session.selectList(NAME_SPACE + "getAllProduct");
 	}
 
 }

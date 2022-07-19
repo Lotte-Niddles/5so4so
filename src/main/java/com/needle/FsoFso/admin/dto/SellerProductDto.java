@@ -1,12 +1,11 @@
 package com.needle.FsoFso.admin.dto;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import lombok.Data;
 
 @Data
-public class SellerProductDto implements Serializable{
+public class SellerProductDto{
 	private static final long serialVersionUID = 1L;
 	private int	id;
 	private String name;

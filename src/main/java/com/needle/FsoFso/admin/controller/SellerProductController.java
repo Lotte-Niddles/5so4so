@@ -35,10 +35,10 @@ import com.needle.FsoFso.admin.util.FTPUtil;
 public class SellerProductController {
 	
 	@Autowired
-	FTPUtil ftpUtil;
+	private FTPUtil ftpUtil;
 	
 	@Autowired
-	SellerProductService sellerProductService;
+	private SellerProductService sellerProductService;
 	
 	@RequestMapping(value = "/product.do", method = RequestMethod.POST)
 	public String addSellerProduct(SellerProductDto sellerProductDto,

@@ -54,14 +54,16 @@ public class FTPUtil {
 			InputStream in = new BufferedInputStream(fileload.getInputStream());
 			result = ftpClient.storeFile("needle/" + fileName, in);
 			
+			ftpClient.logout();
+			ftpClient.disconnect();
+			in.close();
+			
 			if(result) {
 				System.out.println("File 생성 성공");
 				return true;
 			}else {
 				System.out.println("File 생성 실패");
 			}
-			ftpClient.logout();
-			ftpClient.disconnect();
 
 		} catch (SocketException e) {
 			e.printStackTrace();
