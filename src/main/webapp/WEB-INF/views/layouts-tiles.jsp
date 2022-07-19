@@ -14,7 +14,7 @@
 		<tiles:insertAttribute name="top_inc"/>
 	</div>
 	<div id="middle_wrap">
-		<div id="content_wrap" style="height: 600px">
+		<div id="content_wrap" style="height: 800px">
 			<tiles:insertAttribute name="main"/>
 		</div>
 	</div>

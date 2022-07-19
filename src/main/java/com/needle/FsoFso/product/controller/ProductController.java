@@ -36,4 +36,23 @@ public class ProductController {
 
 		return "productList.tiles";
 	}
+	
+	// TODO : 지훈 detail test
+	@GetMapping("productDetail.do")
+	public String productDetail(Model model, HttpServletRequest req) {
+		logger.info("ProductController productDetail()" + new Date());
+		// TODO : 로그인 했다고 가졍하기위해서 session에 id set;
+		req.getSession().setAttribute("loginId", "aaa");
+
+		String sid = req.getParameter("id");
+		
+		if(sid.equals("") || sid == null) {
+			return "productList.tiles";
+		}
+		else {
+			int id = Integer.parseInt(sid);
+			model.addAttribute("id", id);
+		}
+		return "productDetail.tiles";
+	}
 }

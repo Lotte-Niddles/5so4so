@@ -8,5 +8,4 @@
 		FROM product 
 		WHERE name = #{name}
 	</select>
-
 </mapper>
