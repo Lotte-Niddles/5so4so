@@ -4,8 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Product">
 	<select id="productList" resultType="com.needle.FsoFso.product.dto.ProductDto">
-		select id, name, thumbnail_url, price, stock, created_at, updated_at 
-		from products
+		SELECT id, name, thumbnail_url as thumbnailUrl, price, stock, created_at as createdAt, updated_at as updatedAt 
+		FROM product 
 	</select>
-
 </mapper>

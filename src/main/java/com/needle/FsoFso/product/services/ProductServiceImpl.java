@@ -11,12 +11,14 @@ import com.needle.FsoFso.product.dto.ProductDto;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
-	ProductDao dao;
+	private final ProductDao productDao;
+
+	public ProductServiceImpl(ProductDao productDao) {
+		this.productDao = productDao;
+	}
 
 	@Override
 	public List<ProductDto> productList() {
-		return dao.productList();
+		return productDao.productList();
 	}
-	
 }

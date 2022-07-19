@@ -2,9 +2,7 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
-       
 <tiles-definitions>
-
 <definition name="productList.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
 	<put-attribute name="top_inc" value="/WEB-INF/views/commons/top_inc.jsp"/>	
@@ -12,10 +10,7 @@
 	<put-attribute name="main" value="/WEB-INF/views/main.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/commons/bottom_inc.jsp"/>
 </definition>
-
 <definition name="searchList.tiles" extends="productList.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/search/searchList.jsp"/>
 </definition>
-
-
 </tiles-definitions>

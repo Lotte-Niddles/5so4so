@@ -1,55 +1,49 @@
 package com.needle.FsoFso.search.dto;
 
-import java.io.Serializable;
-import java.math.BigInteger;
-import java.sql.Timestamp;
+import java.time.Instant;
 
-public class SearchDto implements Serializable {
-	
-	private static final long serialVersionUID = -5976928232131418153L;
+public class SearchDto {
 	
 	/**
 	 * 
-	
-	create table product (
-		id bigint auto_increment primary key ,
-		name varchar(50),
-		thumbnail_url varchar(500) not null,
-		price int  not null,
-	    stock int  not null,
-		created_at timestamp not null,
-		updated_at timestamp not null
-	);
-
+		CREATE TABLE PRODUCT (
+			ID BIGINT AUTO_INCREMENT PRIMARY KEY ,
+			NAME VARCHAR(50),
+			THUMBNAIL_URL VARCHAR(500) NOT NULL,
+			PRICE INT  NOT NULL,
+		    STOCK INT  NOT NULL,
+			CREATED_AT TIMESTAMP NOT NULL,
+			UPDATED_AT TIMESTAMP NOT NULL
+		);
 	 */
 	
-	private BigInteger id;
+	private Long id;
 	private String name;
-	private String thumbnail_url;
+	private String thumbnailUrl;
 	private int price;
 	private int stock;
-	private Timestamp created_at;
-	private Timestamp updated_at;
+	private Instant createdAt;
+	private Instant updatedAt;
 
 	public SearchDto() {
 	}
 
-	public SearchDto(BigInteger id, String name, String thumbnail_url, int price, int stock, Timestamp created_at,
-			Timestamp updated_at) {
+	public SearchDto(Long id, String name, String thumbnailUrl, int price, int stock, Instant createdAt,
+			Instant updatedAt) {
 		this.id = id;
 		this.name = name;
-		this.thumbnail_url = thumbnail_url;
+		this.thumbnailUrl = thumbnailUrl;
 		this.price = price;
 		this.stock = stock;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -61,12 +55,12 @@ public class SearchDto implements Serializable {
 		this.name = name;
 	}
 
-	public String getThumbnail_url() {
-		return thumbnail_url;
+	public String getthumbnailUrl() {
+		return thumbnailUrl;
 	}
 
-	public void setThumbnail_url(String thumbnail_url) {
-		this.thumbnail_url = thumbnail_url;
+	public void setthumbnailUrl(String thumbnailUrl) {
+		this.thumbnailUrl = thumbnailUrl;
 	}
 
 	public int getPrice() {
@@ -85,19 +79,19 @@ public class SearchDto implements Serializable {
 		this.stock = stock;
 	}
 
-	public Timestamp getCreated_at() {
-		return created_at;
+	public Instant getcreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Timestamp created_at) {
-		this.created_at = created_at;
+	public void setcreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Timestamp getUpdated_at() {
-		return updated_at;
+	public Instant getupdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdated_at(Timestamp updated_at) {
-		this.updated_at = updated_at;
+	public void setupdatedAt(Instant updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 }

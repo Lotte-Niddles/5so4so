@@ -15,7 +15,6 @@
 <%-- 
 	<table border="1">
 		<col width="100"><col width="100"><col width="100"><col width="100">
-		
 		<tr>
 			<th>id</th><th>name</th><th>price</th><th>stock</th>
 		</tr>
@@ -23,14 +22,12 @@
 			for (int i = 0; i < productList.size(); i++) {
 				ProductDto dto = productList.get(i);
 		%>
-		
 		<tr>
- 			<td><%=dto.getId() %></td> 
+ 			<td><%=dto.getId()%></td> 
  			<td><%=dto.getName()%></td> 
- 			<td><%=dto.getPrice() %></td> 
- 			<td><%=dto.getStock() %></td> 
+ 			<td><%=dto.getPrice()%></td> 
+ 			<td><%=dto.getStock()%></td>
 		</tr>
-		
 		<%
 			}
 		%>
@@ -108,5 +105,3 @@
 	
 </body>
 </html>
-
-
