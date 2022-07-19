@@ -61,7 +61,7 @@ public class SellerProductController {
 	public String getAllProduct(Model model) {
 		
 		List<SellerProductDto> productList = sellerProductService.getAllProduct();
-		model.addAttribute(productList);
+		model.addAttribute("productList",productList);
 		
 		for(SellerProductDto dto : productList) {
 			System.out.println(dto.toString());

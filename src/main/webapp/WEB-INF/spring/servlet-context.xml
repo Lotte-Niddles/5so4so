@@ -27,17 +27,6 @@
    
    <!-- spring에서 처리할 수 없는 요청은 tomcat에 위임 -->
    <mvc:default-servlet-handler/>
-   
-   <!-- DB 설정파일 loading -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:properties/jdbc.properties</value>
-				<value>classpath:properties/ftp.properties</value>
-			</list>
-		</property>
-	</bean>
          
 </beans>
 
