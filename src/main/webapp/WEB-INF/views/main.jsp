@@ -80,7 +80,7 @@
 			<div class="productWrapper">
 				<div class="productImage">
 					<a href="productDetail.do?id=<%=dto.getId()%>">
-						<img alt="" src="<%=request.getContextPath()%>/images/product/gagu.jpg">
+						<img alt="" src="<%=dto.getthumbnailUrl()%>">
 					</a>
 				</div>
 				<div class="productContent">
