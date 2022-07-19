@@ -8,7 +8,6 @@
 		FROM products
 	</select>
 	
-	
 	<select id="getproducPagelist" parameterType="Integer" 
 		resultType="com.needle.FsoFso.product.dto.ProductDto">
 		
