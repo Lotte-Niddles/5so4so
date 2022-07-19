@@ -12,7 +12,7 @@ public class AdminProductDto implements Serializable{
 	LocalDateTime createdAt;
 	LocalDateTime updatedAt;
 	
-	AdminProductDto(){}
+	public AdminProductDto(){}
 	public AdminProductDto(Long productId, String imgUrl, String productName, int stock, int salesCount,
 			LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();

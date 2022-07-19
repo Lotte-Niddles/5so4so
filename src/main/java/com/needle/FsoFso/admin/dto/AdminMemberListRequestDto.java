@@ -7,7 +7,7 @@ public class AdminMemberListRequestDto implements Serializable {
 	
 	List<AdminMemberDto> adminMembers;
 	
-	AdminMemberListRequestDto(){}
+	public AdminMemberListRequestDto(){}
 
 	public AdminMemberListRequestDto(List<AdminMemberDto> adminMembers) {
 		super();

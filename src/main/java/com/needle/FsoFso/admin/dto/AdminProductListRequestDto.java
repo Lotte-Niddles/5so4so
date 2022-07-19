@@ -6,7 +6,7 @@ import java.util.List;
 public class AdminProductListRequestDto implements Serializable{
 	List<AdminProductDto> adminProducts;
 	
-	AdminProductListRequestDto(){}
+	public AdminProductListRequestDto(){}
 
 	public AdminProductListRequestDto(List<AdminProductDto> adminProducts) {
 		super();
