@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.productList{
+	width: 60%;
+	height: 100%;
+	margin: 0 auto;
+	padding-top: 3%; 
+}
+
+.productWrapper{
+	width: 20%;
+	height: 25%;
+	float: left;
+	margin: 0 2.5%;
+	margin-bottom: 2%;
+}
+
+.productImage img{
+	width: 100%;
+	border-radius: 4px; 
+}
+
+.productCart{
+	display: flex;
+	justify-content: space-around;
+	/* justify-content: space-between; */
+}
+
+.pageNum {
+	position: absolute;
+	left: 48.5%;
+	bottom: 0%;
+}

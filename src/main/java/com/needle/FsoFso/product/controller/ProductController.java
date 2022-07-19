@@ -26,15 +26,25 @@ public class ProductController {
 	}
 
 	@GetMapping("productList.do")
-	public String productList(Model model, HttpServletRequest req) {
-		logger.info("MainController mainFunc()" + new Date());
+	public String productList(Integer pageNumber, Model model, HttpServletRequest req) {
+		logger.info("ProductController productList()" + new Date());
 		// TODO : 로그인 했다고 가졍하기위해서 session에 id set;
+		String pageNumber1 = req.getParameter("pageNumber");
 		req.getSession().setAttribute("loginId", "aaa");
-
-		List<ProductDto> productList = productService.productList();
+		
+		int start = 1;
+		
+		if(pageNumber != null) {
+			start = 1 + 12 * pageNumber;
+		}
+		
+		List<ProductDto> productList = productService.getproducPagelist(start);
+		int len = productService.getAllProduct();
+		
 		model.addAttribute("productList", productList);
-
-		return "productList.tiles";
+		model.addAttribute("len", len);
+		model.addAttribute("pageNumber", pageNumber1);
+		return "productList.tiles"; 
 	}
 	
 	// TODO : 지훈 detail test

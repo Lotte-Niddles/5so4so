@@ -5,7 +5,7 @@
 <mapper namespace="Search">
 	<select id="searchList" parameterType="String" resultType="com.needle.FsoFso.search.dto.SearchDto">
 		SELECT id, name, thumbnail_url as thumbnailUrl, price, stock, created_at as createdAt, updated_at as updatedAt 
-		FROM product 
+		FROM products
 		WHERE name = #{name}
 	</select>
 </mapper>
