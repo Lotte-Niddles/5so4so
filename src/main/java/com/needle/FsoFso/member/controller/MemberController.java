@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@PropertySource("classpath:properties/oauth.properties")
+@PropertySource("classpath:sub-properties/oauth.properties")
 public class MemberController {
 
     private final MemberService memberService;

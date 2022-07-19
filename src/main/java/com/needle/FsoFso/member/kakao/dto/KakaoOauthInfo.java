@@ -5,7 +5,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-@PropertySource("classpath:properties/oauth.properties")
+@PropertySource("classpath:sub-properties/oauth.properties")
 public class KakaoOauthInfo {
 
     @Value("${kakao.client.restAPI}")
