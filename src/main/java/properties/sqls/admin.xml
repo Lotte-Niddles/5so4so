@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+
+	<select id="adminMain" resultType="com.needle.FsoFso.admin.dto.DailyDetailDto">
+		select date, sum(sales), count(*) as salesCnt, signinCnt
+		from order
+		where DATE_COLUMN BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+		group by date
+	</select>
+	
+	<select id="adminMemberList" resultType="com.needle.FsoFso.admin.dto.AdminMemberDto">
+		select name, id, birth, purchasesCount, totalPurchase, createdAt
+		from member
+		
+	</select>
+	
+	<select id="adminProductList" resultType="com.needle.FsoFso.admin.dto.AdminProductDto">
+		select productId, imgUrl, productName, stock, salesCount, createdAt, updatedAt
+	</select>
+
+</mapper>
