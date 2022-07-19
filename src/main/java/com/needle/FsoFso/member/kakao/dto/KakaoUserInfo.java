@@ -62,10 +62,14 @@ public class KakaoUserInfo {
         public KakaoAccount() {
         }
 
-        public KakaoAccount(Profile profile, Boolean hasAgeRange, String ageRange) {
+        public KakaoAccount(Profile profile, Boolean hasAgeRange, String ageRange,
+                Boolean hasGender,
+                String gender) {
             this.profile = profile;
             this.hasAgeRange = hasAgeRange;
             this.ageRange = ageRange;
+            this.hasGender = hasGender;
+            this.gender = gender;
         }
 
         public Profile getProfile() {
