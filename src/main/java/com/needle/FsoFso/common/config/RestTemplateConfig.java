@@ -1,4 +1,4 @@
-package com.needle.FsoFso.common;
+package com.needle.FsoFso.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

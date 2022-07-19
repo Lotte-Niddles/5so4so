@@ -13,7 +13,11 @@ import java.util.Map;
 @Component
 public class ClientResponseConverter {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
+
+    public ClientResponseConverter(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     public <T> MultiValueMap<String, String> convertHttpBody(T body) {
         final LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();

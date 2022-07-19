@@ -1,10 +1,8 @@
 package com.needle.FsoFso.member.kakao.dto;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class KakaoUserInfo {
 
     @JsonProperty(value = "id")
@@ -48,7 +46,6 @@ public class KakaoUserInfo {
         return getKakaoAccount().getGender();
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class KakaoAccount {
 
         @JsonProperty(value = "profile")
@@ -116,7 +113,6 @@ public class KakaoUserInfo {
         }
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Profile {
 
         @JsonProperty(value = "nickname")
