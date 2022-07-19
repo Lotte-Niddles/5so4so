@@ -7,5 +7,5 @@ import com.needle.FsoFso.product.dto.ProductDto;
 public interface ProductService {
 	
 	List<ProductDto> productList();
-
+	int getProductId();
 }
