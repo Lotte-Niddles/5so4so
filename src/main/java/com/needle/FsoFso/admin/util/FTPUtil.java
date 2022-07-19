@@ -76,7 +76,7 @@ public class FTPUtil {
 	}
 	
 	public String getFilePath() {
-		return url + "/needle/" ;
+		return "http://" + url + "/needle/" ;
 	}
 	
 	public String getFileName() {
