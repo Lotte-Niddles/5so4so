@@ -68,6 +68,25 @@ public class KakaoClient {
         return converter.extractDataAsString(response.getBody(), ACCESS_TOKEN);
     }
 
+    public Long logout(Member member) {
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(AUTHORIZATION, String.format(KAKAO_AK, kakaoOauthInfo.getAdminKey()));
+
+        final ResponseEntity<String> response = restTemplate.exchange(
+                kakaoOauthInfo.getLogoutUrl(),
+                HttpMethod.POST,
+                new HttpEntity<>(
+                        converter.convertHttpBody(new KakaoLogoutRequest(
+                                TARGET_ID_TYPE,
+                                member.getProviderId()
+                        )),
+                        httpHeaders
+                ),
+                String.class
+        );
+        return converter.extractDataAsLong(response.getBody(), "id");
+    }
+
     public Long unlink(Member member) {
         final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(AUTHORIZATION, String.format(KAKAO_AK, kakaoOauthInfo.getAdminKey()));

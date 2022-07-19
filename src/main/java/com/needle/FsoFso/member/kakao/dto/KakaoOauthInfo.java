@@ -14,6 +14,8 @@ public class KakaoOauthInfo {
     private String tokenUrl;
     @Value("${kakao.url.profile}")
     private String userProfileUrl;
+    @Value("${kakao.url.logout}")
+    private String logoutUrl;
     @Value("${kakao.url.unlink}")
     private String unlinkUrl;
     @Value("${kakao.redirect}")
@@ -34,6 +36,10 @@ public class KakaoOauthInfo {
 
     public String getUserProfileUrl() {
         return userProfileUrl;
+    }
+
+    public String getLogoutUrl() {
+        return logoutUrl;
     }
 
     public String getUnlinkUrl() {

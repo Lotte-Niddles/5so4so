@@ -39,7 +39,7 @@ public class MemberService {
         if (member.isEmpty()) {
             return false;
         }
-        final Long unlinkedId = kakaoClient.unlink(member.get());
+        final Long unlinkedId = kakaoClient.logout(member.get());
         return unlinkedId.equals(member.get().getProviderId());
     }
 }
