@@ -12,8 +12,9 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:properties/jdbc.properties</value>
-				<value>classpath:properties/ftp.properties</value>
+				<value>classpath:resources/sub-properties/jdbc.properties</value>
+				<value>classpath:resources/sub-properties/ftp.properties</value>
+				<value>classpath:resources/sub-properties/oauth.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -38,7 +39,7 @@
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:properties/mybatis-config.xml"></property>
+		<property name="configLocation" value="classpath:resources/mybatis-config.xml"></property>
 		<property name="mapperLocations" value="classpath:sqls/*.xml" />
 	</bean>
 

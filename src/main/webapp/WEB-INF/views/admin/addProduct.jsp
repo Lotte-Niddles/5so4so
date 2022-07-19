@@ -50,9 +50,6 @@
 </form>
 <script>
 $("button").click(function () {
-	
-	// 빈칸 첵크
-	
 	$("#frm").submit();
 });
 </script>

@@ -6,13 +6,13 @@
 <mapper namespace="SellerProduct">
 
 <insert id="addProduct" parameterType="com.needle.FsoFso.admin.dto.SellerProductDto">
-	insert into product(name, thumbnail_url, price, stock, created_at, updated_at)
+	insert into products(name, thumbnail_url, price, stock, created_at, updated_at)
 	values(#{name}, #{thumbnailUrl}, #{price}, #{stock}, now(), now())
 </insert>
 
 <select id="getAllProduct" resultType="com.needle.FsoFso.admin.dto.SellerProductDto">
 	select id, name, thumbnail_url, price, stock, created_at, updated_at
-	from product
+	from products
 	order by updated_at desc
 </select>
 
