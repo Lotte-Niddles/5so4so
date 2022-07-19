@@ -12,7 +12,7 @@ import com.needle.FsoFso.admin.dto.SellerProductDto;
 public class SellerProductDaoImpl implements SellerProductDao{
 
 	@Autowired
-	SqlSession session;
+	private SqlSession session;
 	
 	private static final String NAME_SPACE = "SellerProduct.";
 	

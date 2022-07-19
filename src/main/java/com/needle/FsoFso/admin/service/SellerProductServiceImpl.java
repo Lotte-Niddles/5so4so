@@ -12,7 +12,7 @@ import com.needle.FsoFso.admin.dto.SellerProductDto;
 public class SellerProductServiceImpl implements SellerProductService {
 
 	@Autowired
-	SellerProductDao sellerProductDao;
+	private SellerProductDao sellerProductDao;
 	
 	@Override
 	public int addProduct(SellerProductDto productDto) {
