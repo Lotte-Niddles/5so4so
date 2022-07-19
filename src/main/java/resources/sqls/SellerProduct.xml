@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="SellerProduct">
+
+<insert id="addProduct" parameterType="com.needle.FsoFso.admin.dto.SellerProductDto">
+	insert into products(name, thumbnail_url, price, stock, created_at, updated_at)
+	values(#{name}, #{thumbnailUrl}, #{price}, #{stock}, now(), now())
+</insert>
+
+<select id="getAllProduct" resultType="com.needle.FsoFso.admin.dto.SellerProductDto">
+	select id, name, thumbnail_url, price, stock, created_at, updated_at
+	from products
+	order by updated_at desc
+</select>
+
+</mapper>
+
