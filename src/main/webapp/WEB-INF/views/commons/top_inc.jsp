@@ -14,7 +14,7 @@
 				</button>
 			</div>
 			<div class="css-48o8iw">	
-				<a class="css-loslz5" aria-label="오늘의집 로고" href="/">
+				<a class="css-loslz5" href="/">
 					<img alt="" src="<%=request.getContextPath()%>/images/logo.png">
 				</a>
 			</div>
