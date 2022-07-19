@@ -12,7 +12,7 @@ import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
 public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
-	AdminDao dao;
+	private AdminDao dao;
 
 	@Override
 	public AdminMainRequestDto adminMain() {

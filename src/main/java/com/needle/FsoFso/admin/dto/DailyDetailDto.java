@@ -1,26 +1,23 @@
 package com.needle.FsoFso.admin.dto;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 
-public class DailyDetailDto implements Serializable {
+public class DailyDetailDto {
 	
-	LocalDate date;
-	int sales;
-	int salesCnt;
-	int signinCnt;
+	private Instant date;
+	private int sales;
+	private int salesCnt;
+	private int signinCnt;
 
 	public DailyDetailDto() {}
-
-	public DailyDetailDto(LocalDate date, int sales, int salesCnt, int signinCnt) {
-		super();
+	public DailyDetailDto(Instant date, int sales, int salesCnt, int signinCnt) {
 		this.date = date;
 		this.sales = sales;
 		this.salesCnt = salesCnt;
 		this.signinCnt = signinCnt;
 	}
 
-	public LocalDate getDate() {
+	public Instant getDate() {
 		return date;
 	}
 	public int getSales() {
@@ -32,4 +29,10 @@ public class DailyDetailDto implements Serializable {
 	public int getSigninCnt() {
 		return signinCnt;
 	}
+
+	public boolean nullCheck() {
+		return (date == null);
+	}
+	
+	
 }

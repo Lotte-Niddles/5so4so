@@ -14,23 +14,23 @@
 				</button>
 			</div>
 			<div class="css-48o8iw">	
-				<a class="css-loslz5" aria-label="오늘의집 로고" href="/admin.do">
+				<a class="css-loslz5" aria-label="오늘의집 로고" href="<%=request.getContextPath()%>/admin.do">
 					<img alt="" src="<%=request.getContextPath()%>/images/logo.png">
 				</a>
 			</div>
 			
 			<div class="css-1h0hlgo">
 			
-				<a class="css-1scjy81" href="/adminProductList.do">
+				<a class="css-1scjy81" href="<%=request.getContextPath()%>/adminProductList.do">
 					<style data-emotion="css 18nk785">
 						.css-18nk785{display:inline-block;margin:-4px;padding:4px;border-radius:3px;}
 					</style>
 					<span class="css-18nk785">상품목록</span>
 				</a>
-				<a class="css-1scjy81" href="/adminAddProduct.do">
+				<a class="css-1scjy81" href="<%=request.getContextPath()%>/adminAddProduct.do">
 					<span class="css-18nk785">상품등록</span>
 				</a>
-				<a class="css-1scjy81" href="/adminMemberList.do">
+				<a class="css-1scjy81" href="<%=request.getContextPath()%>/adminMemberList.do">
 					<span class="css-18nk785">회원관리</span>
 				</a>
 			</div>

@@ -1,22 +1,18 @@
 package com.needle.FsoFso.admin.dto;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class AdminMainRequestDto implements Serializable{
+public class AdminMainRequestDto {
 	
-	List<DailyDetailDto> dailyDetails;
+	private List<DailyDetailDto> dailyDetails = new ArrayList<>();
 	
 	public AdminMainRequestDto(){}
-	
 	public AdminMainRequestDto(List<DailyDetailDto> dailyDetails) {
-		super();
 		this.dailyDetails = dailyDetails;
 	}
 
 	public List<DailyDetailDto> getDailyDetails() {
 		return dailyDetails;
 	}
-	
-	
 }

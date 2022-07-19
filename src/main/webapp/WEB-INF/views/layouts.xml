@@ -5,25 +5,29 @@
        
 <tiles-definitions>
 
-<definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+<definition name="productList.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
 	<put-attribute name="top_inc" value="/WEB-INF/views/commons/top_inc.jsp"/>	
 	<put-attribute name="main" value="/WEB-INF/views/main.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/commons/bottom_inc.jsp"/>
 </definition>
 
+<definition name="searchList.tiles" extends="productList.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/search/searchList.jsp"/>
+</definition>
+
 <!-- admin -->
-<definition name="admin.tiles" extends="main.tiles">
+<definition name="admin.tiles" extends="productList.tiles">
 	<put-attribute name="top_inc" value="/WEB-INF/views/admin/adminTopInc.jsp"/>
 	<put-attribute name="main" value="/WEB-INF/views/admin/adminMain.jsp"/>
 </definition>
 
 <definition name="adminProductList.tiles" extends="admin.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/admin/adminMain.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/admin/adminProductList.jsp"/>
 </definition>
 
 <definition name="adminMemberList.tiles" extends="admin.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/admin/adminMain.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/admin/adminMemberList.jsp"/>
 </definition>
 
 </tiles-definitions>

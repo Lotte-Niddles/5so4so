@@ -17,16 +17,16 @@ import com.needle.FsoFso.admin.service.AdminService;
 @Controller
 public class AdminController {
 	
-	Logger logger = LoggerFactory.getLogger(AdminController.class);
+	private final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	@Autowired
-	AdminService service;
+	private AdminService service;
 
 	@RequestMapping(value="admin.do")
 	public String adminMain(Model model) {
 		logger.info("AdminController adminMain() " + new Date());
 		AdminMainRequestDto dto = service.adminMain();
-		model.addAttribute("dto", dto);
+		model.addAttribute("adminMainDto", dto);
 		return "admin.tiles";
 	}
 	
@@ -34,7 +34,7 @@ public class AdminController {
 	public String adminProductList(Model model) {
 		logger.info("AdminController adminProductList() " + new Date());
 		AdminProductListRequestDto dto = service.adminProductListRequest();
-		model.addAttribute("dto", dto);
+		model.addAttribute("productListDto", dto);
 		return "adminProductList.tiles";
 	}
 	
@@ -42,7 +42,7 @@ public class AdminController {
 	public String adminMemberList(Model model) {
 		logger.info("AdminController adminMemberList() " + new Date());
 		AdminMemberListRequestDto dto = service.adminMemberListRequest();
-		model.addAttribute("dto", dto);
+		model.addAttribute("MemberListDto", dto);
 		return "adminMemberList.tiles";
 	}
 }

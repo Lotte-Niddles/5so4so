@@ -4,30 +4,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Admin">
-	<select id="adminMain"
+	<select id="adminMain" parameterType="String"
 		resultType="com.needle.FsoFso.admin.dto.DailyDetailDto">
-		select a.created_at as date, sum(b.total_price) as sales, 
-				 count(a.id) as salesCnt, count(b.id) as signinCnt
-		from members a, orders b
-		where substring(a.created_at, 1, 10) = substring(b.ordered_at, 1, 10)
-				and DATE_COLUMN BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
-		group by substring(a.created_at, 1, 10);
+		select a.created_at as date, sum(b.total_price) as sales, count(b.id) as salesCnt, a.memcnt as signinCnt 
+		from (select count(substring(mem.created_at, 1, 10)) as memcnt, substring(mem.created_at, 1, 10) as d, mem.created_at as created_at
+					from members as mem
+					where substring(mem.created_at, 1, 10) = #{day}) as a, orders b
+		where substring(b.ordered_at, 1, 10) = a.d;
 	</select>
 
 	<select id="adminMemberList"
 		resultType="com.needle.FsoFso.admin.dto.AdminMemberDto">
-		select a.nickname, a.id, a.age_range, count(*),
-				sum(b.total_price), a.created_at
+		select a.nickname as nickname, a.id as id, a.age_range as ageRange, a.gender as gender, count(*) as purchasesCount,
+				sum(b.total_price) as totalPurchase, a.created_at as createdAt, a.updated_at as updatedAt
 		from members a, orders b
 		where a.id = b.member_id
 		group by a.id
-		order by sum(b.total_price);
+		order by sum(b.total_price) desc;
 	</select>
 
 	<select id="adminProductList"
 		resultType="com.needle.FsoFso.admin.dto.AdminProductDto">
 		select a.id as productId, a.thumbnail_url as imgUrl,
-				a.productName as productName, a.stock as stock, sum(b.quantity) as salesCount, 
+				a.name as productName, a.stock as stock, sum(b.quantity) as salesCount, 
 				a.created_at as createdAt, a.updated_at as updatedAt
 		from products a, order_product b
 		where a.id = b.product_id

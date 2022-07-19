@@ -1,21 +1,19 @@
 package com.needle.FsoFso.admin.dto;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
-public class AdminProductDto implements Serializable{
-	Long productId;
-	String imgUrl;
-	String productName;
-	int stock;
-	int salesCount;
-	LocalDateTime createdAt;
-	LocalDateTime updatedAt;
+public class AdminProductDto {
+	private Long productId;
+	private String imgUrl;
+	private String productName;
+	private int stock;
+	private int salesCount;
+	private Instant createdAt;
+	private Instant updatedAt;
 	
 	public AdminProductDto(){}
 	public AdminProductDto(Long productId, String imgUrl, String productName, int stock, int salesCount,
-			LocalDateTime createdAt, LocalDateTime updatedAt) {
-		super();
+			Instant createdAt, Instant updatedAt) {
 		this.productId = productId;
 		this.imgUrl = imgUrl;
 		this.productName = productName;
@@ -40,10 +38,10 @@ public class AdminProductDto implements Serializable{
 	public int getSalesCount() {
 		return salesCount;
 	}
-	public LocalDateTime getCreatedAt() {
+	public Instant getCreatedAt() {
 		return createdAt;
 	}
-	public LocalDateTime getUpdatedAt() {
+	public Instant getUpdatedAt() {
 		return updatedAt;
 	}
 	
