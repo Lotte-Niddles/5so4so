@@ -1,0 +1,4 @@
+[submodule "src/main/resources/sub-properties"]
+	path = src/main/resources/sub-properties
+	url = https://github.com/Lotte-Niddles/5so4so-properties.git
+	branch = main
