@@ -35,10 +35,4 @@
     <put-attribute name="bottom_inc" value="/WEB-INF/views/member/memberBottomInc.jsp"/>
     <put-attribute name="main" value="/WEB-INF/views/member/login.jsp"/>
   </definition>
-  <definition name="oauth.tiles" extends="login.tiles">
-    <put-attribute name="main" value="/WEB-INF/views/member/oauth.jsp"/>
-  </definition>
-  <definition name="logout.tiles" extends="login.tiles">
-    <put-attribute name="main" value="/WEB-INF/views/member/logout.jsp"/>
-  </definition>
 </tiles-definitions>

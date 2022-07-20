@@ -39,11 +39,12 @@ public class MemberController {
     }
 
     @GetMapping("/logout.do")
-    public String logout(Long id, HttpServletRequest request) {
+    public void logout(Long id, HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
         final boolean logout = memberService.logout(id);
         if (logout) {
             request.getSession().removeAttribute("member");
         }
-        return "productList.tiles";
+        response.sendRedirect("/productList.do");
     }
 }

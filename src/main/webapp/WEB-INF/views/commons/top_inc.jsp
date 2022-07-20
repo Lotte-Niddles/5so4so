@@ -1,5 +1,11 @@
+<%@ page import="com.needle.FsoFso.common.util.AttributeContainer" %>
+<%@ page import="com.needle.FsoFso.member.service.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+    boolean isLoggedIn = AttributeContainer.hasSessionAttributeOf(request, "member");
+    final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+%>
 <header>
     <div class="header-container">
         <div class="header-wrapper">
@@ -27,9 +33,16 @@
                     <a class="header-link-item" href="#">
                         <img alt="" src="<%=request.getContextPath()%>/images/cart.png">
                     </a>
+                    <% if (isLoggedIn) { %>
+                    <a class="header-link-item"
+                       href="<%=request.getContextPath()%>/logout.do?id=<%=member.getId()%>">
+                        로그아웃
+                    </a>
+                    <% } else { %>
                     <a class="header-link-item" href="<%=request.getContextPath()%>/login.do">
                         로그인
                     </a>
+                    <% } %>
                 </div>
             </div>
         </div>
