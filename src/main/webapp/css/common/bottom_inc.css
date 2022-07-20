@@ -33,6 +33,15 @@
     margin-right: 14px;
 }
 
+.footer-logo-item:hover, .footer-logo-item:focus, .footer-logo-item {
+    text-decoration: none;
+}
+
+.footer-logo-item  img {
+    max-width: 32px;
+    width: 100%;
+}
+
 .footer-text {
     font-size: 10px;
     line-height: 14px;
