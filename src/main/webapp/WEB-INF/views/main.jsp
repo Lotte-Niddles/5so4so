@@ -70,65 +70,45 @@
 	<%
 		}
 	%>
+	
 	<div class="pageNum">
 		<%
 		// 페이지 번호
-		String startPageNumber = (String)request.getAttribute("pageNumber");
-		
+		String sPageNumber = (String)request.getAttribute("pageNumber");
+
 		int pageNumber = 0;
-		if(startPageNumber != null && !startPageNumber.equals("")){
-			pageNumber = Integer.parseInt(startPageNumber);
+		if(sPageNumber != null && !sPageNumber.equals("")){
+			pageNumber = Integer.parseInt(sPageNumber);
 		}
-		
+
 		// 글의 총수
-		int totalCount = (int)request.getAttribute("len");
-		
+		int len = (int)request.getAttribute("len");
+
 		// 페이지의 수
-		int bbsPage = totalCount / 12;
-		if((totalCount % 12) > 0){
+		int bbsPage = len / 12;
+		if((len % 12) > 0){
 			bbsPage = bbsPage + 1;
 		}
-		
+
 		%>
-		<div class="pageNum">
-			<%
-			// 페이지 번호
-			String sPageNumber = (String)request.getAttribute("pageNumber");
-			
-			int pageNumber = 0;
-			if(sPageNumber != null && !sPageNumber.equals("")){
-				pageNumber = Integer.parseInt(sPageNumber);
-			}
-			
-			// 글의 총수
-			int len = (int)request.getAttribute("len");
-			
-			// 페이지의 수
-			int bbsPage = len / 12;
-			if((len % 12) > 0){
-				bbsPage = bbsPage + 1;
-			}
-			
-			%>
-			<%
-			for(int i = 0;i < bbsPage; i++){
-				if(pageNumber == i){	// 현재 페이지
-					%>
-					<span style="font-size: 15pt;color: #35c5f0; font-weight: bold;">
-						<%=i + 1 %>
-					</span>
-					<%
-				}else{					// 그외의 페이지		[1] 2 [3]
-					%>
-					<a href="#none" title="<%=i+1 %>페이지" onclick="goPage(<%=i %>)"
-						style="font-size: 15pt; color: #000; font-weight: bold;text-decoration: none;">
-						<%=i + 1 %>
-					</a>
-					<%	
-				}	
-			}
-			%>
-		</div>
+		<%
+		for(int i = 0;i < bbsPage; i++){
+			if(pageNumber == i){	// 현재 페이지
+				%>
+				<span style="font-size: 15pt;color: #35c5f0; font-weight: bold;">
+					<%=i + 1 %>
+				</span>
+				<%
+			}else{					// 그외의 페이지		[1] 2 [3]
+				%>
+				<a href="#none" title="<%=i+1 %>페이지" onclick="goPage(<%=i %>)"
+					style="font-size: 15pt; color: #000; font-weight: bold;text-decoration: none;">
+					<%=i + 1 %>
+				</a>
+				<%	
+			}	
+		}
+		%>
 	</div>
 </div>
 
