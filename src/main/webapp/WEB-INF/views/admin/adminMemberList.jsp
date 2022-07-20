@@ -37,7 +37,8 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 				<td><%=dto.getNickname() %></td>
 				<td><%=dto.getProviderId() %></td>
 				<td><%=dto.getAgeRange() %></td>
-				<td><%=dto.getGender().equals("male") ? "남" : 
+				<td><%=dto.getGender() == null ? "-" :
+							dto.getGender().equals("male") ? "남" : 
 							((dto.getGender().equals("female"))? "여" : "-")%></td>
 				<td><%=dto.getPurchasesCount() %></td>
 				<td style="text-align: right;"><%=dto.getTotalPurchase() %>원</td>
