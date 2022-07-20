@@ -67,7 +67,6 @@ public class ProductController {
 	
 	@PostMapping("addCart.do")
 	public String addCart(Model model, HttpServletRequest req) {
-		
 		int productId = Integer.parseInt(req.getParameter("productId"));
 		int quantity = Integer.parseInt(req.getParameter("quantity"));
 		ProductDto product = productService.getProductById(productId);

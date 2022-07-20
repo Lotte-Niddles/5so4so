@@ -2,10 +2,21 @@ package com.needle.FsoFso.product.dto;
 
 public class CartDto {
 
-	long id;
-	long memberId;
-	long productId;
-	int quantity;
+	private long id;
+	private long memberId;
+	private long productId;
+	private int quantity;
+
+	public CartDto() {
+	}
+	
+	public CartDto(long id, long memberId, long productId, int quantity) {
+		super();
+		this.id = id;
+		this.memberId = memberId;
+		this.productId = productId;
+		this.quantity = quantity;
+	}
 
 	public long getId() {
 		return id;
@@ -39,13 +50,6 @@ public class CartDto {
 		this.quantity = quantity;
 	}
 
-	public CartDto(long id, long memberId, long productId, int quantity) {
-		super();
-		this.id = id;
-		this.memberId = memberId;
-		this.productId = productId;
-		this.quantity = quantity;
-	}
 
 	@Override
 	public String toString() {

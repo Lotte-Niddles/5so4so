@@ -11,7 +11,22 @@ public class SellerProductDto {
 	private int stock;
 	private Instant createdAt;
 	private Instant updatedAt;
+	
+	public SellerProductDto() {
+	}
 
+	public SellerProductDto(int id, String name, String thumbnailUrl, int price, int stock, Instant createdAt,
+			Instant updatedAt) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.thumbnailUrl = thumbnailUrl;
+		this.price = price;
+		this.stock = stock;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -72,18 +87,6 @@ public class SellerProductDto {
 	public String toString() {
 		return "SellerProductDto [id=" + id + ", name=" + name + ", thumbnailUrl=" + thumbnailUrl + ", price=" + price
 				+ ", stock=" + stock + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
-	}
-
-	public SellerProductDto(int id, String name, String thumbnailUrl, int price, int stock, Instant createdAt,
-			Instant updatedAt) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.thumbnailUrl = thumbnailUrl;
-		this.price = price;
-		this.stock = stock;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 	}
 
 }
