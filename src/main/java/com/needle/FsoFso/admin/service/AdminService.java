@@ -7,7 +7,10 @@ import com.needle.FsoFso.admin.dto.AdminProductDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
 
 public interface AdminService {
-	AdminMainRequestDto adminMain();
+	
+	AdminMainRequestDto adminWeekStatusRequest();
+	
 	AdminMemberListRequestDto adminMemberListRequest();
+	
 	AdminProductListRequestDto adminProductListRequest();
 }

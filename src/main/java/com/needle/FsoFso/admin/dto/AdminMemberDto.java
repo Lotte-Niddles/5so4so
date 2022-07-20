@@ -3,6 +3,7 @@ package com.needle.FsoFso.admin.dto;
 import java.time.Instant;
 
 public class AdminMemberDto {
+	
 	private String nickname; // 닉네임
 	private Long id; // 아이디
 	private Long providerId; // 카카오ID
@@ -14,6 +15,7 @@ public class AdminMemberDto {
 	private Instant updatedAt;
 	
 	public AdminMemberDto(){}
+	
 	public AdminMemberDto(String nickname, Long id, Long providerId, String ageRange, String gender, int purchasesCount,
 			int totalPurchase, Instant createdAt, Instant updatedAt) {
 		this.nickname = nickname;

@@ -10,6 +10,7 @@ public class DailyDetailDto {
 	private int signinCnt;
 
 	public DailyDetailDto() {}
+	
 	public DailyDetailDto(Instant date, int sales, int salesCnt, int signinCnt) {
 		this.date = date;
 		this.sales = sales;
@@ -20,12 +21,15 @@ public class DailyDetailDto {
 	public Instant getDate() {
 		return date;
 	}
+	
 	public int getSales() {
 		return sales;
 	}
+	
 	public int getSalesCnt() {
 		return salesCnt;
 	}
+	
 	public int getSigninCnt() {
 		return signinCnt;
 	}

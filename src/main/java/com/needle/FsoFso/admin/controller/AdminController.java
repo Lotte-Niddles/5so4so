@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.needle.FsoFso.admin.dto.AdminMainRequestDto;
 import com.needle.FsoFso.admin.dto.AdminMemberListRequestDto;
@@ -22,15 +23,15 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-	@RequestMapping(value="admin.do")
-	public String adminMain(Model model) {
+	@RequestMapping(value="admin.do", method = RequestMethod.GET)
+	public String adminWeekStatus(Model model) {
 		logger.info("AdminController adminMain() " + new Date());
-		AdminMainRequestDto dto = service.adminMain();
+		AdminMainRequestDto dto = service.adminWeekStatusRequest();
 		model.addAttribute("adminMainDto", dto);
 		return "admin.tiles";
 	}
 	
-	@RequestMapping(value="adminProductList.do")
+	@RequestMapping(value="adminProductList.do", method = RequestMethod.GET)
 	public String adminProductList(Model model) {
 		logger.info("AdminController adminProductList() " + new Date());
 		AdminProductListRequestDto dto = service.adminProductListRequest();
@@ -38,7 +39,7 @@ public class AdminController {
 		return "adminProductList.tiles";
 	}
 	
-	@RequestMapping(value="adminMemberList.do")
+	@RequestMapping(value="adminMemberList.do", method = RequestMethod.GET)
 	public String adminMemberList(Model model) {
 		logger.info("AdminController adminMemberList() " + new Date());
 		AdminMemberListRequestDto dto = service.adminMemberListRequest();
