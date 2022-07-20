@@ -1,7 +1,9 @@
 package com.needle.FsoFso.product.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -65,9 +67,16 @@ public class ProductController {
 
 		ProductDto product = productService.getProductById(productId);
 		List<ReviewDto> reviewList = reviewService.findReviewsByProductId(productId);
-		List<Member> nicknameList = memberSer
+		List<String> nicknameList = new ArrayList<String>();
+
+		for(ReviewDto review : reviewList) {
+			Optional<Member> member = memberService.findById(review.getMemberId());
+			nicknameList.add(member.orElse(new Member(0L, "", "", "")).getNickname());
+		}
+		
 		model.addAttribute("product",product);
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("nicknameList",nicknameList);
 		
 		return "productDetail.tiles";
 	}

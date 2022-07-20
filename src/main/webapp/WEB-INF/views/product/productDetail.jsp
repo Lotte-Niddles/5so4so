@@ -6,6 +6,7 @@
 <%
 ProductDto product = (ProductDto) request.getAttribute("product");
 List<ReviewDto> reviewList = (List<ReviewDto>) request.getAttribute("reviewList");
+List<String> nicknameList = (List<String>) request.getAttribute("nicknameList");
 %>
 <!DOCTYPE html>
 <html>
@@ -54,7 +55,7 @@ List<ReviewDto> reviewList = (List<ReviewDto>) request.getAttribute("reviewList"
 				<%for(int i = 0 ; i < reviewList.size(); i++){
 				%>
 					<tr>
-						<th><%=reviewList.get(i).getMemberId() %></th>
+						<th><%=nicknameList.get(i) %></th>
 						<th><%=reviewList.get(i).getContent() %></th>
 						<th><%=reviewList.get(i).getCreatedAt() %></th>
 					</tr>
