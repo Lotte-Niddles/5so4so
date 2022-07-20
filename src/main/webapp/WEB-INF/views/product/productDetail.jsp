@@ -1,8 +1,11 @@
+<%@page import="com.needle.FsoFso.review.dto.ReviewDto"%>
+<%@page import="java.util.List"%>
 <%@page import="com.needle.FsoFso.product.dto.ProductDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 ProductDto product = (ProductDto) request.getAttribute("product");
+List<ReviewDto> reviewList = (List<ReviewDto>) request.getAttribute("reviewList");
 %>
 <!DOCTYPE html>
 <html>
@@ -40,6 +43,26 @@ ProductDto product = (ProductDto) request.getAttribute("product");
 			수량<input type="text" name="quantity">
 			<button type="button">장바구니에 담기</button>
 		</form>
+		
+		<div>
+			<table>
+				<tr>
+					<th>닉네임</th>
+					<th>내용</th>
+					<th>일자</th>
+				</tr>
+				<%for(int i = 0 ; i < reviewList.size(); i++){
+				%>
+					<tr>
+						<th><%=reviewList.get(i).getMemberId() %></th>
+						<th><%=reviewList.get(i).getContent() %></th>
+						<th><%=reviewList.get(i).getCreatedAt() %></th>
+					</tr>
+					<%
+				}
+					%>
+			</table>
+		</div>
 	</div>
 	<script type="text/javascript">
 		$("button").click(function() {

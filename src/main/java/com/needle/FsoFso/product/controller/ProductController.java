@@ -19,6 +19,8 @@ import com.needle.FsoFso.product.dao.ProductDao;
 import com.needle.FsoFso.product.dto.CartDto;
 import com.needle.FsoFso.product.dto.ProductDto;
 import com.needle.FsoFso.product.services.ProductService;
+import com.needle.FsoFso.review.dto.ReviewDto;
+import com.needle.FsoFso.review.service.ReviewService;
 
 @Controller
 public class ProductController {
@@ -26,11 +28,11 @@ public class ProductController {
 	private final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
 	private final ProductService productService;
-	private final MemberService memberService;
+	private final ReviewService reviewService;
 
-	public ProductController(ProductService productService, MemberService memberService) {
+	public ProductController(ProductService productService, ReviewService reviewService) {
 		this.productService = productService;
-		this.memberService = memberService;
+		this.reviewService = reviewService;
 	}
 
 	@GetMapping("productList.do")
@@ -60,7 +62,9 @@ public class ProductController {
 			@RequestParam(value = "id",required = true) int productId) {
 
 		ProductDto product = productService.getProductById(productId);
+		List<ReviewDto> reviewList = reviewService.findReviewsByProductId(productId);
 		model.addAttribute("product",product);
+		model.addAttribute("reviewList", reviewList);
 		
 		return "productDetail.tiles";
 	}
