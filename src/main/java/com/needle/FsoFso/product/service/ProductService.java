@@ -11,4 +11,8 @@ public interface ProductService {
 	List<ProductDto> getproducPagelist(int start);
 	
 	int getAllProductCount();
+
+	ProductDto getProductById(int id);
+
+	void addCart(CartDto cart);
 }

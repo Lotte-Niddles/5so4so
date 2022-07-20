@@ -2,6 +2,7 @@ package com.needle.FsoFso.product.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.needle.FsoFso.product.dao.ProductDao;
@@ -30,7 +31,14 @@ public class ProductServiceImpl implements ProductService {
 	public int getAllProductCount() {
 		return productDao.getAllProduct();
 	}
-	
-	
-	
+
+	@Override
+	public ProductDto getProductById(int id) {
+		return productDao.getProductById(id);
+	}
+
+	@Override
+	public void addCart(CartDto cart) {
+		productDao.addCart(cart);
+	}
 }
