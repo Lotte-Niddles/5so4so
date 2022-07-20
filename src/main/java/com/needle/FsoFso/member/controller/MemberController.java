@@ -3,12 +3,13 @@ package com.needle.FsoFso.member.controller;
 import com.needle.FsoFso.member.kakao.dto.KakaoOauthInfo;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
+import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @PropertySource("classpath:sub-properties/oauth.properties")
@@ -25,14 +26,16 @@ public class MemberController {
     @GetMapping("/login.do")
     public String login(Model model) {
         model.addAttribute("kakaoInfo", kakaoOauthInfo);
-        return "login";
+        return "login.tiles";
     }
 
     @GetMapping("/oauth.do")
-    public String oauthRedirect(String code, HttpServletRequest request) {
+    public void oauthRedirect(String code, HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
         final Member member = memberService.login(code);
         request.getSession().setAttribute("member", member);
-        return "main";
+
+        response.sendRedirect("/productList.do");
     }
 
     @GetMapping("/logout.do")
@@ -41,6 +44,6 @@ public class MemberController {
         if (logout) {
             request.getSession().removeAttribute("member");
         }
-        return "logout";
+        return "productList.tiles";
     }
 }

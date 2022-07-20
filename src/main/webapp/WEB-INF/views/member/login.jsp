@@ -5,17 +5,18 @@
 %>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
-    body {
-        margin: 0;
+    #content_wrap {
+        height: 100vh !important;
     }
 
     .main-wrapper {
-        /*min-height: 100%;*/
-        /*background-color: #fafafa;*/
-
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        height: 100%;
+        background-color: #F7F9FA;
     }
 
     .login-card {
@@ -25,6 +26,7 @@
         align-items: center;
 
         height: 50%;
+        min-width: 300px;
         background-color: white;
         border: 1px solid #efefef;
         border-radius: 12px;
@@ -44,18 +46,19 @@
 <div class="main-wrapper">
     <div class="login-card">
         <img
-            src="<%=request.getContextPath()%>/images/logo.png"
-            alt="main-logo"
-            class="main-logo"
+                src="<%=request.getContextPath()%>/images/logo.png"
+                alt="main-logo"
+                class="main-logo"
         />
         <img
-            onclick="loginWithKakao()"
-            src="<%=request.getContextPath()%>/images/kakao_login_logo.png"
-            alt="kakao_login_logo"
-            class="kakao-login-logo"
+                onclick="loginWithKakao()"
+                src="<%=request.getContextPath()%>/images/kakao_login_logo.png"
+                alt="kakao_login_logo"
+                class="kakao-login-logo"
         />
         <p id="token-result"></p>
     </div>
+    <p class="copyright">&copy; Copyright 2022. 5so4so, Co., Ltd. All rights reserved</p>
 </div>
 <script type="text/javascript">
 
@@ -66,5 +69,4 @@
       redirectUri: '<%=kakaoClientId.getRedirectUrl()%>',
     })
   }
-
 </script>
