@@ -3,6 +3,11 @@
 <%
     final KakaoOauthInfo kakaoClientId = (KakaoOauthInfo) request.getAttribute("kakaoInfo");
 %>
+<style>
+    #content_wrap {
+        height: 100vh !important;
+    }
+</style>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <div class="main-wrapper">
     <div class="login-card">
