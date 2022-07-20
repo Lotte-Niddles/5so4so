@@ -15,7 +15,7 @@
 
 	<select id="adminMemberList"
 		resultType="com.needle.FsoFso.admin.dto.AdminMemberDto">
-		select c.id as id, c.age_range as ageRange, c.nickname as nickname, c.gender as gender, d.purchasesCount as purchasesCount, d.totalPurchase as totalPurchase, c.created_at as createdAt, c.updated_at as updatedAt
+		select c.id as id, c.provider_id as providerId, c.age_range as ageRange, c.nickname as nickname, c.gender as gender, d.purchasesCount as purchasesCount, d.totalPurchase as totalPurchase, c.created_at as createdAt, c.updated_at as updatedAt
 		from members as c
 		LEFT JOIN (select  a.id as id, count(*) as purchasesCount, sum(b.total_price) as totalPurchase
 						from members a, orders b

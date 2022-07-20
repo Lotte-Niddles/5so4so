@@ -25,7 +25,7 @@
 					<style data-emotion="css 18nk785">
 						.css-18nk785{display:inline-block;margin:-4px;padding:4px;border-radius:3px;}
 					</style>
-					<span class="css-18nk785">상품목록</span>
+					<span class="css-18nk785">상품관리</span>
 				</a>
 				<a class="css-1scjy81" href="<%=request.getContextPath()%>/seller/product.do">
 					<span class="css-18nk785">상품등록</span>
