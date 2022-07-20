@@ -31,7 +31,7 @@ public class AdminDaoImpl implements AdminDao {
 		
 		for(int i = 0; i < searchDays; i++) {
 			String day = Instant.now().minus(i, ChronoUnit.DAYS).toString().substring(0, 10);
-			DailyDetailDto dto = session.selectOne(ns+"adminMain", day);
+			DailyDetailDto dto = session.selectOne(ns+"adminWeekStatus", day);
 			
 			if(dto.nullCheck()) continue;
 			dtos.add(dto);
