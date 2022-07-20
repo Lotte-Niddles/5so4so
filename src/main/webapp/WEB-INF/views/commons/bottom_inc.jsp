@@ -8,11 +8,11 @@
             </div>
             <div class="footer-logo">
                 <a href="https://github.com/Lotte-Niddles" class="footer-logo-item">
-                    <img alt="" src="<%=request.getContextPath()%>/images/github.png">
+                    <img alt="" src="<%=request.getContextPath()%>/images/github-logo.png">
                 </a>
                 <a href="https://www.notion.so/jungew1509/Lotte-Needle-e9e69aec3a994a548361a21f0800c00e"
                    class="footer-logo-item">
-                    <img alt="" src="<%=request.getContextPath()%>/images/notion.png">
+                    <img alt="" src="<%=request.getContextPath()%>/images/notion-logo.png">
                 </a>
             </div>
         </div>
@@ -29,12 +29,12 @@
         </div>
         <div class="footer-text">
             <div class="footer-text-item">
-                대표이사<!-- --> <!-- -->:<!-- --> 최솔지
+                대표이사: 최솔지
             </div>
         </div>
         <div class="footer-text">
             <div class="footer-text-item">
-                공동대표<!-- --> <!-- -->:<!-- --> 김남협, 김진광, 박세훈, 서지훈, 정은우
+                공동대표: 김남협, 김진광, 박세훈, 서지훈, 정은우
             </div>
         </div>
         <p class="copyright">&copy; Copyright 2022. 5so4so, Co., Ltd. All rights reserved</p>
