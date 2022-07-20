@@ -2,20 +2,18 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%
 	List<SearchDto> searchList = (List<SearchDto>) request.getAttribute("searchList");
-%>    
+	int pageNumber = (Integer)request.getAttribute("pageNumber");
+	int searchPage = (Integer)request.getAttribute("searchPage");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>searchList</title>
-<style>
-.productList{width: 60%;height: 100%;margin: 0 auto;padding-top: 5%;}
-.productWrapper{width: 20%;height: 40%;float: left;margin: 0 2.5%;margin-bottom: 2%;}
-.productImage img{width: 100%;border-radius: 4px;}
-.productCart{display: flex;justify-content: space-around;}
-</style>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/product/main.css">
 </head>
 <body>
 <div class="productList">
@@ -45,10 +43,37 @@
 		}
 	} else {
 %>
-	<p style="text-align: center;margin-top: 200px;">앗! 찾으시는 결과가 없네요.</p>
+	<p style="text-align:center;margin-top:200px;">앗! 찾으시는 결과가 없네요.</p>
 <%
 	}
 %>
 </div>
+<br>
+<div class="pageNum">
+<%
+	for (int i = 0; i < searchPage; i++){
+		if (pageNumber == i) {
+%>
+			<span style="font-size: 15pt;color: #0000ff;font-weight: bold;">
+				<%=i + 1%>
+			</span>
+<%
+		} else {
+%>
+			<a href="#none" title="<%=i + 1%>페이지" onclick="goPage(<%=i%>)"
+				style="font-size: 15pt; color: #000; font-weight: bold;text-decoration: none;">
+				[<%=i + 1%>]
+			</a>
+<%	
+		}	
+	}
+%>
+</div>
+<script type="text/javascript">
+function goPage(pageNumber) {
+	let keyWord = $('#search').val();
+	location.href = 'searchList.do?keyWord=' + keyWord + "&pageNumber=" + pageNumber; 
+}
+</script>
 </body>
 </html>

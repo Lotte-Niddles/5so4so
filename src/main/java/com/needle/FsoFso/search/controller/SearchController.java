@@ -3,8 +3,6 @@ package com.needle.FsoFso.search.controller;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,12 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.needle.FsoFso.search.dto.SearchDto;
+import com.needle.FsoFso.search.dto.SearchParamDto;
 import com.needle.FsoFso.search.service.SearchService;
 
 @Controller
 public class SearchController {
 
 	private final Logger logger = LoggerFactory.getLogger(SearchController.class);
+	
 	private final SearchService searchService;
 
 	public SearchController(SearchService searchService) {
@@ -25,27 +25,28 @@ public class SearchController {
 	}
 
 	@GetMapping("searchList.do")
-	public String searchtList(Model model, HttpServletRequest req) {
+	public String searchtList(Model model, SearchParamDto searchParamDto) {
 		logger.info("MainController mainFunc()" + new Date());
-		String keyWord = req.getParameter("keyWord");
-		String choice = req.getParameter("choice");
-//		String search = req.getParameter("search");
-		String spage = req.getParameter("pageNumber");
+		int pageNumber = searchParamDto.getPageNumber();
+		int startNum = 1 + pageNumber * 12;
+		int endNum = (pageNumber + 1) * 12;
 		
-		int page = 0;
-		if(spage != null && !spage.equals("")) {
-			page = Integer.parseInt(spage);
+		searchParamDto.setStartNum(startNum);
+		searchParamDto.setEndNum(endNum);
+		
+		List<SearchDto> searchList = searchService.searchList(searchParamDto);
+		int totalCount = searchService.getSearchListCount(searchParamDto);
+		
+		int searchPage = totalCount / 12;
+		if (searchPage % 12 > 0) {
+			searchPage = searchPage + 1;
 		}
-		if(choice == null) {
-			choice = "";
-		}
-		if(keyWord == null) {
-			keyWord = "";
-		}
+		
+		model.addAttribute("searchList", searchList);
+		model.addAttribute("searchPage", searchPage);
+		model.addAttribute("pageNumber", searchParamDto.getPageNumber());
+		model.addAttribute("keyWord", searchParamDto.getKeyWord());
 
-		List<SearchDto> searchList = searchService.searchList(keyWord);
-		model.addAttribute("searchList" ,searchList);
-		
 		return "searchList.tiles";
 	}
 }

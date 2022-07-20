@@ -2,6 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	String keyWord = (String) request.getAttribute("keyWord");
+	if (keyWord == null) {
+		keyWord = "";
+	}
+%>
 <header>
 <div class="sticky-container">
 	<div class="css-i7a8i3">
@@ -23,10 +29,10 @@
 						<div id="global-search-combobox" role="combobox" aria-expanded="false" aria-haspopup="listbox" class="css-7whenc">
 							<div class="css-1cfhwdb">
 								<span class="_search_24 css-p63a35"></span>
-								<span>
+								<span id="searchBtn">
 									<img alt="" src="<%=request.getContextPath()%>/images/glass.png">
 								</span>
-								<input id="search" type="text" placeholder="통합검색" autoComplete="off" aria-autocomplete="list" class="css-16px0cl"/>
+								<input id="search" value="<%=keyWord%>" type="text" placeholder="통합검색" autoComplete="off" aria-autocomplete="list" class="css-16px0cl"/>
 								<div class="css-s5xdrg"></div>
 							</div>
 						</div>
@@ -58,24 +64,22 @@
 </div>
 </header>
 <script>
-//TODO: 검색 버튼 event
-$(function () {		
-	//Block Enter key events . 엔터키 이벤트 막기.		
+$(function() {		
 	$(document).keypress(function(e) {
 		if (e.keyCode == 13) {
 			e.preventDefault();		
 		}
-	});		//Click the Search button when you press Enter in the search TextBox. 검색 TextBox에서 Enter 키를 누를 때 검색 버튼을 클릭.		
+	});		
+	$('#searchBtn').css('cursor', 'pointer').click(function(e) {
+		let keyWord = $('#search').val();
+		location.href = 'searchList.do?keyWord=' + keyWord; 
+	});   	
 	$('#search').keypress(function(e) {		 
 		let key = e.which;
 		let keyWord = $('#search').val();
 		if (key == 13) {		
-		// the enter key code	
 		location.href = 'searchList.do?keyWord=' + keyWord; 
-// 		$('input[name = btnFind]').click();			
-// 			return false;  
 		}		
 	});   	
 });
 </script>
-

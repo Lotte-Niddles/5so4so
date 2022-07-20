@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.needle.FsoFso.search.dao.SearchDao;
 import com.needle.FsoFso.search.dto.SearchDto;
+import com.needle.FsoFso.search.dto.SearchParamDto;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -17,7 +18,12 @@ public class SearchServiceImpl implements SearchService {
 	}
 	
 	@Override
-	public List<SearchDto> searchList(String keyWord) {
-		return searchDao.searchList(keyWord);
+	public List<SearchDto> searchList(SearchParamDto searchParamDto) {
+		return searchDao.searchList(searchParamDto);
+	}
+
+	@Override
+	public int getSearchListCount(SearchParamDto searchParamDto) {
+		return searchDao.getSearchListCount(searchParamDto);
 	}
 }

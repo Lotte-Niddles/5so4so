@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.needle.FsoFso.search.dto.SearchDto;
+import com.needle.FsoFso.search.dto.SearchParamDto;
 
 @Repository
 public class SearchDaoImpl implements SearchDao {
@@ -19,7 +20,12 @@ public class SearchDaoImpl implements SearchDao {
 	}
 
 	@Override
-	public List<SearchDto> searchList(String keyWord) {
-		return session.selectList(NAME_SPACE + "searchList", keyWord);
+	public List<SearchDto> searchList(SearchParamDto searchParamDto) {
+		return session.selectList(NAME_SPACE + "searchList", searchParamDto);
+	}
+
+	@Override
+	public int getSearchListCount(SearchParamDto searchParamDto) {
+		return session.selectOne(NAME_SPACE + "getSearchListCount", searchParamDto);
 	}
 }
