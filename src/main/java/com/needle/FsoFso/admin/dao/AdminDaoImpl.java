@@ -23,12 +23,13 @@ public class AdminDaoImpl implements AdminDao {
 	private SqlSession session;
 	
 	private final String ns = "Admin.";
+	private final int searchDays = 7;
 
 	@Override
-	public AdminMainRequestDto adminMain() {
+	public AdminMainRequestDto adminWeekStatusRequest() {
 		List<DailyDetailDto> dtos = new ArrayList<>(); 
 		
-		for(int i = 0; i < 7; i++) {
+		for(int i = 0; i < searchDays; i++) {
 			String day = Instant.now().minus(i, ChronoUnit.DAYS).toString().substring(0, 10);
 			DailyDetailDto dto = session.selectOne(ns+"adminMain", day);
 			
