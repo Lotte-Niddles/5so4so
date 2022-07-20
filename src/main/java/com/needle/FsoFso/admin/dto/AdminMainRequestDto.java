@@ -8,6 +8,7 @@ public class AdminMainRequestDto {
 	private List<DailyDetailDto> dailyDetails = new ArrayList<>();
 	
 	public AdminMainRequestDto(){}
+	
 	public AdminMainRequestDto(List<DailyDetailDto> dailyDetails) {
 		this.dailyDetails = dailyDetails;
 	}

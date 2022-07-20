@@ -14,13 +14,15 @@
 		<tiles:insertAttribute name="top_inc"/>
 	</div>
 	<div id="middle_wrap">
-		<div id="content_wrap" style="height: 900px">
+		<div id="content_wrap">
 			<tiles:insertAttribute name="main"/>
 		</div>
+		
+		<div id="footer_wrap">
+			<tiles:insertAttribute name="bottom_inc"/>
+		</div>
 	</div>
-	<div id="footer_wrap">
-		<tiles:insertAttribute name="bottom_inc"/>
-	</div>
+	
 </div>
 </body>
 </html>

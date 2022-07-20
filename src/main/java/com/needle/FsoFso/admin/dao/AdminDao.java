@@ -5,7 +5,10 @@ import com.needle.FsoFso.admin.dto.AdminMemberListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
 
 public interface AdminDao {
-	AdminMainRequestDto adminMain();
+	
+	AdminMainRequestDto adminWeekStatusRequest();
+	
 	AdminMemberListRequestDto adminMemberListRequest();
+	
 	AdminProductListRequestDto adminProductListRequest();
 }
