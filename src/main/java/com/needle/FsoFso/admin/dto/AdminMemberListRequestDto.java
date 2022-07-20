@@ -7,6 +7,7 @@ public class AdminMemberListRequestDto {
 	List<AdminMemberDto> adminMembers;
 	
 	public AdminMemberListRequestDto(){}
+	
 	public AdminMemberListRequestDto(List<AdminMemberDto> adminMembers) {
 		this.adminMembers = adminMembers;
 	}
