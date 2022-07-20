@@ -15,8 +15,8 @@ public class AdminServiceImpl implements AdminService{
 	private AdminDao dao;
 
 	@Override
-	public AdminMainRequestDto adminMain() {
-		return dao.adminMain();
+	public AdminMainRequestDto adminWeekStatusRequest() {
+		return dao.adminWeekStatusRequest();
 	}
 
 	@Override

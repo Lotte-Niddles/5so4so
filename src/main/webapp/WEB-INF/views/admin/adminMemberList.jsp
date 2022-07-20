@@ -4,19 +4,35 @@
 <%@page import="com.needle.FsoFso.admin.dto.AdminMemberListRequestDto"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.List"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 부트스트랩 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- 폰트 -->
+<link href="https://webfontworld.github.io/Jalpullineun/JalpullineunOneul.css" rel="stylesheet">
+<style type="text/css">
+.table-hover tbody tr:hover{
+	background-color: #f7f9fa;
+}
+</style>
+
 <%
 AdminMemberListRequestDto dtos = (AdminMemberListRequestDto)request.getAttribute("MemberListDto");
 List<AdminMemberDto> memberList = dtos.getAdminMembers();
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 .withLocale(Locale.KOREA).withZone(ZoneId.of("UTC"));
 %>
-
+  
 <div id="admin-member-list" align="center">
-<table id="admin-member-list-table">
-	<col width="80px"><col width="150px"><col width="150px"><col width="80px"><col width="50px"><col width="100px"><col width="100px"><col width="100px">
-	<tr>
+<h2 style="margin-top: 8px;">회원관리</h2>
+<table id="admin-member-list-table" class="table table-hover">
+	<col width="70px"><col width="150px"><col width="150px"><col width="70px"><col width="50px"><col width="60px"><col width="100px"><col width="100px"><col width="100px">
+	<thead>
+	<tr style="color: #35C5F0; text-align: center;" >
 		<th>회원번호</th>
 		<th>닉네임</th>
 		<th>카카오아이디</th>
@@ -27,19 +43,21 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 		<th>가입일</th>
 		<th>정보수정일</th>
 	</tr>
-	
+	</thead>
+	<tbody style="font-family: 'JalpullineunOneul';">
 		<%
 			for(AdminMemberDto dto: memberList) {
 				if(dto.getUpdatedAt() == null || dto.getCreatedAt() == null) continue;
 			%>
 			<tr>
-				<td><%=dto.getId() %></td>
+				<td style="text-align: center;"><%=dto.getId() %></td>
 				<td><%=dto.getNickname() %></td>
 				<td><%=dto.getProviderId() %></td>
-				<td><%=dto.getAgeRange() %></td>
-				<td><%=dto.getGender().equals("male") ? "남" : 
+				<td style="text-align: center;"><%=dto.getAgeRange() == null ? "-" : dto.getAgeRange() %></td>
+				<td style="text-align: center;"><%=dto.getGender() == null ? "-" :
+							dto.getGender().equals("male") ? "남" : 
 							((dto.getGender().equals("female"))? "여" : "-")%></td>
-				<td><%=dto.getPurchasesCount() %></td>
+				<td style="text-align: right;"><%=dto.getPurchasesCount() %>회</td>
 				<td style="text-align: right;"><%=dto.getTotalPurchase() %>원</td>
 				<td><%=formatter.format(dto.getCreatedAt()) %></td>
 				<td><%=formatter.format(dto.getUpdatedAt()) %></td>
@@ -47,7 +65,7 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 			<%
 			}
 		%>
-	
+	</tbody>
 </table>
 </div>
 

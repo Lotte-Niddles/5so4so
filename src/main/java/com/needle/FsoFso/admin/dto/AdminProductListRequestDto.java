@@ -7,6 +7,7 @@ public class AdminProductListRequestDto {
 	private List<AdminProductDto> adminProducts;
 	
 	public AdminProductListRequestDto(){}
+	
 	public AdminProductListRequestDto(List<AdminProductDto> adminProducts) {
 		this.adminProducts = adminProducts;
 	}
