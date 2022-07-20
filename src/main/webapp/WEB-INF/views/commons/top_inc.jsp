@@ -5,6 +5,11 @@
 <%
     boolean isLoggedIn = AttributeContainer.hasSessionAttributeOf(request, "member");
     final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+
+	String keyWord = (String) request.getAttribute("keyWord");
+	if (keyWord == null) {
+		keyWord = "";
+	}
 %>
 <header>
     <div class="header-container">
@@ -19,13 +24,12 @@
                     <div id="global-search-combobox" role="combobox" aria-expanded="false"
                          aria-haspopup="listbox">
                         <div class="search-input-box">
-                                <span>
-									<img alt="search-icon"
-                                         src="<%=request.getContextPath()%>/images/glass.png">
-								</span>
-                            <input id="search" type="text" placeholder="통합검색" autoComplete="off"
-                                   aria-autocomplete="list" class="search-input"/>
-                        </div>
+							<span>
+								<img alt="search-icon"
+									 src="<%=request.getContextPath()%>/images/glass.png">
+							</span>
+							<input id="search" value="<%=keyWord%>" type="text" placeholder="통합검색" autoComplete="off" aria-autocomplete="list"/>
+						</div>
                     </div>
                 </div>
                 <div class="header-links">
@@ -49,22 +53,23 @@
     </div>
 </header>
 <script>
-  //TODO: 검색 버튼 event
-  $(function () {
-    //Block Enter key events . 엔터키 이벤트 막기.
-    $(document).keypress(function (e) {
-      if (e.keyCode == 13) {
-        e.preventDefault();
-      }
-    });		//Click the Search button when you press Enter in the search TextBox. 검색 TextBox에서 Enter 키를 누를 때 검색 버튼을 클릭.
-    $('#txtFind').keypress(function (e) {
-      var key = e.which;
-      if (key == 13) {
-        // the enter key code		 
-        $('input[name = btnFind]').click();
-        return false;
-      }
-    });
-  });
+$(function() {
+	$(document).keypress(function(e) {
+		if (e.keyCode == 13) {
+			e.preventDefault();
+		}
+	});
+	$('#searchBtn').css('cursor', 'pointer').click(function(e) {
+		const keyWord = $('#search').val();
+		location.href = 'searchList.do?keyWord=' + keyWord;
+	});
+	$('#search').keypress(function(e) {
+		const key = e.which;
+		const keyWord = $('#search').val();
+		if (key == 13){
+		location.href = 'searchList.do?keyWord=' + keyWord;
+		}		
+	});
+});
 </script>
 
