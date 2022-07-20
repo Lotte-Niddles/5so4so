@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>main</title>
+
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/product/main.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
 
@@ -23,6 +24,7 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 
 </head>
 <body>
@@ -42,6 +44,7 @@
 		<div class="productListInner">
 			<%
 			for (int i = 0; i < productList.size(); i++) {
+
 				ProductDto dto = productList.get(i);
 			%>
 			<div class="productWrapper">
@@ -61,9 +64,31 @@
 					</div>
 					
 				</div>
+				
 			</div>
+		</div>
+	<%
+		}
+	%>
+	<div class="pageNum">
 		<%
-			}
+		// 페이지 번호
+		String startPageNumber = (String)request.getAttribute("pageNumber");
+		
+		int pageNumber = 0;
+		if(startPageNumber != null && !startPageNumber.equals("")){
+			pageNumber = Integer.parseInt(startPageNumber);
+		}
+		
+		// 글의 총수
+		int totalCount = (int)request.getAttribute("len");
+		
+		// 페이지의 수
+		int bbsPage = totalCount / 12;
+		if((totalCount % 12) > 0){
+			bbsPage = bbsPage + 1;
+		}
+		
 		%>
 		<div class="pageNum">
 			<%
@@ -110,6 +135,7 @@
 <div id="to-top">
     <div class="material-icons">arrow_upward</div>
 </div>
+
 
 
 <script type="text/javascript">
@@ -165,6 +191,5 @@ spyEls.forEach(function(spyEl) {
     .addTo(new ScrollMagic.Controller());
 });
 </script>
-	
 </body>
 </html>
