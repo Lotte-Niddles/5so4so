@@ -11,4 +11,6 @@ public interface ProductDao {
 	List<ProductDto> getproducPagelist(int start);
 	
 	int getAllProduct();
+	
+	ProductDto getProductById(int id);
 }

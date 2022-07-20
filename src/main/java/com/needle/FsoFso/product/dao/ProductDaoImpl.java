@@ -33,5 +33,10 @@ public class ProductDaoImpl implements ProductDao {
 	public int getAllProduct() {
 		return session.selectOne(NAME_SPACE + "getAllProduct");
 	}
+
+	@Override
+	public ProductDto getProductById(int id) {
+		return session.selectOne(NAME_SPACE + "getProductById",id);
+	}
 	
 }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.needle.FsoFso.product.dto.ProductDto;
 import com.needle.FsoFso.product.services.ProductService;
@@ -49,7 +50,8 @@ public class ProductController {
 	
 	// TODO : 지훈 detail test
 	@GetMapping("productDetail.do")
-	public String productDetail(Model model, HttpServletRequest req) {
+	public String productDetail(Model model, HttpServletRequest req,
+			@RequestParam(value = "id",required = true) int productId) {
 		logger.info("ProductController productDetail()" + new Date());
 		// TODO : 로그인 했다고 가졍하기위해서 session에 id set;
 		req.getSession().setAttribute("loginId", "aaa");
@@ -63,6 +65,11 @@ public class ProductController {
 			int id = Integer.parseInt(sid);
 			model.addAttribute("id", id);
 		}
+		
+		System.out.println(productId);
+		ProductDto product = productService.getProductById(productId);
+		model.addAttribute("product",product);
+		System.out.println(product.toString());
 		return "productDetail.tiles";
 	}
 }
