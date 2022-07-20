@@ -1,25 +1,10 @@
 package com.needle.FsoFso.admin.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
-import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,8 +47,6 @@ public class SellerProductController {
 		
 		List<SellerProductDto> productList = sellerProductService.getAllProduct();
 		model.addAttribute("productList",productList);
-		
-		// for(SellerProductDto dto : productList) { System.out.println(dto.toString()); }
 		
 		return "adminAddProduct.tiles";
 	}

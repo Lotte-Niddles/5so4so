@@ -1,8 +1,11 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/bottom_inc.css">
+    
 <div>
-	<footer class="css-2iocjw" style="background-color:#F7F9FA;">
+	<footer class="css-2iocjw" style="background-color:#F7F9FA;" style="height: 300px">
 	<div class="css-1ncq6iy">
 	<div>
 		<p class="css-ik5tvg">

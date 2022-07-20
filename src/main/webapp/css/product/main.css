@@ -1,18 +1,54 @@
 @charset "UTF-8";
 
 .productList{
-	width: 60%;
-	height: 100%;
+	font-family: 'JalpullineunOneul';
+	width: 65%;
+	height: 1160px;
 	margin: 0 auto;
-	padding-top: 3%; 
+	padding-top: 3%;
 }
 
-.productWrapper{
-	width: 20%;
-	height: 25%;
+.productList .productWrapper{
+	width: 23%;
+	height: 340px;
 	float: left;
-	margin: 0 2.5%;
+	margin: 0 1%;
 	margin-bottom: 2%;
+}
+
+.productList .productWrapper:last-child{
+	width: 23%;
+	height: 340px;
+	margin: 0 1%;
+	margin-bottom: 2%;
+}
+
+.productWrapper .productImage img{
+	transition: all 0.2s linear;
+	overflow: hidden;
+}
+
+.productWrapper .productImage:hover img{
+	transform: scale(1.1);
+	overflow: hidden;
+}
+
+.productContent .productTitle .productName{
+	color: #000;
+	font-size: 13px;
+	text-decoration: none;
+}
+
+.productContent .productTitle .productName:hover{
+	/* color: #757575; */
+	color: #35c5f0;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.productContent .productPrice .price{
+	font-size: 17px;
+	font-weight: 700;
 }
 
 .productImage img{
@@ -20,14 +56,60 @@
 	border-radius: 4px; 
 }
 
-.productCart{
-	display: flex;
-	justify-content: space-around;
-	/* justify-content: space-between; */
-}
-
 .pageNum {
 	position: absolute;
-	left: 48.5%;
-	bottom: 0%;
+	left: 49%;
+	bottom: -70%;
+}
+
+
+/* SWIPER */
+.swiper {
+  width: 100%;
+  height: 350px;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scroll Magic */
+#to-top {
+  width: 42px;
+  height: 42px;
+  background-color: #333;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9;
 }
