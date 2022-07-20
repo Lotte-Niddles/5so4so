@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.needle.FsoFso.product.dto.CartDto;
 import com.needle.FsoFso.product.dto.ProductDto;
 
 @Repository
@@ -32,6 +33,16 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public int getAllProduct() {
 		return session.selectOne(NAME_SPACE + "getAllProduct");
+	}
+
+	@Override
+	public ProductDto getProductById(int id) {
+		return session.selectOne(NAME_SPACE + "getProductById",id);
+	}
+
+	@Override
+	public void addCart(CartDto cart) {
+		session.insert(NAME_SPACE + "addCart", cart);
 	}
 	
 }

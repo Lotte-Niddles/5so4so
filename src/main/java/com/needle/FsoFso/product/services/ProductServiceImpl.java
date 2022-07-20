@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.needle.FsoFso.product.dao.ProductDao;
+import com.needle.FsoFso.product.dto.CartDto;
 import com.needle.FsoFso.product.dto.ProductDto;
 
 @Service
@@ -31,7 +32,15 @@ public class ProductServiceImpl implements ProductService {
 	public int getAllProduct() {
 		return productDao.getAllProduct();
 	}
-	
-	
+
+	@Override
+	public ProductDto getProductById(int id) {
+		return productDao.getProductById(id);
+	}
+
+	@Override
+	public void addCart(CartDto cart) {
+		productDao.addCart(cart);
+	}
 	
 }
