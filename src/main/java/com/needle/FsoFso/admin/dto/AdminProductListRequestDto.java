@@ -3,7 +3,8 @@ package com.needle.FsoFso.admin.dto;
 import java.util.List;
 
 public class AdminProductListRequestDto {
-	private List<AdminProductDto> adminProducts;z
+
+	private List<AdminProductDto> adminProducts;
 	
 	public AdminProductListRequestDto(){}
 	public AdminProductListRequestDto(List<AdminProductDto> adminProducts) {
