@@ -94,4 +94,12 @@ public class ProductDto {
 	public void setupdatedAt(Instant updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductDto [id=" + id + ", name=" + name + ", thumbnailUrl=" + thumbnailUrl + ", price=" + price
+				+ ", stock=" + stock + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+	}
+	
+	
 }

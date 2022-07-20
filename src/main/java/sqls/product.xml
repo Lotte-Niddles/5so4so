@@ -7,4 +7,22 @@
 		SELECT id, name, thumbnail_url as thumbnailUrl, price, stock, created_at as createdAt, updated_at as updatedAt 
 		FROM products
 	</select>
+	
+	<select id="getproducPagelist" parameterType="Integer" 
+		resultType="com.needle.FsoFso.product.dto.ProductDto">
+		
+		select id, name, thumbnail_url as thumbnailUrl, price, stock, created_at as createdAt, updated_at as updatedAt
+		from (	select row_number()over(order by updated_at) as rnum,
+				id, name, thumbnail_url, price, stock, created_at, updated_at 
+				from products
+				order by updated_at) a
+		where rnum between #{start} and #{start} + 11;
+		
+	</select>
+	
+	<select id="getAllProduct" resultType="Integer">
+		select count(*) 
+		from products
+	</select>
+	
 </mapper>

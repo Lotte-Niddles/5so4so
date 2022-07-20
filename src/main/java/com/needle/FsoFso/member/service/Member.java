@@ -1,0 +1,65 @@
+package com.needle.FsoFso.member.service;
+
+import java.time.Instant;
+
+public class Member {
+
+    private Long id;
+    private Long providerId;
+    private String nickname;
+    private String gender;
+    private String ageRange;
+    private Instant createdAt;
+    private Instant updatedAt;
+
+    public Member() {
+    }
+
+    public Member(Long id, Long providerId, String nickname, String gender, String ageRange,
+            Instant createdAt, Instant updatedAt) {
+        this.id = id;
+        this.providerId = providerId;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.ageRange = ageRange;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public Member(Long providerId, String nickname, String gender, String ageRange) {
+        this.providerId = providerId;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.ageRange = ageRange;
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getProviderId() {
+        return providerId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getAgeRange() {
+        return ageRange;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+}

@@ -7,4 +7,8 @@ import com.needle.FsoFso.product.dto.ProductDto;
 public interface ProductDao {
 
 	List<ProductDto> productList();
+	
+	List<ProductDto> getproducPagelist(int start);
+	
+	int getAllProduct();
 }

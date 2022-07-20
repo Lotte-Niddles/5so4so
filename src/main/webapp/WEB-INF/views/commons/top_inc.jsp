@@ -71,7 +71,6 @@ $(function () {
 		let keyWord = $('#search').val();
 		if (key == 13) {		
 		// the enter key code	
-		alert('111111');
 		location.href = 'searchList.do?keyWord=' + keyWord; 
 // 		$('input[name = btnFind]').click();			
 // 			return false;  

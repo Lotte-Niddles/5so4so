@@ -12,6 +12,8 @@
 		<property name="locations">
 			<list>
 				<value>classpath:sub-properties/jdbc.properties</value>
+				<value>classpath:sub-properties/ftp.properties</value>
+				<value>classpath:sub-properties/oauth.properties</value>
 			</list>
 		</property>
 	</bean>

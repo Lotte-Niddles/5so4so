@@ -21,4 +21,17 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDto> productList() {
 		return productDao.productList();
 	}
+
+	@Override
+	public List<ProductDto> getproducPagelist(int start) {
+		return productDao.getproducPagelist(start);
+	}
+
+	@Override
+	public int getAllProduct() {
+		return productDao.getAllProduct();
+	}
+	
+	
+	
 }
