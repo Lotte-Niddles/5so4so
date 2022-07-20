@@ -28,7 +28,7 @@
 								<img alt="search-icon"
 									 src="<%=request.getContextPath()%>/images/glass.png">
 							</span>
-							<input id="search" value="<%=keyWord%>" type="text" placeholder="통합검색" autoComplete="off" aria-autocomplete="list"/>
+							<input id="search" class="search-input" value="<%=keyWord%>" type="text" placeholder="통합검색" autoComplete="off" aria-autocomplete="list"/>
 						</div>
                     </div>
                 </div>

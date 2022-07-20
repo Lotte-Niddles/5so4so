@@ -34,10 +34,10 @@ public class ProductController {
         }
 
         List<ProductDto> productList = productService.getproducPagelist(pageStartItemNumber);
-        int allProductCount = productService.getAllProductCount();
+        int totalCount = productService.getAllProductCount();
 
         model.addAttribute("productList", productList);
-        model.addAttribute("allProductCount", allProductCount);
+        model.addAttribute("totalCount", totalCount);
         model.addAttribute("pageNumber", pageNumber);
         return "productList.tiles";
     }

@@ -40,7 +40,7 @@
             pageNumber = Integer.parseInt(startPageNumber);
         }
 
-        int totalCount = (int) request.getAttribute("len");
+        int totalCount = (int) request.getAttribute("totalCount");
 
         int productPerPage = totalCount / 12;
         if ((totalCount % 12) > 0) {
