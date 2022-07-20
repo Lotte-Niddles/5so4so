@@ -31,4 +31,9 @@
 		where id = #{id}
 	</select>
 	
+	<insert id="addCart" parameterType="com.needle.FsoFso.product.dto.CartDto">
+		insert into cart(member_id, product_id, quantity)
+		values(#{memberId}, #{productId}, #{quantity})
+	</insert>
+	
 </mapper>

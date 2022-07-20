@@ -2,6 +2,7 @@ package com.needle.FsoFso.product.services;
 
 import java.util.List;
 
+import com.needle.FsoFso.product.dto.CartDto;
 import com.needle.FsoFso.product.dto.ProductDto;
 
 public interface ProductService {
@@ -13,4 +14,6 @@ public interface ProductService {
 	int getAllProduct();
 	
 	ProductDto getProductById(int id);
+	
+	void addCart(CartDto cart);
 }
