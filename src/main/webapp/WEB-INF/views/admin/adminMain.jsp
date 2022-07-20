@@ -1,3 +1,5 @@
+<%@page import="java.time.temporal.ChronoUnit"%>
+<%@page import="com.needle.FsoFso.admin.util.InstantUtil"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.time.Instant"%>
@@ -21,20 +23,40 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd")
 									.withLocale(Locale.KOREA)
 									.withZone(ZoneId.of("UTC"));
 
-Instant mindate = Instant.now();
+Instant mindate = Instant.now(); // have to find min date
+String sMaxDate = formatter.format(Instant.now()); // today
 
-String sMaxDate = formatter.format(mindate);
 String categoryJson = "[";
 String dataJson = "[";
 
-for(DailyDetailDto dto : detailList) {
-	Instant dtoDate = dto.getDate();
-	if(mindate.isAfter(dtoDate)){ mindate = dtoDate;}
+int listCount = 0;
+for(int i = (InstantUtil.SEARCHDAYS - 1); i >= 0; i--) {
+	int salesData = 0;
+	Instant refDate = Instant.now().minus(i, ChronoUnit.DAYS); // 기준날짜
+	String sRefDate = formatter.format(refDate);
+	if(mindate.isAfter(refDate)){ mindate = refDate;} // 최소 날짜 찾기
 	
-	categoryJson += "'"+formatter.format(dto.getDate())+"', ";
-	dataJson += dto.getSales()+", ";
+	// 데이터 불러오기
+	DailyDetailDto dto = null;
+	String sDataDate = "";
+	if(listCount < detailList.size()) {
+		dto = detailList.get(listCount);
+	}
+	if(dto != null) {
+		sDataDate = formatter.format(dto.getDate()); // 데이터 날짜
+	}
 	
+	// 날짜 확인
+	if(dto == null || sDataDate.equals("") || !sDataDate.equals(sRefDate)){ // 데이터날짜와 기준날짜가 다르다면
+		salesData = 0;
+	} else { // 데이터날짜와 기준날짜가 같다면
+		salesData = dto.getSales();
+		listCount++;
+	}
+	categoryJson += "'"+sRefDate+"', ";
+	dataJson += salesData+", ";
 }
+
 categoryJson = categoryJson.substring(0, categoryJson.lastIndexOf(","));
 dataJson = dataJson.substring(0, dataJson.lastIndexOf(","));
 

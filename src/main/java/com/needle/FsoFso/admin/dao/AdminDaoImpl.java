@@ -15,6 +15,7 @@ import com.needle.FsoFso.admin.dto.AdminMemberListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminProductDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
 import com.needle.FsoFso.admin.dto.DailyDetailDto;
+import com.needle.FsoFso.admin.util.InstantUtil;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -23,13 +24,13 @@ public class AdminDaoImpl implements AdminDao {
 	private SqlSession session;
 	
 	private final String ns = "Admin.";
-	private final int searchDays = 7;
+	
 
 	@Override
 	public AdminMainRequestDto adminWeekStatusRequest() {
 		List<DailyDetailDto> dtos = new ArrayList<>(); 
 		
-		for(int i = 0; i < searchDays; i++) {
+		for(int i = InstantUtil.SEARCHDAYS - 1; i >= 0 ; i--) {
 			String day = Instant.now().minus(i, ChronoUnit.DAYS).toString().substring(0, 10);
 			DailyDetailDto dto = session.selectOne(ns+"adminWeekStatus", day);
 			

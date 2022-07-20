@@ -46,8 +46,8 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 			<th>상품명</th>
 			<th>재고 수</th>
 			<th>판매건 수</th>
-			<th>상품등록일</th>
-			<th>상품수정일</th>
+			<th>상품등록일시</th>
+			<th>상품수정일시</th>
 		</tr>
 		</thead>
 		<tbody style="font-family: 'JalpullineunOneul';">
@@ -55,13 +55,13 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 		for (AdminProductDto dto : productList) {
 		%>
 		<tr>
-			<td><%=dto.getProductId()%></td>
-			<td><img src="<%=dto.getImgUrl()%>" width="30px"></td>
+			<td style="text-align: center;"><%=dto.getProductId()%></td>
+			<td style="text-align: center;"><img src="<%=dto.getImgUrl()%>" width="30px"></td>
 			<td><%=dto.getProductName()%></td>
-			<td><%=dto.getStock()%></td>
-			<td><%=dto.getSalesCount()%></td>
-			<td><%=formatter.format(dto.getCreatedAt())%></td>
-			<td><%=formatter.format(dto.getUpdatedAt())%></td>
+			<td style="text-align: right;"><%=dto.getStock()%></td>
+			<td style="text-align: right;"><%=dto.getSalesCount()%>회</td>
+			<td style="text-align: center;"><%=formatter.format(dto.getCreatedAt())%></td>
+			<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
 		</tr>
 		<%
 		}
