@@ -2,12 +2,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/top_inc.css">
+
 <%
 	String keyWord = (String) request.getAttribute("keyWord");
 	if (keyWord == null) {
 		keyWord = "";
 	}
 %>
+
 <header>
 <div class="sticky-container">
 	<div class="css-i7a8i3">
@@ -18,7 +22,7 @@
 				</button>
 			</div>
 			<div class="css-48o8iw">	
-				<a class="css-loslz5" href="/">
+				<a class="css-loslz5" href="productList.do">
 					<img alt="" src="<%=request.getContextPath()%>/images/logo.png">
 				</a>
 			</div>
