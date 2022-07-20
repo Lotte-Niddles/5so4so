@@ -19,31 +19,30 @@
 </head>
 <body>
 <div class="productList">
-	<%
-		for (int i = 0; i < productList.size(); i++) {
-			ProductDto dto = productList.get(i);
-	%>
-		<div class="productWrapper">
-			<div class="productImage">
-				<a href="productDetail.do?id=<%=dto.getId()%>">
-					<img alt="" src="<%=dto.getthumbnailUrl()%>">
+<%
+	for (int i = 0; i < productList.size(); i++) {
+		ProductDto productDto = productList.get(i);
+%>
+	<div class="productWrapper">
+		<div class="productImage">
+			<a href="productDetail.do?id=<%=productDto.getId()%>">
+				<img alt="" src="<%=productDto.getthumbnailUrl()%>">
+			</a>
+		</div>
+		<div class="productContent">
+			<div class="productTitle">
+				<a href="productDetail.do?id=<%=productDto.getId()%>">
+					<span><%=productDto.getName()%></span>
 				</a>
 			</div>
-			<div class="productContent">
-				<div class="productTitle">
-					<a href="productDetail.do?id=<%=dto.getId()%>">
-						<span><%=dto.getName()%></span>
-					</a>
-				</div>
-				<div class="productCart">
-					<span><%=dto.getPrice() %>원</span>
-				</div>
-				
+			<div class="productCart">
+				<span><%=productDto.getPrice() %>원</span>
 			</div>
 		</div>
-	<%
-		}
-	%>
+	</div>
+<%
+	}
+%>
 </div>
 </body>
 </html>

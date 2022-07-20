@@ -61,17 +61,20 @@
 //TODO: 검색 버튼 event
 $(function () {		
 	//Block Enter key events . 엔터키 이벤트 막기.		
-	$(document).keypress(function (e) {
+	$(document).keypress(function(e) {
 		if (e.keyCode == 13) {
 			e.preventDefault();		
 		}
 	});		//Click the Search button when you press Enter in the search TextBox. 검색 TextBox에서 Enter 키를 누를 때 검색 버튼을 클릭.		
-	$('#txtFind').keypress(function (e) {		 
-		var key = e.which;		 
+	$('#search').keypress(function(e) {		 
+		let key = e.which;
+		let keyWord = $('#search').val();
 		if (key == 13) {		
-		// the enter key code		 
-		$('input[name = btnFind]').click();			
-			return false;  
+		// the enter key code	
+		alert('111111');
+		location.href = 'searchList.do?keyWord=' + keyWord; 
+// 		$('input[name = btnFind]').click();			
+// 			return false;  
 		}		
 	});   	
 });
