@@ -29,10 +29,12 @@ public class ProductController {
 
 	private final ProductService productService;
 	private final ReviewService reviewService;
+	private final MemberService memberService;
 
-	public ProductController(ProductService productService, ReviewService reviewService) {
+	public ProductController(ProductService productService, ReviewService reviewService, MemberService memberService) {
 		this.productService = productService;
 		this.reviewService = reviewService;
+		this.memberService = memberService;
 	}
 
 	@GetMapping("productList.do")
@@ -63,6 +65,7 @@ public class ProductController {
 
 		ProductDto product = productService.getProductById(productId);
 		List<ReviewDto> reviewList = reviewService.findReviewsByProductId(productId);
+		List<Member> nicknameList = memberSer
 		model.addAttribute("product",product);
 		model.addAttribute("reviewList", reviewList);
 		
