@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Product">
+	<select id="productList" resultType="com.needle.FsoFso.product.dto.ProductDto">
+		SELECT id, name, thumbnail_url as thumbnailUrl, price, stock, created_at as createdAt, updated_at as updatedAt 
+		FROM products
+	</select>
+	
+	<select id="getproducPagelist" parameterType="Integer" 
+		resultType="com.needle.FsoFso.product.dto.ProductDto">
+		
+		select id, name, thumbnail_url as thumbnailUrl, price, stock, created_at as createdAt, updated_at as updatedAt
+		from (	select row_number()over(order by updated_at) as rnum,
+				id, name, thumbnail_url, price, stock, created_at, updated_at 
+				from products
+				order by updated_at) a
+		where rnum between #{start} and #{start} + 11;
+		
+	</select>
+	
+	<select id="getAllProduct" resultType="Integer">
+		select count(*) 
+		from products
+	</select>
+	
+</mapper>

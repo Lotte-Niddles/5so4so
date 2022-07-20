@@ -5,25 +5,22 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- Database 설정 -->
-
+	<!-- Database 설정 -->	
+	
 	<!-- DB 설정파일 loading -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:/sub-properties/jdbc.properties</value>
-				<value>classpath:/sub-properties/ftp.properties</value>
-				<value>classpath:/sub-properties/oauth.properties</value>
+				<value>classpath:sub-properties/jdbc.properties</value>
+				<value>classpath:sub-properties/ftp.properties</value>
+				<value>classpath:sub-properties/oauth.properties</value>
 			</list>
 		</property>
 	</bean>
-
+	
 	<!-- DBMS(DataBase Management System) -->
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName"
-			value="${jdbc.driverClassName}" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
@@ -34,30 +31,23 @@
 		<property name="poolPreparedStatements" value="true" />
 		<property name="maxOpenPreparedStatements" value="50" />
 	</bean>
-
+	
 	<!-- mybatis setting -->
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:/sqls/*.xml" />
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mapperLocations" value="classpath:sqls/*.xml"/>
+		<!-- <property name="configLocation" value="classpath:sqls/mybatis-config.xml"/> -->
 	</bean>
-
+	
 	<!-- sqlSession 취득 -->
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactory" />
-		<constructor-arg index="1" value="SIMPLE" />		<!-- BATCH -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+		<constructor-arg index="1" value="SIMPLE"/>		<!-- BATCH -->
 	</bean>
-
+	
 	<!-- jdbc 설정 -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
 
 </beans>
-
-
-
