@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.net.ftp.FTPClient;
@@ -53,7 +54,7 @@ public class SellerProductController {
 			sellerProductService.addProduct(sellerProductDto);
 		}
 		
-		return "adminProductList.tiles";
+		return "redirect:/adminProductList.do";
 	}
 	
 	@RequestMapping(value = "/product.do", method = RequestMethod.GET)
@@ -62,9 +63,7 @@ public class SellerProductController {
 		List<SellerProductDto> productList = sellerProductService.getAllProduct();
 		model.addAttribute("productList",productList);
 		
-		for(SellerProductDto dto : productList) {
-			System.out.println(dto.toString());
-		}
+		// for(SellerProductDto dto : productList) { System.out.println(dto.toString()); }
 		
 		return "adminAddProduct.tiles";
 	}
