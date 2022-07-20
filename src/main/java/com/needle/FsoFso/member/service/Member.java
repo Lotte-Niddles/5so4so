@@ -15,7 +15,8 @@ public class Member {
     public Member() {
     }
 
-    public Member(Long id, Long providerId, String nickname, String gender, String ageRange, Instant createdAt, Instant updatedAt) {
+    public Member(Long id, Long providerId, String nickname, String gender, String ageRange,
+            Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.providerId = providerId;
         this.nickname = nickname;
