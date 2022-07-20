@@ -63,8 +63,6 @@ public class SellerProductController {
 		List<SellerProductDto> productList = sellerProductService.getAllProduct();
 		model.addAttribute("productList",productList);
 		
-		// for(SellerProductDto dto : productList) { System.out.println(dto.toString()); }
-		
 		return "adminAddProduct.tiles";
 	}
 	
