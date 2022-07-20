@@ -30,4 +30,8 @@
 	<put-attribute name="main" value="/WEB-INF/views/admin/adminMemberList.jsp"/>
 </definition>
 
+<definition name="adminAddProduct.tiles" extends="admin.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/admin/addProduct.jsp"/>
+</definition>
+
 </tiles-definitions>

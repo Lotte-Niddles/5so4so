@@ -53,8 +53,7 @@ public class SellerProductController {
 			sellerProductService.addProduct(sellerProductDto);
 		}
 		
-		// TODO : 관리자 페이지로 이동하게 변경
-		return "admin/addProduct";
+		return "adminProductList.tiles";
 	}
 	
 	@RequestMapping(value = "/product.do", method = RequestMethod.GET)
@@ -66,8 +65,8 @@ public class SellerProductController {
 		for(SellerProductDto dto : productList) {
 			System.out.println(dto.toString());
 		}
-		// TODO : 리스트를 볼 페이지로 이동하게 변경
-		return "admin/addProduct";
+		
+		return "adminAddProduct.tiles";
 	}
 	
 }
