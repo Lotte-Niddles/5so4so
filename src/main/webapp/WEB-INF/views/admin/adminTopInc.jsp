@@ -27,7 +27,7 @@
 					</style>
 					<span class="css-18nk785">상품목록</span>
 				</a>
-				<a class="css-1scjy81" href="<%=request.getContextPath()%>/adminAddProduct.do">
+				<a class="css-1scjy81" href="<%=request.getContextPath()%>/seller/product.do">
 					<span class="css-18nk785">상품등록</span>
 				</a>
 				<a class="css-1scjy81" href="<%=request.getContextPath()%>/adminMemberList.do">

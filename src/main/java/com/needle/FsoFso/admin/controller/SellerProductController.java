@@ -1,24 +1,10 @@
 package com.needle.FsoFso.admin.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
-import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,8 +39,7 @@ public class SellerProductController {
 			sellerProductService.addProduct(sellerProductDto);
 		}
 		
-		// TODO : 관리자 페이지로 이동하게 변경
-		return "admin/addProduct";
+		return "redirect:/adminProductList.do";
 	}
 	
 	@RequestMapping(value = "/product.do", method = RequestMethod.GET)
@@ -63,11 +48,7 @@ public class SellerProductController {
 		List<SellerProductDto> productList = sellerProductService.getAllProduct();
 		model.addAttribute("productList",productList);
 		
-		for(SellerProductDto dto : productList) {
-			System.out.println(dto.toString());
-		}
-		// TODO : 리스트를 볼 페이지로 이동하게 변경
-		return "admin/addProduct";
+		return "adminAddProduct.tiles";
 	}
 	
 }
