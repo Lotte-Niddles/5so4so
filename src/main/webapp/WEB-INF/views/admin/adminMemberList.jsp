@@ -14,6 +14,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- 폰트 -->
 <link href="https://webfontworld.github.io/Jalpullineun/JalpullineunOneul.css" rel="stylesheet">
+<style type="text/css">
+.table-hover tbody tr:hover{
+	background-color: #f7f9fa;
+}
+</style>
 
 <%
 AdminMemberListRequestDto dtos = (AdminMemberListRequestDto)request.getAttribute("MemberListDto");
@@ -21,13 +26,6 @@ List<AdminMemberDto> memberList = dtos.getAdminMembers();
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 .withLocale(Locale.KOREA).withZone(ZoneId.of("UTC"));
 %>
-
-<style type="text/css">
-.table-hover tbody tr:hover{
-	background-color: #f7f9fa;
-}
-</style>
-
   
 <div id="admin-member-list" align="center">
 <h2 style="margin-top: 8px;">회원관리</h2>
