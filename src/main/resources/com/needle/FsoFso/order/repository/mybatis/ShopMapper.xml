@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.needle.FsoFso.order.repository.mybatis.ShopMapper">
+    <select id="findUserChoiceProductId" resultType="com.needle.FsoFso.order.dto.Shop.ShopDto">
+        select c.id as id, c.member_id as memberId, c.product_id as productId, c.quantity, p.name, p.price, p.stock from cart c inner join products p on c.product_id = p.id
+        where c.member_id = #{shopUserId} and product_id = #{productsId}
+    </select>
+    <select id="findUserProductIdList" resultType="long">
+        select product_id from cart where member_id = #{userId}
+    </select>
+
+    <select id="findAllDisplayDto" resultType="com.needle.FsoFso.order.dto.Shop.DisplayShopDto">
+        select thumbnail_url as imageSrc, name as itemName, price from products p inner join cart c on p.id = c.id where c.member_id = #{userId}
+    </select>
+</mapper>
