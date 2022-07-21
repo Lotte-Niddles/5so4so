@@ -1,12 +1,9 @@
 package com.needle.FsoFso.admin.service;
 
-import java.util.List;
-
 import com.needle.FsoFso.admin.dto.AdminMainRequestDto;
-import com.needle.FsoFso.admin.dto.AdminMemberDto;
 import com.needle.FsoFso.admin.dto.AdminMemberListRequestDto;
-import com.needle.FsoFso.admin.dto.AdminOrderProductDto;
-import com.needle.FsoFso.admin.dto.AdminProductDto;
+import com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto;
+import com.needle.FsoFso.admin.dto.AdminOrderListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
 
 public interface AdminService {
@@ -17,5 +14,7 @@ public interface AdminService {
 	
 	AdminProductListRequestDto adminProductListRequest();
 
-	List<AdminOrderProductDto> findOrderProductsByOrderId(long orderId);
+	AdminOrderProductListRequestDto findOrderProductsByOrderId(long orderId);
+	
+	AdminOrderListRequestDto adminOrderListRequest();
 }

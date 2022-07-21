@@ -13,6 +13,9 @@ import com.needle.FsoFso.admin.dto.AdminMainRequestDto;
 import com.needle.FsoFso.admin.dto.AdminMemberDto;
 import com.needle.FsoFso.admin.dto.AdminMemberListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminOrderProductDto;
+import com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto;
+import com.needle.FsoFso.admin.dto.AdminOrderDto;
+import com.needle.FsoFso.admin.dto.AdminOrderListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminProductDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
 import com.needle.FsoFso.admin.dto.DailyDetailDto;
@@ -57,8 +60,17 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<AdminOrderProductDto> findOrderProductsByOrderId(long orderId) {
-		return session.selectList(ns+"findOrderProductsByOrderId", orderId);
+	public AdminOrderProductListRequestDto findOrderProductsByOrderId(long orderId) {
+		List<AdminOrderProductDto> dtos = new ArrayList<>();
+		dtos = session.selectList(ns+"findOrderProductsByOrderId", orderId);
+		return new AdminOrderProductListRequestDto(dtos);
+	}
+	
+	@Override
+	public AdminOrderListRequestDto adminOrderListRequest() {
+		List<AdminOrderDto> dtos = new ArrayList<>();
+		dtos = session.selectList(ns+"adminOrderList");
+		return new AdminOrderListRequestDto(dtos);
 	}
 
 }

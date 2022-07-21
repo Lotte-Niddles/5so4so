@@ -36,9 +36,25 @@
 	</select>
 	
 	<select id="findOrderProductsByOrderId" parameterType="Long" resultType="com.needle.FsoFso.admin.dto.AdminOrderProductDto">
-		select id, order_id, member_id, product_id, quantity, unit_price, ordered_at, updated_at
-		from order_product
+		select c.id as id, c.order_id as orderId, c.member_id as memberId, 
+				c.product_id as productId, d.name as productName, d.thumbnail_url as productThumbnailUrl, 
+				c.quantity as quantity, c.unit_price as unitPrice, 
+				c.ordered_at as orderedAt, c.updated_at as updatedAt
+		from order_product as c
+		LEFT JOIN(	select id, name, thumbnail_url
+					 from products) as d
+		on c.product_id = d.id
 		where order_id = #{orderId};
+	</select>
+
+	<select id="adminOrderList" resultType="com.needle.FsoFso.admin.dto.AdminOrderDto">
+		select c.id as id, c.member_id as memberId, c.total_price as totalPrice, d.productCount as productCount, c.ordered_at as orderedAt, c.updated_at as updatedAt
+		from orders as c
+		LEFT JOIN ( select a.id as id, count(*) as productCount
+						from orders a, order_product b
+						where a.id = b.order_id
+                        group by a.id) as d
+		on c.id = d.id;
 	</select>
 
 </mapper>
