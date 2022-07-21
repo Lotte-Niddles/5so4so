@@ -102,12 +102,6 @@ public class MemberController {
 			productList.add(productService.getProductById(review.getProductId()));
 		}
 		
-		for(int i = 0; i < reviewList.size(); i++) {
-			System.out.println(reviewList.get(i).toString());
-			System.out.println(productList.get(i).toString());
-			System.out.println();
-		}
-		
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("productList", productList);
 		
