@@ -22,5 +22,11 @@
 		insert into reviews (member_id, product_id, content, created_at, updated_at)
 		values(#{memberId}, #{productId}, #{content}, now(), now())
 	</insert>
+	
+	<select id="findReviewsByMemberId" parameterType="Long" resultType="com.needle.FsoFso.review.dto.ReviewDto">
+		select id, member_id, product_id, content, created_at, updated_at
+		from reviews
+		where member_id = #{memberId}
+	</select>
 
 </mapper>

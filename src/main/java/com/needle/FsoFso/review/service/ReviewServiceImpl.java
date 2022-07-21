@@ -32,4 +32,9 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.getCountByUserIdProductId(memberProductDto);
 	}
 
+	@Override
+	public List<ReviewDto> findReviewsByMemberId(long memberId) {
+		return reviewDao.findReviewsByMemberId(memberId);
+	}
+
 }
