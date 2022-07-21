@@ -29,7 +29,8 @@ public class MemberService {
                             kakaoUserInfo.getGender(),
                             kakaoUserInfo.getAgeRange()
                     );
-                    memberDao.save(member);
+                    final int savedId = memberDao.save(member);
+                    member.setId((long) savedId);
                     return member;
                 });
     }
@@ -41,6 +42,10 @@ public class MemberService {
         }
         final Long unlinkedId = kakaoClient.logout(member.get());
         return unlinkedId.equals(member.get().getProviderId());
+    }
+
+    public Long exit(Member member) {
+        return kakaoClient.unlink(member);
     }
     
     public Optional<Member> findById(Long id) {

@@ -17,8 +17,8 @@ public class MemberDao {
         this.session = session;
     }
 
-    public void save(Member member) {
-        session.insert(NAME_SPACE + "save", member);
+    public int save(Member member) {
+        return session.insert(NAME_SPACE + "save", member);
     }
 
     public Optional<Member> findByProviderId(Long providerId) {

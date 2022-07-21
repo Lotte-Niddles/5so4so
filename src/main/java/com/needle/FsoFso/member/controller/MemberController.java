@@ -66,6 +66,19 @@ public class MemberController {
         return "redirect:/productList.do";
     }
 
+    @GetMapping("/exit.do")
+    public String exit(HttpServletRequest request) {
+        if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
+            return "redirect:/productList.do";
+        }
+        final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+
+        final Long exit = memberService.exit(member);
+        request.getSession().removeAttribute("member");
+
+        return "redirect:/productList.do";
+    }
+
     @GetMapping("/me.do")
     public String showMyOrders(Model model, HttpServletRequest request) {
         if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {

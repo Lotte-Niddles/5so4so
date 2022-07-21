@@ -4,7 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Member">
-    <insert id="save" parameterType="com.needle.FsoFso.member.service.Member">
+    <insert id="save" parameterType="com.needle.FsoFso.member.service.Member"
+      useGeneratedKeys="true" keyProperty="id"
+    >
         insert into members(provider_id, nickname, gender, age_range, created_at, updated_at)
         values (#{providerId}, #{nickname}, #{gender}, #{ageRange}, #{createdAt}, #{updatedAt});
     </insert>
