@@ -1,8 +1,16 @@
 <%@ page import="com.needle.FsoFso.common.util.AttributeContainer" %>
 <%@ page import="com.needle.FsoFso.member.service.Member" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="com.needle.FsoFso.review.dto.ReviewDto" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Collections" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+
+    final List<ReviewDto> reviews = Optional.ofNullable(
+                    (List<ReviewDto>) AttributeContainer.attributeFrom(request, "reviewList"))
+            .orElse(Collections.emptyList());
 %>
 <style>
     .flex-center {
@@ -39,10 +47,19 @@
 
     .mypage-profile {
         justify-content: flex-start;
+        max-height: 40vh;
     }
 
     .mypage-contents {
         justify-content: flex-start;
+        height: 80vh;
+        overflow: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .mypage-contents::-webkit-scrollbar {
+        display: none;
     }
 
     .mypage-border {
@@ -91,6 +108,11 @@
         font-size: 0.9rem;
     }
 
+    .content-img {
+        max-width: 5rem;
+        margin-right: 1rem;
+    }
+
     .activated {
         color: #009FCE;
         font-weight: 700;
@@ -98,6 +120,9 @@
 
     .disabled {
         color: #969696;
+    }
+
+    .pointer-cursor {
         cursor: pointer;
     }
 
@@ -141,7 +166,7 @@
             <div class="content-heads flex-center">
                 <div class="content-head activated">나의 주문</div>
                 <div class="divider-col content-head">|</div>
-                <div onclick="handlePage()" class="content-head disabled">나의 리뷰</div>
+                <div onclick="handlePage()" class="content-head disabled pointer-cursor">나의 리뷰</div>
             </div>
             <div class="divider"></div>
             <div class="content-text">아직 주문 내역이 없어요.</div>
@@ -152,18 +177,50 @@
         </div>
         <div class="flex-col-center mypage-contents mypage-border disabled-page">
             <div class="content-heads flex-center">
-                <div onclick="handlePage()" class="content-head disabled">
+                <div onclick="handlePage()" class="content-head disabled pointer-cursor">
                     나의 주문
                 </div>
                 <div class="divider-col content-head">|</div>
                 <div class="content-head activated">나의 리뷰</div>
             </div>
             <div class="divider"></div>
+            <% if (reviews.isEmpty()) {%>
             <div class="content-text">작성한 리뷰가 없어요.</div>
             <div class="content-text">첫 리뷰 쓰러 가기
                 <a href="<%=request.getContextPath()%>/productList.do"
                    style="color: #35c5f0">click!</a>
             </div>
+            <%
+            } else {
+                for (int i = 0; i < reviews.size(); i++) {
+                    ReviewDto review = reviews.get(i);
+            %>
+            <div class="flex-center" style="align-self: flex-start; padding: 0 2rem;">
+                <div>
+                    <img
+                            class="content-img pointer-cursor"
+                            src="<%=review.getThumbnailUrl()%>"
+                            alt="<%=review.getName()%>"
+                            onclick="toProduct(<%=review.getProductId()%>)"
+                    >
+                </div>
+                <div>
+                    <div
+                            style="font-weight: 700" class="content-text pointer-cursor"
+                            onclick="toProduct(<%=review.getProductId()%>)"
+                    >
+                        <%=review.getName()%>
+                    </div>
+                    <div class="content-text"><%=review.getContent()%>
+                    </div>
+                </div>
+            </div>
+            <% if (i != reviews.size() - 1) { %>
+            <div class="divider"></div>
+            <%
+                        }
+                    }
+                } %>
         </div>
     </div>
 </div>
@@ -177,5 +234,9 @@
 
     $activated_page.classList.remove('activated-page');
     $activated_page.classList.add('disabled-page')
+  }
+
+  function toProduct(product_id) {
+    location.href = '<%=request.getContextPath()%>/productDetail.do?id=' + product_id;
   }
 </script>

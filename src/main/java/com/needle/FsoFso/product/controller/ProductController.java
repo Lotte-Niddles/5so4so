@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
-import com.needle.FsoFso.product.dao.ProductDao;
-import com.needle.FsoFso.product.service.ProductService;
-import com.needle.FsoFso.review.dto.ReviewDto;
+import com.needle.FsoFso.review.dto.Review;
 import com.needle.FsoFso.review.service.ReviewService;
 
 @Controller
@@ -82,10 +80,10 @@ public class ProductController {
 
 	public void setProductDetailData(Model model, long productId) {
 		ProductDto product = productService.getProductById(productId);
-		List<ReviewDto> reviewList = reviewService.findReviewsByProductId(productId);
+		List<Review> reviewList = reviewService.findReviewsByProductId(productId);
 		List<String> nicknameList = new ArrayList<String>();
 
-		for (ReviewDto review : reviewList) {
+		for (Review review : reviewList) {
 			Optional<Member> member = memberService.findById(review.getMemberId());
 			nicknameList.add(member.orElse(new Member(0L, "", "", "")).getNickname());
 		}

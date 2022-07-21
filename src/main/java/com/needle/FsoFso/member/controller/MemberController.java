@@ -1,12 +1,13 @@
 package com.needle.FsoFso.member.controller;
 
 import com.needle.FsoFso.common.util.AttributeContainer;
+import com.needle.FsoFso.review.dto.ReviewDto;
 import com.needle.FsoFso.member.kakao.dto.KakaoOauthInfo;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
 import com.needle.FsoFso.product.dto.ProductDto;
 import com.needle.FsoFso.product.service.ProductService;
-import com.needle.FsoFso.review.dto.ReviewDto;
+import com.needle.FsoFso.review.dto.Review;
 import com.needle.FsoFso.review.service.ReviewService;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -87,15 +88,8 @@ public class MemberController {
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
         List<ReviewDto> reviewList = reviewService.findReviewsByMemberId(member.getId());
-        List<ProductDto> productList = new ArrayList<>();
-        for (ReviewDto review : reviewList) {
-            productList.add(productService.getProductById(review.getProductId()));
-        }
 
         model.addAttribute("reviewList", reviewList);
-        model.addAttribute("productList", productList);
-        model.addAttribute("orderList", Collections.emptyList());
-
         return "mypage.tiles";
     }
 
