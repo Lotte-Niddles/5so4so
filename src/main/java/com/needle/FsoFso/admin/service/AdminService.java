@@ -11,7 +11,7 @@ public interface AdminService {
 
 	AdminMainRequestDto adminWeekStatusRequest();
 
-	AdminMemberListRequestDto adminMemberListRequest();
+	AdminMemberListRequestDto adminMemberListRequest(String keyword);
 
 	AdminOrderProductListRequestDto findOrderProductsByOrderId(long orderId);
 
