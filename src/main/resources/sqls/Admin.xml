@@ -13,7 +13,7 @@
 		where DATE(b.ordered_at) = a.d;
 	</select>
 
-	<select id="adminMemberList"
+	<select id="adminMemberList" parameterType="String"
 		resultType="com.needle.FsoFso.admin.dto.AdminMemberDto">
 		select c.id as id, c.provider_id as providerId, c.age_range as ageRange, c.nickname as nickname, c.gender as gender, d.purchasesCount as purchasesCount, d.totalPurchase as totalPurchase, c.created_at as createdAt, c.updated_at as updatedAt
 		from members as c
@@ -21,7 +21,10 @@
 						from members a, orders b
 						where a.id = b.member_id
 						group by a.id) as d
-		on c.id = d.id;
+		on c.id = d.id
+		<if test="keyword != '' and keyword != null">
+			where c.nickname like concat('%', #{keyword}, '%')
+		</if>
 	</select>
 
 	<select id="adminProductList"

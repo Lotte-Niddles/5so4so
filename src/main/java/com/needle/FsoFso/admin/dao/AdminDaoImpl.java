@@ -46,9 +46,9 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public AdminMemberListRequestDto adminMemberListRequest() {
+	public AdminMemberListRequestDto adminMemberListRequest(String keyword) {
 		List<AdminMemberDto> dtos = new ArrayList<>();
-		dtos = session.selectList(ns + "adminMemberList");
+		dtos = session.selectList(ns + "adminMemberList", keyword);
 		return new AdminMemberListRequestDto(dtos);
 	}
 

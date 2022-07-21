@@ -52,11 +52,10 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "adminMemberList.do", method = RequestMethod.GET)
-	public String adminMemberList(Model model) {
-		
+	public String adminMemberList(Model model, @RequestParam(value = "keyword", required = false) String keyword) {
 		logger.info("AdminController adminMemberList() " + new Date());
-		
-		AdminMemberListRequestDto dto = service.adminMemberListRequest();
+		keyword = keyword == null ? "" : keyword;
+		AdminMemberListRequestDto dto = service.adminMemberListRequest(keyword);
 		model.addAttribute("MemberListDto", dto);
 		return "adminMemberList.tiles";
 	}

@@ -21,16 +21,35 @@ List<AdminOrderDto> orderList = dtos.getAdminOrders();
 
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 									.withLocale(Locale.KOREA).withZone(ZoneId.of("UTC"));
+
+String keyWord = (String) request.getAttribute("keyWord");
+if (keyWord == null) {
+	keyWord = "";
+}
 %>
 
 <style type="text/css">
 .table-hover tbody tr:hover{
 	background-color: #f7f9fa;
 }
+
+.searchBar{
+	display: flex;
+	justify-content: end;
+	margin: 15px;
+}
 </style>
 
 <div id="admin-product-list" align="center">
 <h2 style="margin-top: 8px;">주문관리</h2>
+<div class="searchBar">
+<select>
+	<option>주문번호</option>
+</select>
+<input type="text" id="search" value="<%=keyWord%>">
+<input type="button" id="searchBtn" value="검색">
+</div>
+
 	<table id="admin-order-list-table" class="table table-hover">
 		<col width="100px">
 		<col width="100px">
@@ -73,5 +92,30 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 </div>
 
 <script type="text/javascript">
-	
+$(function() {
+	$(document).keypress(function(e) {
+		if (e.keyCode == 13) {
+			e.preventDefault();
+		}
+	});
+	$('#searchBtn').click(function(e) {
+		const keyWord = $('#search').val()
+		if (keyWord != '') {
+			location.href='adminOrderList.do?keyWord=' + keyWord;
+		} else {
+			alert('검색어를 입력해 주세요!');
+		}
+	});
+	$('#search').keypress(function(e) {
+		const key = e.which;
+		const keyWord = $('#search').val();
+		if (key == 13){
+			if (keyWord != '') {
+				location.href='adminOrderList.do?keyWord=' + keyWord;
+			} else {
+				alert('검색어를 입력해 주세요!');
+			}
+		}		
+	});
+});
 </script>

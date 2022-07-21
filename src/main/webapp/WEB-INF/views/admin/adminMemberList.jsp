@@ -18,6 +18,12 @@
 .table-hover tbody tr:hover{
 	background-color: #f7f9fa;
 }
+
+.searchBar{
+	display: flex;
+	justify-content: end;
+	margin: 15px;
+}
 </style>
 
 <%
@@ -25,10 +31,22 @@ AdminMemberListRequestDto dtos = (AdminMemberListRequestDto)request.getAttribute
 List<AdminMemberDto> memberList = dtos.getAdminMembers();
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 .withLocale(Locale.KOREA).withZone(ZoneId.of("UTC"));
+
+String keyWord = (String) request.getAttribute("keyWord");
+if (keyWord == null) {
+	keyWord = "";
+}
 %>
   
 <div id="admin-member-list" align="center">
 <h2 style="margin-top: 8px;">회원관리</h2>
+<div class="searchBar">
+<select>
+	<option>닉네임</option>
+</select>
+<input type="text" id="search" value="<%=keyWord%>">
+<input type="button" id="searchBtn" value="검색">
+</div>
 <table id="admin-member-list-table" class="table table-hover">
 	<col width="70px"><col width="150px"><col width="150px"><col width="70px"><col width="50px"><col width="60px"><col width="100px"><col width="100px"><col width="100px">
 	<thead>
@@ -70,5 +88,30 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 </div>
 
 <script type="text/javascript">
-
+$(function() {
+	$(document).keypress(function(e) {
+		if (e.keyCode == 13) {
+			e.preventDefault();
+		}
+	});
+	$('#searchBtn').click(function(e) {
+		const keyWord = $('#search').val()
+		if (keyWord != '') {
+			location.href='adminMemberList.do?keyword=' + keyWord;
+		} else {
+			alert('검색어를 입력해 주세요!');
+		}
+	});
+	$('#search').keypress(function(e) {
+		const key = e.which;
+		const keyWord = $('#search').val();
+		if (key == 13){
+			if (keyWord != '') {
+				location.href='adminMemberList.do?keyword=' + keyWord;
+			} else {
+				alert('검색어를 입력해 주세요!');
+			}
+		}		
+	});
+});
 </script>
