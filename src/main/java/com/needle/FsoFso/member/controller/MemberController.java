@@ -1,16 +1,11 @@
 package com.needle.FsoFso.member.controller;
 
 import com.needle.FsoFso.common.util.AttributeContainer;
-import com.needle.FsoFso.review.dto.ReviewDto;
 import com.needle.FsoFso.member.kakao.dto.KakaoOauthInfo;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
-import com.needle.FsoFso.product.dto.ProductDto;
-import com.needle.FsoFso.product.service.ProductService;
-import com.needle.FsoFso.review.dto.Review;
+import com.needle.FsoFso.review.dto.ReviewDto;
 import com.needle.FsoFso.review.service.ReviewService;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.PropertySource;
@@ -25,16 +20,13 @@ public class MemberController {
 
     private final MemberService memberService;
     private final ReviewService reviewService;
-    private final ProductService productService;
     private final KakaoOauthInfo kakaoOauthInfo;
     private final AdminMembers adminMembers;
 
     public MemberController(MemberService memberService, ReviewService reviewService,
-            ProductService productService, KakaoOauthInfo kakaoOauthInfo,
-            AdminMembers adminMembers) {
+            KakaoOauthInfo kakaoOauthInfo, AdminMembers adminMembers) {
         this.memberService = memberService;
         this.reviewService = reviewService;
-        this.productService = productService;
         this.kakaoOauthInfo = kakaoOauthInfo;
         this.adminMembers = adminMembers;
     }
@@ -81,7 +73,7 @@ public class MemberController {
     }
 
     @GetMapping("/me.do")
-    public String showMyOrders(Model model, HttpServletRequest request) {
+    public String showMypage(Model model, HttpServletRequest request) {
         if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
             return "redirect:/productList.do";
         }
