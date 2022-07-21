@@ -34,7 +34,7 @@ public class AdminController {
 	@RequestMapping(value = "admin.do", method = RequestMethod.GET)
 	public String adminWeekStatus(Model model) {
 		
-		logger.info("AdminController adminMain() " + new Date());
+		logger.info("AdminController adminWeekStatus() " + new Date());
 		
 		AdminMainRequestDto dto = service.adminWeekStatusRequest();
 		model.addAttribute("adminMainDto", dto);
