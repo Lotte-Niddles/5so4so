@@ -12,10 +12,13 @@
         <div class="header-wrapper">
             <div class="header-logo">
                 <a class="header-logo-item" href="<%=request.getContextPath()%>/admin.do">
-                    <img alt="" src="<%=request.getContextPath()%>/images/logo.png">
+                    <img alt="" src="<%=request.getContextPath()%>/images/admin.png">
                 </a>
             </div>
             <div class="header-items">
+            	<a class="header-nav-items" href="<%=request.getContextPath()%>/adminOrderList.do">
+                    <span class="css-18nk785">주문관리</span>
+                </a>
                 <a class="header-nav-items"
                    href="<%=request.getContextPath()%>/adminProductList.do">
                     <style data-emotion="css 18nk785">
@@ -34,6 +37,7 @@
                 <a class="header-nav-items" href="<%=request.getContextPath()%>/adminMemberList.do">
                     <span class="css-18nk785">회원관리</span>
                 </a>
+                
             </div>
             <div class="header-items">
 

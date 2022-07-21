@@ -18,6 +18,12 @@
 .table-hover tbody tr:hover{
 	background-color: #f7f9fa;
 }
+
+.searchBar{
+	display: flex;
+	justify-content: end;
+	margin: 15px;
+}
 </style>
 
 <%
@@ -25,10 +31,22 @@ AdminMemberListRequestDto dtos = (AdminMemberListRequestDto)request.getAttribute
 List<AdminMemberDto> memberList = dtos.getAdminMembers();
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 .withLocale(Locale.KOREA).withZone(ZoneId.of("UTC"));
+
+String keyWord = (String) request.getAttribute("keyWord");
+if (keyWord == null) {
+	keyWord = "";
+}
 %>
   
 <div id="admin-member-list" align="center">
 <h2 style="margin-top: 8px;">회원관리</h2>
+<div class="searchBar">
+<select>
+	<option>닉네임</option>
+</select>
+<input type="text" id="search" value="<%=keyWord%>">
+<input type="button" id="searchBtn" value="검색">
+</div>
 <table id="admin-member-list-table" class="table table-hover">
 	<col width="70px"><col width="150px"><col width="150px"><col width="70px"><col width="50px"><col width="60px"><col width="100px"><col width="100px"><col width="100px">
 	<thead>
@@ -46,29 +64,64 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 	</thead>
 	<tbody style="font-family: 'JalpullineunOneul';">
 		<%
-			for(AdminMemberDto dto: memberList) {
-				if(dto.getUpdatedAt() == null || dto.getCreatedAt() == null) continue;
-			%>
-			<tr>
-				<td style="text-align: center;"><%=dto.getId() %></td>
-				<td><%=dto.getNickname() %></td>
-				<td><%=dto.getProviderId() %></td>
-				<td style="text-align: center;"><%=dto.getAgeRange() == null ? "-" : dto.getAgeRange() %></td>
-				<td style="text-align: center;"><%=dto.getGender() == null ? "-" :
-							dto.getGender().equals("male") ? "남" : 
-							((dto.getGender().equals("female"))? "여" : "-")%></td>
-				<td style="text-align: right;"><%=dto.getPurchasesCount() %>회</td>
-				<td style="text-align: right;"><%=dto.getTotalPurchase() %>원</td>
-				<td><%=formatter.format(dto.getCreatedAt()) %></td>
-				<td><%=formatter.format(dto.getUpdatedAt()) %></td>
-			</tr>
-			<%
-			}
+			if (memberList.size() > 0) {
+				for(AdminMemberDto dto: memberList) {
+					if(dto.getUpdatedAt() == null || dto.getCreatedAt() == null) continue;
+		%>
+				<tr>
+					<td style="text-align: center;"><%=dto.getId() %></td>
+					<td><%=dto.getNickname() %></td>
+					<td><%=dto.getProviderId() %></td>
+					<td style="text-align: center;"><%=dto.getAgeRange() == null ? "-" : dto.getAgeRange() %></td>
+					<td style="text-align: center;"><%=dto.getGender() == null ? "-" :
+								dto.getGender().equals("male") ? "남" : 
+								((dto.getGender().equals("female"))? "여" : "-")%></td>
+					<td style="text-align: right;"><%=dto.getPurchasesCount() %>회</td>
+					<td style="text-align: right;"><%=dto.getTotalPurchase() %>원</td>
+					<td><%=formatter.format(dto.getCreatedAt()) %></td>
+					<td><%=formatter.format(dto.getUpdatedAt()) %></td>
+				</tr>
+		<%
+				}
 		%>
 	</tbody>
 </table>
+		<% 
+				} else {
+		%>
+	</tbody>
+</table>
+				<p style="text-align:center;margin-top:200px;">앗! 찾으시는 결과가 없네요.</p>
+		<%
+			}
+		%>
 </div>
 
 <script type="text/javascript">
-
+$(function() {
+	$(document).keypress(function(e) {
+		if (e.keyCode == 13) {
+			e.preventDefault();
+		}
+	});
+	$('#searchBtn').click(function(e) {
+		const keyWord = $('#search').val()
+		if (keyWord != '') {
+			location.href='adminMemberList.do?keyword=' + keyWord;
+		} else {
+			alert('검색어를 입력해 주세요!');
+		}
+	});
+	$('#search').keypress(function(e) {
+		const key = e.which;
+		const keyWord = $('#search').val();
+		if (key == 13){
+			if (keyWord != '') {
+				location.href='adminMemberList.do?keyword=' + keyWord;
+			} else {
+				alert('검색어를 입력해 주세요!');
+			}
+		}		
+	});
+});
 </script>

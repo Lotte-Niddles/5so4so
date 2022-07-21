@@ -24,7 +24,7 @@
                     <div id="global-search-combobox" role="combobox" aria-expanded="false"
                          aria-haspopup="listbox">
                         <div class="search-input-box">
-							<span>
+							<span id="searchBtn">
 								<img alt="search-icon"
 									 src="<%=request.getContextPath()%>/images/glass.png">
 							</span>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="header-links">
                     <%--TODO: 장바구니 링크--%>
-                    <a class="header-link-item" href="#">
+                    <a class="header-link-item" href="<%=request.getContextPath()%>/order.do">
                         <img alt="" src="<%=request.getContextPath()%>/images/cart.png">
                     </a>
                     <% if (isLoggedIn) { %>
@@ -54,22 +54,30 @@
 </header>
 <script>
 $(function() {
+	const enterKey = 13;
 	$(document).keypress(function(e) {
-		if (e.keyCode == 13) {
+		if (e.keyCode === enterKey) {
 			e.preventDefault();
 		}
 	});
 	$('#searchBtn').css('cursor', 'pointer').click(function(e) {
 		const keyWord = $('#search').val();
-		location.href = 'searchList.do?keyWord=' + keyWord;
+		if (keyWord != '') {
+			location.href = 'searchList.do?keyWord=' + keyWord;
+		} else {
+			alert('검색어를 입력해 주세요!');
+		}
 	});
 	$('#search').keypress(function(e) {
 		const key = e.which;
 		const keyWord = $('#search').val();
-		if (key == 13){
-		location.href = 'searchList.do?keyWord=' + keyWord;
+		if (key === enterKey){
+			if (keyWord != '') {
+				location.href = 'searchList.do?keyWord=' + keyWord;
+			} else {
+				alert('검색어를 입력해 주세요!');
+			}
 		}		
 	});
 });
 </script>
-

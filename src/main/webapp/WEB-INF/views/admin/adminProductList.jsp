@@ -21,16 +21,33 @@ List<AdminProductDto> productList = dtos.getAdminProducts();
 
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 									.withLocale(Locale.KOREA).withZone(ZoneId.of("UTC"));
+String keyWord = (String) request.getAttribute("keyWord");
+if (keyWord == null) {
+	keyWord = "";
+}
 %>
 
 <style type="text/css">
 .table-hover tbody tr:hover{
 	background-color: #f7f9fa;
 }
+
+.searchBar{
+	display: flex;
+	justify-content: end;
+	margin: 15px;
+}
 </style>
 
 <div id="admin-product-list" align="center">
 <h2 style="margin-top: 8px;">상품관리</h2>
+<div class="searchBar">
+<select>
+	<option>상품명</option>
+</select>
+<input type="text" id="search" value="<%=keyWord%>">
+<input type="button" id="searchBtn" value="검색">
+</div>
 	<table id="admin-product-list-table" class="table table-hover">
 		<col width="100px">
 		<col width="100px">
@@ -52,24 +69,60 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 		</thead>
 		<tbody style="font-family: 'JalpullineunOneul';">
 		<%
-		for (AdminProductDto dto : productList) {
+			if (productList.size() > 0) {
+				for (AdminProductDto dto : productList) {
 		%>
-		<tr>
-			<td style="text-align: center;"><%=dto.getProductId()%></td>
-			<td style="text-align: center;"><img src="<%=dto.getImgUrl()%>" width="30px"></td>
-			<td><%=dto.getProductName()%></td>
-			<td style="text-align: right;"><%=dto.getStock()%></td>
-			<td style="text-align: right;"><%=dto.getSalesCount()%>회</td>
-			<td style="text-align: center;"><%=formatter.format(dto.getCreatedAt())%></td>
-			<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
-		</tr>
+					<tr>
+						<td style="text-align: center;"><%=dto.getProductId()%></td>
+						<td style="text-align: center;"><img src="<%=dto.getImgUrl()%>" width="30px" height="30px"></td>
+						<td><%=dto.getProductName()%></td>
+						<td style="text-align: right;"><%=dto.getStock()%></td>
+						<td style="text-align: right;"><%=dto.getSalesCount()%>회</td>
+						<td style="text-align: center;"><%=formatter.format(dto.getCreatedAt())%></td>
+						<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
+					</tr>
 		<%
-		}
+				}
 		%>
-</tbody>
+		</tbody>
 	</table>
+		<% 
+			} else {
+		%>
+		</tbody>
+	</table>
+			<p style="text-align:center;margin-top:200px;">앗! 찾으시는 결과가 없네요.</p>
+		<%
+			}
+		%>
 </div>
 
 <script type="text/javascript">
-	
+$(function() {
+	const enterKey = 13;
+	$(document).keypress(function(e) {
+		if (e.keyCode === enterKey) {
+			e.preventDefault();
+		}
+	});
+	$('#searchBtn').click(function(e) {
+		const keyWord = $('#search').val()
+		if (keyWord != '') {
+			location.href='adminProductList.do?keyWord=' + keyWord;
+		} else {
+			alert('검색어를 입력해 주세요!');
+		}
+	});
+	$('#search').keypress(function(e) {
+		const key = e.which;
+		const keyWord = $('#search').val();
+		if (key === enterKey){
+			if (keyWord != '') {
+				location.href='adminProductList.do?keyWord=' + keyWord;
+			} else {
+				alert('검색어를 입력해 주세요!');
+			}
+		}		
+	});
+});
 </script>
