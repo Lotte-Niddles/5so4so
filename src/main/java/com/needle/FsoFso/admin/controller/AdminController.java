@@ -1,6 +1,7 @@
 package com.needle.FsoFso.admin.controller;
 
 import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.needle.FsoFso.admin.dto.AdminMainRequestDto;
 import com.needle.FsoFso.admin.dto.AdminMemberListRequestDto;
-import com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminOrderListRequestDto;
+import com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto;
+import com.needle.FsoFso.admin.dto.AdminProductDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
 import com.needle.FsoFso.admin.service.AdminService;
 import com.needle.FsoFso.product.service.ProductService;
@@ -38,14 +40,14 @@ public class AdminController {
 		model.addAttribute("adminMainDto", dto);
 		return "admin.tiles";
 	}
-
-	@RequestMapping(value = "adminProductList.do", method = RequestMethod.GET)
-	public String adminProductList(Model model) {
-		
+	
+	@RequestMapping(value="adminProductList.do", method = RequestMethod.GET)
+	public String adminProductList(Model model, AdminProductDto adminProductDto) {
 		logger.info("AdminController adminProductList() " + new Date());
+		AdminProductListRequestDto productListDto = service.adminProductListRequest(adminProductDto);
 		
-		AdminProductListRequestDto dto = service.adminProductListRequest();
-		model.addAttribute("productListDto", dto);
+		model.addAttribute("productListDto", productListDto);
+		
 		return "adminProductList.tiles";
 	}
 

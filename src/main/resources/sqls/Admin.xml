@@ -25,14 +25,17 @@
 	</select>
 
 	<select id="adminProductList"
-		resultType="com.needle.FsoFso.admin.dto.AdminProductDto">
+		resultType="com.needle.FsoFso.admin.dto.AdminProductDto" parameterType="com.needle.FsoFso.admin.dto.AdminProductDto">
 		select c.id as productId, c.thumbnail_url as imgUrl, c.name as productName, c.stock as stock, d.salesCount as salesCount, c.created_at as createdAt, c.updated_at as updatedAt
 		from products as c
 		LEFT JOIN (select sum(b.quantity) as salesCount, a.id as product_id
 						from products a, order_product b
 						where a.id = b.product_id
 						group by a.id) as d
-		on c.id = d.product_id;
+		on c.id = d.product_id
+		<if test="keyWord !='' and keyWord != null">
+			where c.name like concat('%',#{keyWord},'%')
+		</if>
 	</select>
 	
 	<select id="findOrderProductsByOrderId" parameterType="Long" resultType="com.needle.FsoFso.admin.dto.AdminOrderProductDto">

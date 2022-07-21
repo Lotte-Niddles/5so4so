@@ -23,53 +23,53 @@ import com.needle.FsoFso.admin.util.InstantUtil;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
-	
+
 	@Autowired
 	private SqlSession session;
-	
+
 	private static final String ns = "Admin.";
-	
 
 	@Override
 	public AdminMainRequestDto adminWeekStatusRequest() {
-		List<DailyDetailDto> dtos = new ArrayList<>(); 
-		
-		for(int i = InstantUtil.SEARCHDAYS - 1; i >= 0 ; i--) {
+		List<DailyDetailDto> dtos = new ArrayList<>();
+
+		for (int i = InstantUtil.SEARCHDAYS - 1; i >= 0; i--) {
 			String day = Instant.now().minus(i, ChronoUnit.DAYS).toString().substring(0, 10);
-			DailyDetailDto dto = session.selectOne(ns+"adminWeekStatus", day);
-			
-			if(dto.nullCheck()) continue;
+			DailyDetailDto dto = session.selectOne(ns + "adminWeekStatus", day);
+
+			if (dto.nullCheck())
+				continue;
 			dtos.add(dto);
 		}
-		
+
 		return new AdminMainRequestDto(dtos);
 	}
 
 	@Override
 	public AdminMemberListRequestDto adminMemberListRequest() {
 		List<AdminMemberDto> dtos = new ArrayList<>();
-		dtos = session.selectList(ns+"adminMemberList");
+		dtos = session.selectList(ns + "adminMemberList");
 		return new AdminMemberListRequestDto(dtos);
 	}
 
 	@Override
-	public AdminProductListRequestDto adminProductListRequest() {
+	public AdminProductListRequestDto adminProductListRequest(AdminProductDto adminProductDto) {
 		List<AdminProductDto> dtos = new ArrayList<>();
-		dtos = session.selectList(ns+"adminProductList");
+		dtos = session.selectList(ns + "adminProductList", adminProductDto);
 		return new AdminProductListRequestDto(dtos);
 	}
 
 	@Override
 	public AdminOrderProductListRequestDto findOrderProductsByOrderId(long orderId) {
 		List<AdminOrderProductDto> dtos = new ArrayList<>();
-		dtos = session.selectList(ns+"findOrderProductsByOrderId", orderId);
+		dtos = session.selectList(ns + "findOrderProductsByOrderId", orderId);
 		return new AdminOrderProductListRequestDto(dtos);
 	}
-	
+
 	@Override
 	public AdminOrderListRequestDto adminOrderListRequest() {
 		List<AdminOrderDto> dtos = new ArrayList<>();
-		dtos = session.selectList(ns+"adminOrderList");
+		dtos = session.selectList(ns + "adminOrderList");
 		return new AdminOrderListRequestDto(dtos);
 	}
 
