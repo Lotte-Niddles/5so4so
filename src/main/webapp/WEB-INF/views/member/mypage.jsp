@@ -4,6 +4,9 @@
 <%@ page import="com.needle.FsoFso.review.dto.ReviewDto" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Collections" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.time.ZoneId" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
@@ -11,154 +14,47 @@
     final List<ReviewDto> reviews = Optional.ofNullable(
                     (List<ReviewDto>) AttributeContainer.attributeFrom(request, "reviewList"))
             .orElse(Collections.emptyList());
+
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            .withLocale(Locale.KOREA).withZone(ZoneId.of("UTC"));
 %>
-<style>
-    .flex-center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .flex-col-center {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .mypage-container {
-        align-items: flex-start;
-
-        min-height: 90vh;
-    }
-
-    .mypage-wrapper {
-        display: grid;
-        width: 80%;
-        grid-template-columns: 25% minmax(70%, auto);
-        grid-column-gap: 2rem;
-
-        padding: 2rem;
-    }
-
-    .mypage-wrapper > div {
-        padding: 2rem;
-    }
-
-    .mypage-profile {
-        justify-content: flex-start;
-        max-height: 40vh;
-    }
-
-    .mypage-contents {
-        justify-content: flex-start;
-        height: 80vh;
-        overflow: scroll;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    .mypage-contents::-webkit-scrollbar {
-        display: none;
-    }
-
-    .mypage-border {
-        border: 1px solid #ebebeb;
-        border-radius: 8px;
-    }
-
-    .divider {
-        width: 100%;
-        border-bottom: 1px solid #ebebeb;
-        margin: 2rem 0;
-    }
-
-    .divider-col {
-        color: #ebebeb;
-        margin: 0 1rem;
-    }
-
-    .profile-head {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #35c5f0;
-        margin: 1.5rem 0 1rem 0;
-    }
-
-    .profile-contents-label {
-        font-weight: 700;
-        margin-right: 5px;
-    }
-
-    .profile-text {
-        font-size: 0.8rem;
-    }
-
-
-    .profile-img {
-        max-width: 60%;
-        opacity: 70%;
-    }
-
-    .content-head {
-        font-size: 1.2rem;
-    }
-
-    .content-text {
-        font-size: 0.9rem;
-    }
-
-    .content-img {
-        max-width: 5rem;
-        margin-right: 1rem;
-    }
-
-    .activated {
-        color: #009FCE;
-        font-weight: 700;
-    }
-
-    .disabled {
-        color: #969696;
-    }
-
-    .pointer-cursor {
-        cursor: pointer;
-    }
-
-    a, a:hover {
-        text-decoration: none;
-        outline: none;
-        color: inherit;
-    }
-
-    .disabled-page {
-        display: none;
-    }
-
-    .activated-page {
-        display: flex;
-    }
-</style>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/member/mypage.css">
 <div class="flex-center mypage-container">
     <div class="mypage-wrapper">
         <div class="flex-col-center mypage-profile mypage-border">
-            <img class="profile-img" src="<%=request.getContextPath()%>/images/smile.png"/>
-            <div class="profile-head"><%=member.getNickname()%>
+            <div class="flex-col-center">
+                <img class="profile-img" src="<%=request.getContextPath()%>/images/smile.png"/>
+                <div class="profile-head"><%=member.getNickname()%>
+                </div>
+                <div class="flex-center profile-contents">
+                    <div class="profile-contents-label profile-text">
+                        연령
+                    </div>
+                    <div class="profile-text">
+                        <%=member.getAgeRange()%>
+                    </div>
+                    <div class="divider-col">|</div>
+                    <div class="profile-contents-label profile-text">
+                        성별
+                    </div>
+                    <div class="profile-text">
+                        <%="female".equals(member.getGender()) ? "여성" : "남성"%>
+                    </div>
+                </div>
             </div>
-            <div class="flex-center profile-contents">
-                <div class="profile-contents-label profile-text">
-                    연령
-                </div>
-                <div class="profile-text">
-                    <%=member.getAgeRange()%>
-                </div>
-                <div class="divider-col">|</div>
-                <div class="profile-contents-label profile-text">
-                    성별
-                </div>
-                <div class="profile-text">
-                    <%="female".equals(member.getGender()) ? "여성" : "남성"%>
+            <div>
+                <div class="flex-center auth-contents">
+                    <div class="profile-text pointer-cursor" style="color: #ebebeb"
+                         onclick="handleLogout(<%=member.getId()%>)"
+                    >
+                        로그아웃
+                    </div>
+                    <div class="divider-col">|</div>
+                    <div class="profile-text pointer-cursor" style="color: #ebebeb"
+                         onclick="handleExit(<%=member.getId()%>)"
+                    >
+                        회원탈퇴
+                    </div>
                 </div>
             </div>
         </div>
@@ -195,7 +91,7 @@
                 for (int i = 0; i < reviews.size(); i++) {
                     ReviewDto review = reviews.get(i);
             %>
-            <div class="flex-center" style="align-self: flex-start; padding: 0 2rem;">
+            <div class="flex-center content-item">
                 <div>
                     <img
                             class="content-img pointer-cursor"
@@ -204,14 +100,25 @@
                             onclick="toProduct(<%=review.getProductId()%>)"
                     >
                 </div>
-                <div>
-                    <div
-                            style="font-weight: 700" class="content-text pointer-cursor"
-                            onclick="toProduct(<%=review.getProductId()%>)"
-                    >
-                        <%=review.getName()%>
+                <div class="flex-center" style="width: 100%; justify-content: space-between">
+                    <div class="flex-col-center" style="align-items: flex-start">
+                        <div
+                                style="font-weight: 700" class="content-text pointer-cursor"
+                                onclick="toProduct(<%=review.getProductId()%>)"
+                        >
+                            <%=review.getName()%>
+                        </div>
+                        <div class="content-text"><%=review.getContent()%>
+                        </div>
+
                     </div>
-                    <div class="content-text"><%=review.getContent()%>
+                    <div class="flex-col-center review-date" style="justify-content: space-between">
+                        <div>
+                            작성: <%=formatter.format(review.getCreatedAt())%>
+                        </div>
+                        <div>
+                            수정: <%=formatter.format(review.getUpdatedAt())%>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -238,5 +145,19 @@
 
   function toProduct(product_id) {
     location.href = '<%=request.getContextPath()%>/productDetail.do?id=' + product_id;
+  }
+
+  function handleLogout(member_id) {
+    const conf = confirm('로그아웃 하시겠습니까?')
+    if (conf) {
+      location.href = '<%=request.getContextPath()%>/logout.do?id=' + member_id;
+    }
+  }
+
+  function handleExit(member_id) {
+    const conf = confirm('모든 정보가 삭제됩니다. \n정말 탈퇴하시겠습니까?')
+    if (conf) {
+      location.href = '<%=request.getContextPath()%>/exit.do?id=' + member_id;
+    }
   }
 </script>

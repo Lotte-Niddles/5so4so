@@ -28,4 +28,10 @@
     	set nickname = #{nickname}
     	where id = #{id};
     </update>
+
+    <delete id="deleteByProviderId" parameterType="Long">
+        delete
+        from members
+        where provider_id = #{providerId};
+    </delete>
 </mapper>

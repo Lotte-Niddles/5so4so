@@ -74,7 +74,7 @@ public class MemberController {
         }
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
-        final Long exit = memberService.exit(member);
+        memberService.exit(member);
         request.getSession().removeAttribute("member");
 
         return "redirect:/productList.do";

@@ -32,5 +32,8 @@ public class MemberDao {
 	public void updateMemberById(Member member) {
 		session.update(NAME_SPACE + "updateMemberById", member);
 	}
-    
+
+    public void deleteByProviderId(Long kakaoId) {
+        session.delete(NAME_SPACE + "deleteByProviderId", kakaoId);
+    }
 }
