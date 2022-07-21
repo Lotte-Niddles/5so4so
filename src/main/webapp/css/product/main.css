@@ -58,8 +58,9 @@
 
 .pageNum {
 	position: absolute;
-	left: 49%;
+	left: 50%;
 	bottom: -70%;
+	transform: translate(-50%, 0);
 }
 
 

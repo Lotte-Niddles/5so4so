@@ -1,5 +1,4 @@
 <%@page import="java.time.temporal.ChronoUnit"%>
-<%@page import="com.needle.FsoFso.admin.util.InstantUtil"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.time.Instant"%>
@@ -46,7 +45,7 @@ String categoryJson = "[";
 String dataJson = "[";
 
 int listCount = 0;
-for(int i = (InstantUtil.SEARCHDAYS - 1); i >= 0; i--) {
+for(int i = (7 - 1); i >= 0; i--) {
 	int salesData = 0;
 	Instant refDate = Instant.now().minus(i, ChronoUnit.DAYS); // 기준날짜
 	String sRefDate = formatter.format(refDate);

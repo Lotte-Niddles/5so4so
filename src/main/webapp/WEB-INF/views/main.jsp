@@ -142,11 +142,12 @@ List<ProductDto> productList = (List<ProductDto>) request.getAttribute("productL
 
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 <!-- Initialize Swiper -->
 var swiper = new Swiper(".mySwiper", {
     pagination: {
       el: ".swiper-pagination",
+      clickable: true,
     },
     autoplay: {
     	   delay: 3000,

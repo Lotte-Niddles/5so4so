@@ -23,7 +23,7 @@ public class AdminDaoImpl implements AdminDao {
 	@Autowired
 	private SqlSession session;
 	
-	private final String ns = "Admin.";
+	private static final String ns = "Admin.";
 	
 
 	@Override
