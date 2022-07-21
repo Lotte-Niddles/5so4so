@@ -49,7 +49,7 @@
 %>
 </div>
 <br>
-<div class="pageNum">
+<div class="productListPageNum">
 <%
 	for (int i = 0; i < searchPage; i++){
 		if (pageNumber == i) {

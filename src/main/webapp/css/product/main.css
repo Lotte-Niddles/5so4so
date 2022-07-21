@@ -56,10 +56,16 @@
 	border-radius: 4px; 
 }
 
-.pageNum {
-	position: absolute;
-	left: 49%;
-	bottom: -70%;
+.productListInner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.productListPageNum {
+
 }
 
 
