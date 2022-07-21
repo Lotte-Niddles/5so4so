@@ -1,10 +1,10 @@
+<%@page import="com.needle.FsoFso.admin.dto.AdminOrderDto"%>
+<%@page import="com.needle.FsoFso.admin.dto.AdminOrderListRequestDto"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.List"%>
 <%@page import="java.time.Instant"%>
-<%@page import="com.needle.FsoFso.admin.dto.AdminProductDto"%>
-<%@page import="com.needle.FsoFso.admin.dto.AdminProductListRequestDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- 부트스트랩 -->
@@ -16,11 +16,12 @@
 <link href="https://webfontworld.github.io/Jalpullineun/JalpullineunOneul.css" rel="stylesheet">
 
 <%
-AdminProductListRequestDto dtos = (AdminProductListRequestDto) request.getAttribute("productListDto");
-List<AdminProductDto> productList = dtos.getAdminProducts();
+AdminOrderListRequestDto dtos = (AdminOrderListRequestDto) request.getAttribute("OrderListDto");
+List<AdminOrderDto> orderList = dtos.getAdminOrders();
 
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 									.withLocale(Locale.KOREA).withZone(ZoneId.of("UTC"));
+
 String keyWord = (String) request.getAttribute("keyWord");
 if (keyWord == null) {
 	keyWord = "";
@@ -40,61 +41,54 @@ if (keyWord == null) {
 </style>
 
 <div id="admin-product-list" align="center">
-<h2 style="margin-top: 8px;">상품관리</h2>
+<h2 style="margin-top: 8px;">주문관리</h2>
 <div class="searchBar">
 <select>
-	<option>상품명</option>
+	<option>주문번호</option>
 </select>
 <input type="text" id="search" value="<%=keyWord%>">
 <input type="button" id="searchBtn" value="검색">
 </div>
-	<table id="admin-product-list-table" class="table table-hover">
+
+	<table id="admin-order-list-table" class="table table-hover">
 		<col width="100px">
 		<col width="100px">
 		<col width="300px">
-		<col width="100px">
-		<col width="100px">
+		<col width="200px">
+		<col width="200px">
 		<col width="200px">
 		<col width="200px">
 		<thead>
 		<tr style="color: #35C5F0; text-align: center;" >
-			<th>상품번호</th>
-			<th>이미지</th>
-			<th>상품명</th>
-			<th>재고 수</th>
-			<th>판매건 수</th>
-			<th>상품등록일시</th>
-			<th>상품수정일시</th>
+			<th>주문번호</th>
+			<th>사용자ID</th>
+			<th>주문가격</th>
+			<th>주문 품목 수</th>
+			<th>주문일시</th>
+			<th>주문수정일시</th>
+			<th>상세정보보기</th>
 		</tr>
 		</thead>
 		<tbody style="font-family: 'JalpullineunOneul';">
 		<%
-			if (productList.size() > 0) {
-				for (AdminProductDto dto : productList) {
+		for (AdminOrderDto dto : orderList) {
 		%>
-					<tr>
-						<td style="text-align: center;"><%=dto.getProductId()%></td>
-						<td style="text-align: center;"><img src="<%=dto.getImgUrl()%>" width="30px" height="30px"></td>
-						<td><%=dto.getProductName()%></td>
-						<td style="text-align: right;"><%=dto.getStock()%></td>
-						<td style="text-align: right;"><%=dto.getSalesCount()%>회</td>
-						<td style="text-align: center;"><%=formatter.format(dto.getCreatedAt())%></td>
-						<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
-					</tr>
+		<tr>
+			<td style="text-align: center;"><%=dto.getId()%></td>
+			<td style="text-align: center;"><%=dto.getMemberId()%></td>
+			<td style="text-align: right;"><%=dto.getTotalPrice()%>원</td>
+			<td style="text-align: center;"><%=dto.getProductCount()%> 종류</td>
+			<td style="text-align: center;"><%=formatter.format(dto.getOrderedAt())%></td>
+			<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
+			<td style="text-align: center;">
+				<button type="button" class="btn" onclick="location.href='adminOrderProductList.do?orderId=<%=dto.getId()%>'">상세정보</button>
+			</td>
+		</tr>
 		<%
-				}
+		}
 		%>
-		</tbody>
+</tbody>
 	</table>
-		<% 
-			} else {
-		%>
-		</tbody>
-	</table>
-			<p style="text-align:center;margin-top:200px;">앗! 찾으시는 결과가 없네요.</p>
-		<%
-				}
-		%>
 </div>
 
 <script type="text/javascript">
@@ -107,7 +101,7 @@ $(function() {
 	$('#searchBtn').click(function(e) {
 		const keyWord = $('#search').val()
 		if (keyWord != '') {
-			location.href='adminProductList.do?keyWord=' + keyWord;
+			location.href='adminOrderList.do?keyWord=' + keyWord;
 		} else {
 			alert('검색어를 입력해 주세요!');
 		}
@@ -117,7 +111,7 @@ $(function() {
 		const keyWord = $('#search').val();
 		if (key == 13){
 			if (keyWord != '') {
-				location.href='adminProductList.do?keyWord=' + keyWord;
+				location.href='adminOrderList.do?keyWord=' + keyWord;
 			} else {
 				alert('검색어를 입력해 주세요!');
 			}

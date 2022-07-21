@@ -130,11 +130,13 @@
     <div class="material-icons">arrow_upward</div>
 </div>
 
+
 <script type="text/javascript">
   <!-- Initialize Swiper -->
   const swiper = new Swiper(".mySwiper", {
     pagination: {
       el: ".swiper-pagination",
+      clickable: true,
     },
     autoplay: {
       delay: 3000,
