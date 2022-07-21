@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.needle.FsoFso.product.controller.ProductController;
 import com.needle.FsoFso.product.dto.ProductDto;
-import com.needle.FsoFso.product.services.ProductService;
+import com.needle.FsoFso.product.service.ProductService;
 import com.needle.FsoFso.review.dto.MemberProductDto;
 import com.needle.FsoFso.review.dto.ReviewDto;
 import com.needle.FsoFso.review.service.ReviewService;

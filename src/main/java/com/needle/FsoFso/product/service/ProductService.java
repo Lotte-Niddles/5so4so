@@ -1,4 +1,4 @@
-package com.needle.FsoFso.product.services;
+package com.needle.FsoFso.product.service;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface ProductService {
 	
 	List<ProductDto> getproducPagelist(int start);
 	
-	int getAllProduct();
+	int getAllProductCount();
 	
 	ProductDto getProductById(long id);
 	

@@ -1,4 +1,4 @@
-package com.needle.FsoFso.product.services;
+package com.needle.FsoFso.product.service;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int getAllProduct() {
+	public int getAllProductCount() {
 		return productDao.getAllProduct();
 	}
 
@@ -42,5 +42,4 @@ public class ProductServiceImpl implements ProductService {
 	public void addCart(CartDto cart) {
 		productDao.addCart(cart);
 	}
-	
 }
