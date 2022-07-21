@@ -30,7 +30,7 @@ public class MemberDao {
     }
 
 	public void updateMemberById(Member member) {
-		session.update(NAME_SPACE + "updateMemberById",member);
+		session.update(NAME_SPACE + "updateMemberById", member);
 	}
     
 }

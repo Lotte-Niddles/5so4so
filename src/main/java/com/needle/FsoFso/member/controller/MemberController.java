@@ -1,10 +1,13 @@
 package com.needle.FsoFso.member.controller;
 
+import com.needle.FsoFso.common.util.AttributeContainer;
 import com.needle.FsoFso.member.kakao.dto.KakaoOauthInfo;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
 import com.needle.FsoFso.product.dto.ProductDto;
+import com.needle.FsoFso.product.service.ProductService;
 import com.needle.FsoFso.review.dto.ReviewDto;
+import com.needle.FsoFso.review.service.ReviewService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -19,12 +22,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
 
     private final MemberService memberService;
+    private final ReviewService reviewService;
+    private final ProductService productService;
     private final KakaoOauthInfo kakaoOauthInfo;
     private final AdminMembers adminMembers;
 
-    public MemberController(MemberService memberService, KakaoOauthInfo kakaoOauthInfo,
+    public MemberController(MemberService memberService, ReviewService reviewService,
+            ProductService productService, KakaoOauthInfo kakaoOauthInfo,
             AdminMembers adminMembers) {
         this.memberService = memberService;
+        this.reviewService = reviewService;
+        this.productService = productService;
         this.kakaoOauthInfo = kakaoOauthInfo;
         this.adminMembers = adminMembers;
     }
@@ -48,57 +56,47 @@ public class MemberController {
         return "redirect:/productList.do";
     }
 
-	@GetMapping("/logout.do")
-	public String logout(Long id, HttpServletRequest request) {
-		final boolean logout = memberService.logout(id);
-		if (logout) {
-			request.getSession().removeAttribute("member");
-		}
-		return "redirect:/productList.do";
-	}
+    @GetMapping("/logout.do")
+    public String logout(Long id, HttpServletRequest request) {
+        final boolean logout = memberService.logout(id);
+        if (logout) {
+            request.getSession().removeAttribute("member");
+        }
+        return "redirect:/productList.do";
+    }
 
-	@PostMapping("/updateNickname.do")
-	public String updateNickname(HttpServletRequest request) {
-		// TODO return url 변경, memberId 변경
+    @GetMapping("/me.do")
+    public String showMyReviews(Model model, HttpServletRequest request) {
+        if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
+            return "redirect:/productList.do";
+        }
+        final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
-//		if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
-//			return "";
-//		}
-//
-//		long memberId = ((Member) AttributeContainer.sessionAttributeFrom(request, "member")).getId();
-		long memberId = 12;
-		String nickname = request.getParameter("nickname");
-		System.out.println(nickname);
+        List<ReviewDto> reviewList = reviewService.findReviewsByMemberId(member.getId());
+        List<ProductDto> productList = new ArrayList<>();
+        for (ReviewDto review : reviewList) {
+            productList.add(productService.getProductById(review.getProductId()));
+        }
 
-		Member member = new Member(memberId, 0L, nickname, "", "", null, null);
+        model.addAttribute("reviewList", reviewList);
+        model.addAttribute("productList", productList);
 
-		memberService.updateMemberById(member);
+        return "member.tiles";
+    }
 
-		return "";
-	}
+    @PostMapping("/me.do")
+    public String updateNickname(HttpServletRequest request) {
+        if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
+            return "redirect:/productList.do";
+        }
 
-	@GetMapping("/reviewList.do")
-	public String getReviewList(Model model) {
-		// TODO return url 변경, memberId 변경
+        final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+        String nickname = request.getParameter("nickname");
 
-//		if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
-//			return "";
-//		}
-//
-//		long memberId = ((Member) AttributeContainer.sessionAttributeFrom(request, "member")).getId();
-		long memberId = 12;
+        final Member updatedMember = new Member(member, nickname);
+        memberService.updateMemberById(updatedMember);
 
-		List<ReviewDto> reviewList = reviewService.findReviewsByMemberId(memberId);
-		List<ProductDto> productList = new ArrayList<ProductDto>();
-
-		for(ReviewDto review : reviewList) {
-			productList.add(productService.getProductById(review.getProductId()));
-		}
-
-		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("productList", productList);
-
-		return "";
-	}
-
+        request.getSession().setAttribute("member", updatedMember);
+        return "redirect:/me.do";
+    }
 }

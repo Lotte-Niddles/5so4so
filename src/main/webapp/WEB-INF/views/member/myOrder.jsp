@@ -5,9 +5,20 @@
     final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 %>
 <style>
-    .mypage-container {
+    .flex-center {
         display: flex;
         justify-content: center;
+        align-items: center;
+    }
+
+    .flex-col-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mypage-container {
         align-items: flex-start;
 
         min-height: 90vh;
@@ -16,7 +27,7 @@
     .mypage-wrapper {
         display: grid;
         width: 80%;
-        grid-template-columns: 20% minmax(70%, auto);
+        grid-template-columns: 25% minmax(70%, auto);
         grid-column-gap: 2rem;
 
         padding: 2rem;
@@ -27,22 +38,16 @@
     }
 
     .mypage-profile {
-        display: flex;
-        flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
     }
 
     .mypage-contents {
-        display: flex;
-        flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
     }
 
     .mypage-border {
         border: 1px solid #ebebeb;
-        border-radius: 12px;
+        border-radius: 8px;
     }
 
     .divider {
@@ -57,29 +62,33 @@
     }
 
     .profile-head {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: 700;
         color: #35c5f0;
-        margin: 1rem 0 2rem 0;
+        margin: 1.5rem 0 1rem 0;
     }
 
     .profile-contents-label {
-        font-weight: 400;
+        font-weight: 700;
+        margin-right: 5px;
     }
+
+    .profile-text {
+        font-size: 0.8rem;
+    }
+
 
     .profile-img {
         max-width: 60%;
         opacity: 70%;
     }
 
-    .content-heads {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
     .content-head {
         font-size: 1.2rem;
+    }
+
+    .content-text {
+        font-size: 0.9rem;
     }
 
     .activated {
@@ -97,25 +106,40 @@
         color: inherit;
     }
 </style>
-<div class="mypage-container">
+<div class="flex-center mypage-container">
     <div class="mypage-wrapper">
-        <div class="mypage-profile mypage-border">
+        <div class="flex-col-center mypage-profile mypage-border">
             <img class="profile-img" src="<%=request.getContextPath()%>/images/smile.png"/>
-            <div class="profile-head">이름</div>
-            <div class="profile-contents-label">연령대</div>
-            <div class="profile-contents-label">성별</div>
-            <div class="profile-contents-label">회원등급?</div>
+            <div class="profile-head"><%=member.getNickname()%>
+            </div>
+            <div class="flex-center profile-contents">
+                <div class="profile-contents-label profile-text">
+                    연령
+                </div>
+                <div class="profile-text">
+                    <%=member.getAgeRange()%>
+                </div>
+                <div class="divider-col">|</div>
+                <div class="profile-contents-label profile-text">
+                    성별
+                </div>
+                <div class="profile-text">
+                    <%="female".equals(member.getGender()) ? "여성" : "남성"%>
+                </div>
+            </div>
         </div>
-        <div class="mypage-contents mypage-border">
-            <div class="content-heads">
+        <div class="flex-col-center mypage-contents mypage-border">
+            <div class="content-heads flex-center">
                 <div class="content-head activated">나의 주문</div>
                 <div class="divider-col content-head">|</div>
-                <div class="content-head disabled"><a href="<%=request.getContextPath()%>/me.do">나의 리뷰</a></div>
+                <div class="content-head disabled"><a href="<%=request.getContextPath()%>/me.do">나의
+                    리뷰</a></div>
             </div>
             <div class="divider"></div>
-            <div class="content-order">아직 주문 내역이 없어요.</div>
-            <div class="content-order">쇼핑 하러 가기
-                <a href="<%=request.getContextPath()%>/productList.do" style="color: #35c5f0">click!</a>
+            <div class="content-text">아직 주문 내역이 없어요.</div>
+            <div class="content-text">쇼핑 하러 가기
+                <a href="<%=request.getContextPath()%>/productList.do"
+                   style="color: #35c5f0">click!</a>
             </div>
         </div>
     </div>
