@@ -56,11 +56,17 @@
 	border-radius: 4px; 
 }
 
-.pageNum {
-	position: absolute;
-	left: 50%;
-	bottom: -70%;
-	transform: translate(-50%, 0);
+
+.productListInner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.productListPageNum {
+
 }
 
 

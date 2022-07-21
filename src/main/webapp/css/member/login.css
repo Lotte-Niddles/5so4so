@@ -1,0 +1,33 @@
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    background-color: #F7F9FA;
+}
+
+.login-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 50%;
+    min-width: 300px;
+    background-color: white;
+    border: 1px solid #efefef;
+    border-radius: 12px;
+
+    padding: 2rem 0.5rem;
+}
+
+.main-logo {
+    margin-bottom: 3rem;
+}
+
+.kakao-login-logo {
+    max-width: 60%;
+    cursor: pointer;
+}
