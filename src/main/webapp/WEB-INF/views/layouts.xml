@@ -58,7 +58,7 @@
 </definition>
 
 	<definition name="member.tiles" extends="productList.tiles">
-		<put-attribute name="main" value="/WEB-INF/views/member/mypage.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/member/myOrder.jsp"/>
 	</definition>
 
 </tiles-definitions>

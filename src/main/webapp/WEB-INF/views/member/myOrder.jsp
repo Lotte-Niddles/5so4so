@@ -37,7 +37,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .mypage-border {
@@ -51,27 +51,50 @@
         margin: 2rem 0;
     }
 
+    .divider-col {
+        color: #ebebeb;
+        margin: 0 1rem;
+    }
+
     .profile-head {
         font-size: 1.5rem;
         font-weight: 700;
+        color: #35c5f0;
         margin: 1rem 0 2rem 0;
     }
 
     .profile-contents-label {
-        font-weight: 700;
+        font-weight: 400;
     }
 
     .profile-img {
         max-width: 60%;
+        opacity: 70%;
+    }
+
+    .content-heads {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .content-head {
-        /*font-family: 'JalpullineunOneul', serif;*/
-        font-weight: 700;
         font-size: 1.2rem;
-        color: #009FCE;
+    }
 
-        margin-bottom: 2rem;
+    .activated {
+        color: #009FCE;
+        font-weight: 700;
+    }
+
+    .disabled {
+        color: #969696;
+    }
+
+    a, a:hover {
+        text-decoration: none;
+        outline: none;
+        color: inherit;
     }
 </style>
 <div class="mypage-container">
@@ -84,12 +107,16 @@
             <div class="profile-contents-label">회원등급?</div>
         </div>
         <div class="mypage-contents mypage-border">
-            <div class="content-head">나의 주문</div>
-            <div class="content-order">아직 주문 내역이 없어요.</div>
-            <div class="content-order">쇼핑 하러 가기 <a href="<%=request.getContextPath()%>/productList.do">click!</a></div>
+            <div class="content-heads">
+                <div class="content-head activated">나의 주문</div>
+                <div class="divider-col content-head">|</div>
+                <div class="content-head disabled"><a href="<%=request.getContextPath()%>/me.do">나의 리뷰</a></div>
+            </div>
             <div class="divider"></div>
-            <div class="content-head">나의 리뷰</div>
-            <div class="content-review">작성한 리뷰가 없어요</div>
+            <div class="content-order">아직 주문 내역이 없어요.</div>
+            <div class="content-order">쇼핑 하러 가기
+                <a href="<%=request.getContextPath()%>/productList.do" style="color: #35c5f0">click!</a>
+            </div>
         </div>
     </div>
 </div>
