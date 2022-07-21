@@ -11,4 +11,6 @@ public interface ReviewDao {
 	void save(ReviewDto review);
 
 	int getCountByUserIdProductId(MemberProductDto memberProductDto);
+
+	List<ReviewDto> findReviewsByMemberId(long memberId);
 }

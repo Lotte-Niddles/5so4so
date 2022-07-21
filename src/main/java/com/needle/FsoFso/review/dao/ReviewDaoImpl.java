@@ -34,4 +34,9 @@ public class ReviewDaoImpl implements ReviewDao {
 		return session.selectOne(NAME_SPACE + "getCountByUserIdProductId", memberProductDto);
 	}
 
+	@Override
+	public List<ReviewDto> findReviewsByMemberId(long memberId) {
+		return session.selectList(NAME_SPACE + "findReviewsByMemberId", memberId);
+	}
+
 }

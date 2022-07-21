@@ -4,6 +4,12 @@ import com.needle.FsoFso.common.util.AttributeContainer;
 import com.needle.FsoFso.member.kakao.dto.KakaoOauthInfo;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
+import com.needle.FsoFso.product.dto.ProductDto;
+import com.needle.FsoFso.product.service.ProductService;
+import com.needle.FsoFso.review.dto.ReviewDto;
+import com.needle.FsoFso.review.service.ReviewService;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.PropertySource;
@@ -19,11 +25,15 @@ public class MemberController {
 	private final MemberService memberService;
 	private final KakaoOauthInfo kakaoOauthInfo;
 	private final AdminMembers adminMembers;
+	private final ReviewService reviewService;
+	private final ProductService productService;
 
-	public MemberController(MemberService memberService, KakaoOauthInfo kakaoOauthInfo, AdminMembers adminMembers) {
+	public MemberController(MemberService memberService, KakaoOauthInfo kakaoOauthInfo, AdminMembers adminMembers, ReviewService reviewService, ProductService productService) {
 		this.memberService = memberService;
 		this.kakaoOauthInfo = kakaoOauthInfo;
 		this.adminMembers = adminMembers;
+		this.reviewService = reviewService;
+		this.productService = productService;
 	}
 
 	@GetMapping("/login.do")
@@ -70,6 +80,36 @@ public class MemberController {
 		Member member = new Member(memberId, 0L, nickname, "", "", null, null);
 
 		memberService.updateMemberById(member);
+		
+		return "";
+	}
+	
+	@GetMapping("/reviewList.do")
+	public String getReviewList(Model model) {
+		// TODO return url 변경, memberId 변경
+		
+//		if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
+//			return "";
+//		}
+//
+//		long memberId = ((Member) AttributeContainer.sessionAttributeFrom(request, "member")).getId();
+		long memberId = 12;
+		
+		List<ReviewDto> reviewList = reviewService.findReviewsByMemberId(memberId);
+		List<ProductDto> productList = new ArrayList<ProductDto>();
+		
+		for(ReviewDto review : reviewList) {
+			productList.add(productService.getProductById(review.getProductId()));
+		}
+		
+		for(int i = 0; i < reviewList.size(); i++) {
+			System.out.println(reviewList.get(i).toString());
+			System.out.println(productList.get(i).toString());
+			System.out.println();
+		}
+		
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("productList", productList);
 		
 		return "";
 	}
