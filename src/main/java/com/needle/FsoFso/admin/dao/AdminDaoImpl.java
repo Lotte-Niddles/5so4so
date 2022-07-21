@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.needle.FsoFso.admin.dto.AdminMainRequestDto;
 import com.needle.FsoFso.admin.dto.AdminMemberDto;
 import com.needle.FsoFso.admin.dto.AdminMemberListRequestDto;
+import com.needle.FsoFso.admin.dto.AdminOrderProductDto;
 import com.needle.FsoFso.admin.dto.AdminProductDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
 import com.needle.FsoFso.admin.dto.DailyDetailDto;
@@ -53,6 +54,11 @@ public class AdminDaoImpl implements AdminDao {
 		List<AdminProductDto> dtos = new ArrayList<>();
 		dtos = session.selectList(ns+"adminProductList");
 		return new AdminProductListRequestDto(dtos);
+	}
+
+	@Override
+	public List<AdminOrderProductDto> findOrderProductsByOrderId(long orderId) {
+		return session.selectList(ns+"findOrderProductsByOrderId", orderId);
 	}
 
 }

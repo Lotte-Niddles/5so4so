@@ -34,5 +34,11 @@
 						group by a.id) as d
 		on c.id = d.product_id;
 	</select>
+	
+	<select id="findOrderProductsByOrderId" parameterType="Long" resultType="com.needle.FsoFso.admin.dto.AdminOrderProductDto">
+		select id, order_id, member_id, product_id, quantity, unit_price, ordered_at, updated_at
+		from order_product
+		where order_id = #{orderId};
+	</select>
 
 </mapper>
