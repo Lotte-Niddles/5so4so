@@ -11,7 +11,7 @@ public interface AdminDao {
 
 	AdminMainRequestDto adminWeekStatusRequest();
 
-	AdminMemberListRequestDto adminMemberListRequest();
+	AdminMemberListRequestDto adminMemberListRequest(String keyword);
 
 	AdminOrderProductListRequestDto findOrderProductsByOrderId(long orderId);
 

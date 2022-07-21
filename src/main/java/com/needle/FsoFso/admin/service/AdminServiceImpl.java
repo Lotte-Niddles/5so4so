@@ -23,8 +23,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public AdminMemberListRequestDto adminMemberListRequest() {
-		return dao.adminMemberListRequest();
+	public AdminMemberListRequestDto adminMemberListRequest(String keyword) {
+		return dao.adminMemberListRequest(keyword);
 	}
 
 	@Override
