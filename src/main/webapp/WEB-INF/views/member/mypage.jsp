@@ -167,6 +167,15 @@
   $('#name-edit').click(function () {
     const newName = prompt('수정할 닉네임을 입력해주세요.');
 
+    if (newName == null || newName.trim().length < 1) {
+      return;
+    }
+
+    if (newName.length > 20) {
+      alert('닉네임은 20 이내로 입력해 주세요.')
+      return;
+    }
+
     $.ajax({
       url: '/me.do',
       method: 'post',
@@ -180,7 +189,7 @@
       error: function () {
         alert('닉네임 수정에 실패했습니다.');
       },
-    })
+    });
   })
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

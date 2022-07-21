@@ -92,7 +92,6 @@ public class MemberController {
         if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
             return "redirect:/productList.do";
         }
-
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
         final Member updatedMember = new Member(member, nickname.getNickname());

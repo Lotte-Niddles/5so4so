@@ -18,4 +18,8 @@ public class NicknameRequest {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    public boolean isNull() {
+        return nickname == null;
+    }
 }
