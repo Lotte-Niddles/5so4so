@@ -35,7 +35,7 @@ public class AdminController {
 	@RequestMapping(value = "admin.do", method = RequestMethod.GET)
 	public String adminWeekStatus(Model model) {
 
-		logger.info("AdminController adminMain() " + new Date());
+		logger.info("AdminController adminWeekStatus() " + new Date());
 
 		AdminMainRequestDto dto = service.adminWeekStatusRequest();
 		model.addAttribute("adminMainDto", dto);
@@ -53,11 +53,10 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "adminMemberList.do", method = RequestMethod.GET)
-	public String adminMemberList(Model model) {
-
+	public String adminMemberList(Model model, @RequestParam(value = "keyword", required = false) String keyword) {
 		logger.info("AdminController adminMemberList() " + new Date());
-
-		AdminMemberListRequestDto dto = service.adminMemberListRequest();
+		keyword = keyword == null ? "" : keyword;
+		AdminMemberListRequestDto dto = service.adminMemberListRequest(keyword);
 		model.addAttribute("MemberListDto", dto);
 		return "adminMemberList.tiles";
 	}

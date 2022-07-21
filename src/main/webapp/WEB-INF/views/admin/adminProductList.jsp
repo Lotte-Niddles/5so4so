@@ -31,12 +31,23 @@ if (keyWord == null) {
 .table-hover tbody tr:hover{
 	background-color: #f7f9fa;
 }
+
+.searchBar{
+	display: flex;
+	justify-content: end;
+	margin: 15px;
+}
 </style>
 
 <div id="admin-product-list" align="center">
 <h2 style="margin-top: 8px;">상품관리</h2>
+<div class="searchBar">
+<select>
+	<option>상품명</option>
+</select>
 <input type="text" id="search" value="<%=keyWord%>">
 <input type="button" id="searchBtn" value="검색">
+</div>
 	<table id="admin-product-list-table" class="table table-hover">
 		<col width="100px">
 		<col width="100px">
