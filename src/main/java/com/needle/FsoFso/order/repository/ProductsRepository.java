@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ProductsRepository {
+
     private final ProductsMapper productsMapper;
 
     public ProductsRepository(ProductsMapper productsMapper) {

@@ -1,6 +1,7 @@
 package com.needle.FsoFso.order.dto.Order;
 
 public class OrderSearchCond {
+
     private Long maxPrice;
 
     public Long getMaxPrice() {

@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Controller
 public class OrderController {
+
     private final OrderService orderService;
     private final ShopService shopService;
 
@@ -26,9 +27,10 @@ public class OrderController {
 
     @GetMapping("order.do")
     public String orderPage(Model model){
-        Long userId = 2L;
+        Long userId = 12L;
         List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
         Long allPrice = shopService.getAllPrice(allDisplayDto);
+
         model.addAttribute("allDisplayDto", allDisplayDto);
         model.addAttribute("allPrice", allPrice);
         return "order.tiles";

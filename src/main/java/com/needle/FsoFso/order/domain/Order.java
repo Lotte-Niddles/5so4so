@@ -4,6 +4,7 @@ package com.needle.FsoFso.order.domain;
 import java.time.Instant;
 
 public class Order {
+
     private Long id;
     private Long memberId;
     private Long totalPrice;
