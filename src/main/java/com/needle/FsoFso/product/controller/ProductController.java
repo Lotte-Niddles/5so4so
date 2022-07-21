@@ -65,18 +65,7 @@ public class ProductController {
 	public String productDetail(Model model, HttpServletRequest req,
 			@RequestParam(value = "id",required = true) int productId) {
 
-		ProductDto product = productService.getProductById(productId);
-		List<ReviewDto> reviewList = reviewService.findReviewsByProductId(productId);
-		List<String> nicknameList = new ArrayList<String>();
-
-		for(ReviewDto review : reviewList) {
-			Optional<Member> member = memberService.findById(review.getMemberId());
-			nicknameList.add(member.orElse(new Member(0L, "", "", "")).getNickname());
-		}
-		
-		model.addAttribute("product",product);
-		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("nicknameList",nicknameList);
+		setProductDetailData(model, productId);
 		
 		return "productDetail.tiles";
 	}
@@ -93,7 +82,22 @@ public class ProductController {
 		productService.addCart(cart);
 		model.addAttribute("product",product);
 		
-		return "productDetail.tiles";
+		return "redirect:/productDetail.do?id="+productId;
+	}
+	
+	public void setProductDetailData(Model model, long productId) {
+		ProductDto product = productService.getProductById(productId);
+		List<ReviewDto> reviewList = reviewService.findReviewsByProductId(productId);
+		List<String> nicknameList = new ArrayList<String>();
+		
+		for(ReviewDto review : reviewList) {
+			Optional<Member> member = memberService.findById(review.getMemberId());
+			nicknameList.add(member.orElse(new Member(0L, "", "", "")).getNickname());
+		}
+		
+		model.addAttribute("product",product);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("nicknameList",nicknameList);
 	}
 	
 }

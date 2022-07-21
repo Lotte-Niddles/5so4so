@@ -13,7 +13,7 @@ public interface ProductDao {
 	
 	int getAllProduct();
 	
-	ProductDto getProductById(int id);
+	ProductDto getProductById(long id);
 	
 	void addCart(CartDto cart);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.needle.FsoFso.review.dto.MemberProductDto;
 import com.needle.FsoFso.review.dto.ReviewDto;
 
 @Repository
@@ -21,6 +22,16 @@ public class ReviewDaoImpl implements ReviewDao {
 	@Override
 	public List<ReviewDto> findReviewsByProductId(long productId) {
 		return session.selectList(NAME_SPACE + "findReviewsByProductId", productId);
+	}
+
+	@Override
+	public void save(ReviewDto review) {
+		session.insert(NAME_SPACE + "save", review);
+	}
+
+	@Override
+	public int getCountByUserIdProductId(MemberProductDto memberProductDto) {
+		return session.selectOne(NAME_SPACE + "getCountByUserIdProductId", memberProductDto);
 	}
 
 }

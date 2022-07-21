@@ -36,7 +36,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public ProductDto getProductById(int id) {
+	public ProductDto getProductById(long id) {
 		return session.selectOne(NAME_SPACE + "getProductById",id);
 	}
 

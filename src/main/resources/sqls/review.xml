@@ -10,5 +10,17 @@
 		from reviews
 		where product_id = #{productId}
 	</select>
+	
+	<select id="getCountByUserIdProductId" parameterType="com.needle.FsoFso.review.dto.MemberProductDto"
+		resultType="Integer">
+		select count(*)
+		from order_product
+		where product_id = #{productId} and member_id = #{memberId}
+	</select>
+	
+	<insert id="save" parameterType="com.needle.FsoFso.review.dto.ReviewDto">
+		insert into reviews (member_id, product_id, content, created_at, updated_at)
+		values(#{memberId}, #{productId}, #{content}, now(), now())
+	</insert>
 
 </mapper>

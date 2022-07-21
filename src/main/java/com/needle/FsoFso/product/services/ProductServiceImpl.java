@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductDto getProductById(int id) {
+	public ProductDto getProductById(long id) {
 		return productDao.getProductById(id);
 	}
 
