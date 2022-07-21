@@ -28,62 +28,64 @@ public class AdminController {
 
 	@Autowired
 	private AdminService service;
-	
-	@Autowired ProductService productService;
+
+	@Autowired
+	ProductService productService;
 
 	@RequestMapping(value = "admin.do", method = RequestMethod.GET)
 	public String adminWeekStatus(Model model) {
-		
+
 		logger.info("AdminController adminMain() " + new Date());
-		
+
 		AdminMainRequestDto dto = service.adminWeekStatusRequest();
 		model.addAttribute("adminMainDto", dto);
 		return "admin.tiles";
 	}
-	
-	@RequestMapping(value="adminProductList.do", method = RequestMethod.GET)
+
+	@RequestMapping(value = "adminProductList.do", method = RequestMethod.GET)
 	public String adminProductList(Model model, AdminProductDto adminProductDto) {
 		logger.info("AdminController adminProductList() " + new Date());
 		AdminProductListRequestDto productListDto = service.adminProductListRequest(adminProductDto);
-		
+
 		model.addAttribute("productListDto", productListDto);
-		
+
 		return "adminProductList.tiles";
 	}
 
 	@RequestMapping(value = "adminMemberList.do", method = RequestMethod.GET)
 	public String adminMemberList(Model model) {
-		
+
 		logger.info("AdminController adminMemberList() " + new Date());
-		
+
 		AdminMemberListRequestDto dto = service.adminMemberListRequest();
 		model.addAttribute("MemberListDto", dto);
 		return "adminMemberList.tiles";
 	}
-	
+
 	@RequestMapping(value = "adminAddProduct.do", method = RequestMethod.GET)
 	public String adminAddProduct(Model model) {
-		
+
 		logger.info("AdminController adminAddProduct() " + new Date());
 
 		return "redirect:/seller/product.do";
 	}
-	
-	@RequestMapping(value="adminOrderList.do", method = RequestMethod.GET)
-	public String adminOrderList(Model model) {
-		
+
+	@RequestMapping(value = "adminOrderList.do", method = RequestMethod.GET)
+	public String adminOrderList(Model model, @RequestParam(value = "keyWord", required = false) Long keyWord) {
+
 		logger.info("AdminController adminOrderList() " + new Date());
-		
-		AdminOrderListRequestDto dto = service.adminOrderListRequest();
+		keyWord = keyWord == null ? -1 : keyWord;
+
+		AdminOrderListRequestDto dto = service.adminOrderListRequest(keyWord);
 		model.addAttribute("OrderListDto", dto);
 		return "adminOrderList.tiles";
 	}
 
 	@GetMapping("adminOrderProductList.do")
 	public String adminOrderProductList(@RequestParam(value = "orderId", required = true) long orderId, Model model) {
-		
+
 		logger.info("AdminController orderProductList() " + new Date());
-		
+
 		AdminOrderProductListRequestDto dto = service.findOrderProductsByOrderId(orderId);
 		model.addAttribute("orderProductListDto", dto);
 

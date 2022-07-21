@@ -31,6 +31,8 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
 <div id="admin-product-list" align="center">
 <h2 style="margin-top: 8px;">주문관리</h2>
+	<input type="text" id="search" >
+	<input type="button" id="searchBtn" value="검색">
 	<table id="admin-order-list-table" class="table table-hover">
 		<col width="100px">
 		<col width="100px">
@@ -52,26 +54,75 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 		</thead>
 		<tbody style="font-family: 'JalpullineunOneul';">
 		<%
-		for (AdminOrderDto dto : orderList) {
+			if (orderList.size() > 0) {
+				for (AdminOrderDto dto : orderList) {
 		%>
-		<tr>
-			<td style="text-align: center;"><%=dto.getId()%></td>
-			<td style="text-align: center;"><%=dto.getMemberId()%></td>
-			<td style="text-align: right;"><%=dto.getTotalPrice()%>원</td>
-			<td style="text-align: center;"><%=dto.getProductCount()%> 종류</td>
-			<td style="text-align: center;"><%=formatter.format(dto.getOrderedAt())%></td>
-			<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
-			<td style="text-align: center;">
-				<button type="button" class="btn" onclick="location.href='adminOrderProductList.do?orderId=<%=dto.getId()%>'">상세정보</button>
-			</td>
-		</tr>
+					<tr>
+						<td style="text-align: center;"><%=dto.getId()%></td>
+						<td style="text-align: center;"><%=dto.getMemberId()%></td>
+						<td style="text-align: right;"><%=dto.getTotalPrice()%>원</td>
+						<td style="text-align: center;"><%=dto.getProductCount()%> 종류</td>
+						<td style="text-align: center;"><%=formatter.format(dto.getOrderedAt())%></td>
+						<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
+						<td style="text-align: center;">
+							<button type="button" class="btn" onclick="location.href='adminOrderProductList.do?orderId=<%=dto.getId()%>'">상세정보</button>
+						</td>
+					</tr>
 		<%
-		}
+				}
 		%>
-</tbody>
-	</table>
+				</tbody>
+		</table>
+		<% 
+				} else {
+		%>
+			</tbody>
+		</table>
+				<p style="text-align:center;margin-top:200px;">앗! 찾으시는 결과가 없네요.</p>
+		<%
+			}
+		%>
 </div>
 
 <script type="text/javascript">
-	
+ $(function() {
+	const enterKey = 13;
+	$(document).keypress(function(e) {
+		if (e.keyCode === enterKey) {
+			e.preventDefault();
+		}
+	});
+	$('#searchBtn').click(function(e) {
+		const keyWord = $('#search').val()
+		let str = keyWord;
+		let check = /^[0-9]+$/; 
+		if (!check.test(str)) {
+			alert("숫자만 입력 가능합니다.");
+			return;
+		}
+		if (keyWord != '') {
+			location.href='adminOrderList.do?keyWord=' + keyWord;
+		} else {
+			alert('검색어를 입력해 주세요!');
+		}
+	});
+	$('#search').keypress(function(e) {
+		
+		const key = e.which;
+		const keyWord = $('#search').val();
+		if (key === enterKey){
+			let str = keyWord;
+				let check = /^[0-9]+$/; 
+				if (!check.test(str)) {
+					alert("숫자만 입력 가능합니다.");
+					return;
+				}
+			if (keyWord != '') {
+				location.href='adminOrderList.do?keyWord=' + keyWord;
+			} else {
+				alert('검색어를 입력해 주세요!');
+			}
+		}		
+	});
+});	 
 </script>

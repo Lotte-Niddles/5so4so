@@ -15,7 +15,7 @@ public interface AdminDao {
 
 	AdminOrderProductListRequestDto findOrderProductsByOrderId(long orderId);
 
-	AdminOrderListRequestDto adminOrderListRequest();
+	AdminOrderListRequestDto adminOrderListRequest(Long keyWord);
 
 	AdminProductListRequestDto adminProductListRequest(AdminProductDto adminProductDto);
 }

@@ -38,8 +38,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public AdminOrderListRequestDto adminOrderListRequest() {
-		return dao.adminOrderListRequest();
+	public AdminOrderListRequestDto adminOrderListRequest(Long keyWord) {
+		return dao.adminOrderListRequest(keyWord);
 	}
 
 }
