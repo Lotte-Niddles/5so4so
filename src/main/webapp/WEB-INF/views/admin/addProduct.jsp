@@ -40,13 +40,13 @@
 <tr>
    <th>가격</th>
    <td>
-      <input id="frm-price-input" type="number" class="form-control" name="price" required="required">
+      <input id="frm-price-input" type="number" class="form-control" name="price" required="required" style="text-align: right; ">
    </td>
 </tr>
 <tr>
    <th>재고</th>
    <td>
-      <input id="frm-stock-input" type="number" class="form-control" name="stock" min="0" value="0">
+      <input id="frm-stock-input" type="number" class="form-control" name="stock" min="0" value="0" style="text-align: right; ">
    </td>
 </tr>
 
