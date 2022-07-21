@@ -58,22 +58,32 @@ if (keyWord == null) {
 		</thead>
 		<tbody style="font-family: 'JalpullineunOneul';">
 		<%
-		for (AdminProductDto dto : productList) {
+			if (productList.size() > 0) {
+				for (AdminProductDto dto : productList) {
 		%>
-		<tr>
-			<td style="text-align: center;"><%=dto.getProductId()%></td>
-			<td style="text-align: center;"><img src="<%=dto.getImgUrl()%>" width="30px" height="30px"></td>
-			<td><%=dto.getProductName()%></td>
-			<td style="text-align: right;"><%=dto.getStock()%></td>
-			<td style="text-align: right;"><%=dto.getSalesCount()%>회</td>
-			<td style="text-align: center;"><%=formatter.format(dto.getCreatedAt())%></td>
-			<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
-		</tr>
+					<tr>
+						<td style="text-align: center;"><%=dto.getProductId()%></td>
+						<td style="text-align: center;"><img src="<%=dto.getImgUrl()%>" width="30px" height="30px"></td>
+						<td><%=dto.getProductName()%></td>
+						<td style="text-align: right;"><%=dto.getStock()%></td>
+						<td style="text-align: right;"><%=dto.getSalesCount()%>회</td>
+						<td style="text-align: center;"><%=formatter.format(dto.getCreatedAt())%></td>
+						<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
+					</tr>
 		<%
-		}
+				}
 		%>
-</tbody>
+		</tbody>
 	</table>
+		<% 
+			} else {
+		%>
+		</tbody>
+	</table>
+			<p style="text-align:center;margin-top:200px;">앗! 찾으시는 결과가 없네요.</p>
+		<%
+				}
+		%>
 </div>
 
 <script type="text/javascript">
