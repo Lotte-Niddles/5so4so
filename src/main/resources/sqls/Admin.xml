@@ -7,10 +7,10 @@
 	<select id="adminWeekStatus" parameterType="String"
 		resultType="com.needle.FsoFso.admin.dto.DailyDetailDto">
 		select a.created_at as date, sum(b.total_price) as sales, count(b.id) as salesCnt, a.memcnt as signinCnt 
-		from (select count(substring(mem.created_at, 1, 10)) as memcnt, substring(mem.created_at, 1, 10) as d, mem.created_at as created_at
+		from (select count(DATE(mem.created_at)) as memcnt, DATE(mem.created_at) as d, mem.created_at as created_at
 					from members as mem
-					where substring(mem.created_at, 1, 10) = #{day}) as a, orders b
-		where substring(b.ordered_at, 1, 10) = a.d;
+					where DATE(mem.created_at) = #{day}) as a, orders b
+		where DATE(b.ordered_at) = a.d;
 	</select>
 
 	<select id="adminMemberList"
