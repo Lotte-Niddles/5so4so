@@ -24,7 +24,10 @@
         <div class="flex-col-center mypage-profile mypage-border">
             <div class="flex-col-center">
                 <img class="profile-img" src="<%=request.getContextPath()%>/images/smile.png"/>
-                <div class="profile-head"><%=member.getNickname()%>
+                <div class="flex-col-center">
+                    <div id="profile-head" class="profile-head"><%=member.getNickname()%>
+                    </div>
+                    <div id="name-edit" class="profile-edit pointer-cursor">✏️ 닉네임 수정</div>
                 </div>
                 <div class="flex-center profile-contents">
                     <div class="profile-contents-label profile-text">
@@ -160,4 +163,24 @@
       location.href = '<%=request.getContextPath()%>/exit.do?id=' + member_id;
     }
   }
+
+  $('#name-edit').click(function () {
+    const newName = prompt('수정할 닉네임을 입력해주세요.');
+
+    $.ajax({
+      url: '/me.do',
+      method: 'post',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        'nickname': newName
+      }),
+      success: function () {
+        document.querySelector('#profile-head').innerHTML = newName;
+      },
+      error: function () {
+        alert('닉네임 수정에 실패했습니다.');
+      },
+    })
+  })
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

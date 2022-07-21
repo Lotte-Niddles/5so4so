@@ -67,7 +67,13 @@
     font-size: 1.3rem;
     font-weight: 700;
     color: #35c5f0;
-    margin: 1.5rem 0 1rem 0;
+    margin: 1.5rem 0 0.3rem 0;
+}
+
+.profile-edit {
+    color: #969696;
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
 }
 
 .profile-contents-label {
@@ -198,13 +204,6 @@ a, a:hover {
 .divider-col {
     color: #ebebeb;
     margin: 0 1rem;
-}
-
-.profile-head {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #35c5f0;
-    margin: 1.5rem 0 1rem 0;
 }
 
 .profile-contents-label {
