@@ -98,12 +98,21 @@
 
     .disabled {
         color: #969696;
+        cursor: pointer;
     }
 
     a, a:hover {
         text-decoration: none;
         outline: none;
         color: inherit;
+    }
+
+    .disabled-page {
+        display: none;
+    }
+
+    .activated-page {
+        display: flex;
     }
 </style>
 <div class="flex-center mypage-container">
@@ -128,12 +137,11 @@
                 </div>
             </div>
         </div>
-        <div class="flex-col-center mypage-contents mypage-border">
+        <div class="flex-col-center mypage-contents mypage-border activated-page">
             <div class="content-heads flex-center">
                 <div class="content-head activated">나의 주문</div>
                 <div class="divider-col content-head">|</div>
-                <div class="content-head disabled"><a href="<%=request.getContextPath()%>/me/reviews.do">나의
-                    리뷰</a></div>
+                <div onclick="handlePage()" class="content-head disabled">나의 리뷰</div>
             </div>
             <div class="divider"></div>
             <div class="content-text">아직 주문 내역이 없어요.</div>
@@ -142,5 +150,32 @@
                    style="color: #35c5f0">click!</a>
             </div>
         </div>
+        <div class="flex-col-center mypage-contents mypage-border disabled-page">
+            <div class="content-heads flex-center">
+                <div onclick="handlePage()" class="content-head disabled">
+                    나의 주문
+                </div>
+                <div class="divider-col content-head">|</div>
+                <div class="content-head activated">나의 리뷰</div>
+            </div>
+            <div class="divider"></div>
+            <div class="content-text">작성한 리뷰가 없어요.</div>
+            <div class="content-text">첫 리뷰 쓰러 가기
+                <a href="<%=request.getContextPath()%>/productList.do"
+                   style="color: #35c5f0">click!</a>
+            </div>
+        </div>
     </div>
 </div>
+<script>
+  function handlePage() {
+    const $disabled_page = document.querySelector('.disabled-page');
+    const $activated_page = document.querySelector('.activated-page');
+
+    $disabled_page.classList.remove('disabled-page');
+    $disabled_page.classList.add('activated-page');
+
+    $activated_page.classList.remove('activated-page');
+    $activated_page.classList.add('disabled-page')
+  }
+</script>

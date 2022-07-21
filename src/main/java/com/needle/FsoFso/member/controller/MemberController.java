@@ -9,6 +9,7 @@ import com.needle.FsoFso.product.service.ProductService;
 import com.needle.FsoFso.review.dto.ReviewDto;
 import com.needle.FsoFso.review.service.ReviewService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.PropertySource;
@@ -65,18 +66,8 @@ public class MemberController {
         return "redirect:/productList.do";
     }
 
-    @GetMapping("/me/orders.do")
+    @GetMapping("/me.do")
     public String showMyOrders(Model model, HttpServletRequest request) {
-        if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
-            return "redirect:/productList.do";
-        }
-        final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
-
-        return "myOrder.tiles";
-    }
-
-    @GetMapping("/me/reviews.do")
-    public String showMyReviews(Model model, HttpServletRequest request) {
         if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
             return "redirect:/productList.do";
         }
@@ -90,8 +81,9 @@ public class MemberController {
 
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("productList", productList);
+        model.addAttribute("orderList", Collections.emptyList());
 
-        return "myReview.tiles";
+        return "mypage.tiles";
     }
 
     @PostMapping("/me.do")
