@@ -34,7 +34,7 @@
                 </div>
                 <div class="header-links">
                     <%--TODO: 장바구니 링크--%>
-                    <a class="header-link-item" href="#">
+                    <a class="header-link-item" href="/order.do">
                         <img alt="" src="<%=request.getContextPath()%>/images/cart.png">
                     </a>
                     <% if (isLoggedIn) { %>

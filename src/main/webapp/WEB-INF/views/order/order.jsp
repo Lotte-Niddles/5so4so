@@ -1,7 +1,6 @@
 <%@ page import="com.needle.FsoFso.order.service.ShopService" %>
 <%@ page import="com.needle.FsoFso.order.repository.ShopRepository" %>
 <%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
-<%@ page import="static jdk.internal.org.jline.reader.impl.LineReaderImpl.CompletionType.List" %>
 <%@ page import="com.needle.FsoFso.order.dto.Shop.ShopDto" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static java.awt.SystemColor.text" %>
@@ -15,9 +14,14 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<DisplayShopDto> displayShopDto = (java.util.List<DisplayShopDto>) request.getAttribute("shopInfo");
-    Long allPrice = (Long) request.getAttribute("AllPrice");
+    List<DisplayShopDto> displayShopDto = (List<DisplayShopDto>) request.getAttribute("allDisplayDto");
+    for (DisplayShopDto shopDto : displayShopDto) {
+        System.out.println("shopDto = " + shopDto);
+    }
+    Long allPrice = (Long) request.getAttribute("allPrice");
+
 %>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -220,7 +224,6 @@
 <div>
     <div class="cart cart__information">
         <ul>
-            <li>장바구니 상품은 최대 30일간 저장됩니다.</li>
             <li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
             <li>오늘출발 상품은 판매자 설정 시점에 따라 오늘출발 여부가 변경될 수 있으니 주문 시 꼭 다시 확인해 주시기 바랍니다.</li>
         </ul>
@@ -256,7 +259,7 @@
                                 <td class="cart__list__option">
                                     <button class="cart__list__optionbtn">주문조건 추가/변경</button>
                                 </td>
-                                <td><span class="price"><%=displayShopDto.get(i).getPrice()%>></span><br>
+                                <td><span class="price"><%=displayShopDto.get(i).getPrice()%></span><br>
                                     <button class="cart__list__orderbtn">주문하기</button>
                                 </td>
                                 <td>무료</td>
@@ -294,6 +297,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

@@ -26,8 +26,10 @@ public class OrderController {
 
     @GetMapping("order.do")
     public String orderPage(Model model){
-        Long userId = 2L;
-        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
+        Long userId = 12L;
+        System.out.println("Controller Check Point 1/3");
+        List<DisplayShopDto> allDisplayDto = null;
+        allDisplayDto = shopService.findAllDisplayDto(userId);
         Long allPrice = shopService.getAllPrice(allDisplayDto);
         model.addAttribute("allDisplayDto", allDisplayDto);
         model.addAttribute("allPrice", allPrice);
