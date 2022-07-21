@@ -20,4 +20,10 @@
         from members
         where id = #{id};
     </select>
+    
+    <update id="updateMemberById" parameterType="com.needle.FsoFso.member.service.Member">
+    	update members
+    	set nickname = #{nickname}
+    	where id = #{id};
+    </update>
 </mapper>

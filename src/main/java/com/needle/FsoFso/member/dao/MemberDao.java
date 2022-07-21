@@ -28,5 +28,9 @@ public class MemberDao {
     public Optional<Member> findById(Long id) {
         return Optional.ofNullable(session.selectOne(NAME_SPACE + "findById", id));
     }
+
+	public void updateMemberById(Member member) {
+		session.update(NAME_SPACE + "updateMemberById",member);
+	}
     
 }

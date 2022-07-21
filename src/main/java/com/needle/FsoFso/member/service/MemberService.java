@@ -46,4 +46,8 @@ public class MemberService {
     public Optional<Member> findById(Long id) {
     	return memberDao.findById(id);
     }
+
+	public void updateMemberById(Member member) {
+		memberDao.updateMemberById(member);
+	}
 }
