@@ -42,9 +42,19 @@
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/commons/bottom_inc.jsp"/>
 </definition>
 
+<!-- Review -->
+<definition name="addReview.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
+	<put-attribute name="top_inc" value="/WEB-INF/views/commons/top_inc.jsp"/>	
+	<put-attribute name="main" value="/WEB-INF/views/review/addReview.jsp"/>
+	<put-attribute name="bottom_inc" value="/WEB-INF/views/commons/bottom_inc.jsp"/>
+</definition>
+
+<!-- Login -->
 <definition name="login.tiles" extends="productList.tiles">
 	<put-attribute name="top_inc" value="/WEB-INF/views/member/memberTopInc.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/member/memberBottomInc.jsp"/>
 	<put-attribute name="main" value="/WEB-INF/views/member/login.jsp"/>
 </definition>
+
 </tiles-definitions>

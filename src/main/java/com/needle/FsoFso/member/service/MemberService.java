@@ -42,4 +42,8 @@ public class MemberService {
         final Long unlinkedId = kakaoClient.logout(member.get());
         return unlinkedId.equals(member.get().getProviderId());
     }
+    
+    public Optional<Member> findById(Long id) {
+    	return memberDao.findById(id);
+    }
 }

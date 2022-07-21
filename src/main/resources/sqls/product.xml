@@ -26,7 +26,7 @@
 		from products
 	</select>
 
-	<select id="getProductById" parameterType="Integer" resultType="com.needle.FsoFso.product.dto.ProductDto">
+	<select id="getProductById" parameterType="Long" resultType="com.needle.FsoFso.product.dto.ProductDto">
 		select id, name, thumbnail_url, price, stock, created_at, updated_at
 		from products
 		where id = #{id}

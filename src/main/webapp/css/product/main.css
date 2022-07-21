@@ -4,6 +4,7 @@
 	font-family: 'JalpullineunOneul';
 	width: 65%;
 	height: 1160px;
+	min-height: 1160px;
 	margin: 0 auto;
 	padding-top: 3%;
 }
