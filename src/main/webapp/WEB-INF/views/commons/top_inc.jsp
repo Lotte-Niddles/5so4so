@@ -61,13 +61,21 @@ $(function() {
 	});
 	$('#searchBtn').css('cursor', 'pointer').click(function(e) {
 		const keyWord = $('#search').val();
-		location.href = 'searchList.do?keyWord=' + keyWord;
+		if (keyWord != '') {
+			location.href = 'searchList.do?keyWord=' + keyWord;
+		} else {
+			alert('검색어를 입력해 주세요!');
+		}
 	});
 	$('#search').keypress(function(e) {
 		const key = e.which;
 		const keyWord = $('#search').val();
 		if (key == 13){
-		location.href = 'searchList.do?keyWord=' + keyWord;
+			if (keyWord != '') {
+				location.href = 'searchList.do?keyWord=' + keyWord;
+			} else {
+				alert('검색어를 입력해 주세요!');
+			}
 		}		
 	});
 });
