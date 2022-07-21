@@ -15,11 +15,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     List<DisplayShopDto> displayShopDto = (List<DisplayShopDto>) request.getAttribute("allDisplayDto");
-    for (DisplayShopDto shopDto : displayShopDto) {
-        System.out.println("shopDto = " + shopDto);
-    }
     Long allPrice = (Long) request.getAttribute("allPrice");
-
 %>
 
 <html>

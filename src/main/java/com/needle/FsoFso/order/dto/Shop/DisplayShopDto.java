@@ -4,9 +4,19 @@ package com.needle.FsoFso.order.dto.Shop;
  이미지, 상품명, 가격,
  */
 public class DisplayShopDto {
-    public String imageSrc;
-    public String itemName;
-    public Long price;
+
+    private Long id;
+    private String imageSrc;
+    private String itemName;
+    private Long price;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getImageSrc() {
         return imageSrc;
@@ -32,7 +42,8 @@ public class DisplayShopDto {
         this.price = price;
     }
 
-    public DisplayShopDto(String imageSrc, String itemName, Long price) {
+    public DisplayShopDto(Long id, String imageSrc, String itemName, Long price) {
+        this.id = id;
         this.imageSrc = imageSrc;
         this.itemName = itemName;
         this.price = price;
@@ -40,8 +51,9 @@ public class DisplayShopDto {
 
     @Override
     public String toString() {
-        return "BasicShopDto{" +
-                "imageSrc='" + imageSrc + '\'' +
+        return "DisplayShopDto{" +
+                "id=" + id +
+                ", imageSrc='" + imageSrc + '\'' +
                 ", itemName='" + itemName + '\'' +
                 ", price=" + price +
                 '}';
