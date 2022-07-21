@@ -24,7 +24,7 @@
                     <div id="global-search-combobox" role="combobox" aria-expanded="false"
                          aria-haspopup="listbox">
                         <div class="search-input-box">
-							<span>
+							<span id="searchBtn">
 								<img alt="search-icon"
 									 src="<%=request.getContextPath()%>/images/glass.png">
 							</span>
@@ -72,4 +72,3 @@ $(function() {
 	});
 });
 </script>
-
