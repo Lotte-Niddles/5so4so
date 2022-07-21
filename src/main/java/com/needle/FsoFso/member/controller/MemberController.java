@@ -52,4 +52,9 @@ public class MemberController {
         }
         return "redirect:/productList.do";
     }
+
+    @GetMapping("/me.do")
+    public String mypage() {
+        return "member.tiles";
+    }
 }
