@@ -65,7 +65,17 @@ public class MemberController {
         return "redirect:/productList.do";
     }
 
-    @GetMapping("/me.do")
+    @GetMapping("/me/orders.do")
+    public String showMyOrders(Model model, HttpServletRequest request) {
+        if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
+            return "redirect:/productList.do";
+        }
+        final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+
+        return "myOrder.tiles";
+    }
+
+    @GetMapping("/me/reviews.do")
     public String showMyReviews(Model model, HttpServletRequest request) {
         if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
             return "redirect:/productList.do";
@@ -81,7 +91,7 @@ public class MemberController {
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("productList", productList);
 
-        return "member.tiles";
+        return "myReview.tiles";
     }
 
     @PostMapping("/me.do")

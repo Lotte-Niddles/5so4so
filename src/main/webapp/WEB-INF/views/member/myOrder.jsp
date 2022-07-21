@@ -132,7 +132,7 @@
             <div class="content-heads flex-center">
                 <div class="content-head activated">나의 주문</div>
                 <div class="divider-col content-head">|</div>
-                <div class="content-head disabled"><a href="<%=request.getContextPath()%>/me.do">나의
+                <div class="content-head disabled"><a href="<%=request.getContextPath()%>/me/reviews.do">나의
                     리뷰</a></div>
             </div>
             <div class="divider"></div>

@@ -57,8 +57,10 @@
 	<put-attribute name="main" value="/WEB-INF/views/member/login.jsp"/>
 </definition>
 
-	<definition name="member.tiles" extends="productList.tiles">
+	<definition name="myOrder.tiles" extends="productList.tiles">
 		<put-attribute name="main" value="/WEB-INF/views/member/myOrder.jsp"/>
 	</definition>
-
+	<definition name="myReview.tiles" extends="productList.tiles">
+		<put-attribute name="main" value="/WEB-INF/views/member/myReview.jsp"/>
+	</definition>
 </tiles-definitions>
