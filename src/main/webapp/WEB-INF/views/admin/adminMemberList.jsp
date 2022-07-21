@@ -88,5 +88,30 @@ if (keyWord == null) {
 </div>
 
 <script type="text/javascript">
-
+$(function() {
+	$(document).keypress(function(e) {
+		if (e.keyCode == 13) {
+			e.preventDefault();
+		}
+	});
+	$('#searchBtn').click(function(e) {
+		const keyWord = $('#search').val()
+		if (keyWord != '') {
+			location.href='adminMemberList.do?keyword=' + keyWord;
+		} else {
+			alert('검색어를 입력해 주세요!');
+		}
+	});
+	$('#search').keypress(function(e) {
+		const key = e.which;
+		const keyWord = $('#search').val();
+		if (key == 13){
+			if (keyWord != '') {
+				location.href='adminMemberList.do?keyword=' + keyWord;
+			} else {
+				alert('검색어를 입력해 주세요!');
+			}
+		}		
+	});
+});
 </script>
