@@ -53,14 +53,17 @@
 		where order_id = #{orderId};
 	</select>
 
-	<select id="adminOrderList" resultType="com.needle.FsoFso.admin.dto.AdminOrderDto">
+	<select id="adminOrderList" resultType="com.needle.FsoFso.admin.dto.AdminOrderDto" parameterType="Long">
 		select c.id as id, c.member_id as memberId, c.total_price as totalPrice, d.productCount as productCount, c.ordered_at as orderedAt, c.updated_at as updatedAt
 		from orders as c
 		LEFT JOIN ( select a.id as id, count(*) as productCount
 						from orders a, order_product b
 						where a.id = b.order_id
                         group by a.id) as d
-		on c.id = d.id;
+		on c.id = d.id
+		<if test="keyWord != -1">
+			where c.id = #{keyWord};
+		</if>
 	</select>
 
 </mapper>
