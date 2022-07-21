@@ -61,7 +61,8 @@
     <div class="productListInner">
         <div class="productListItems">
             <%
-                for (ProductDto product : productList) {
+                for (int i=0; i < productList.size(); i++) {
+                    ProductDto product = productList.get(i);
             %>
             <div class="productWrapper">
                 <div class="productImage">
