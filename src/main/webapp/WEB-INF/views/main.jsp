@@ -3,6 +3,7 @@
 <%@page import="java.util.List" %>
 <%@page import="com.needle.FsoFso.product.dto.ProductDto" %>
 <%@ page import="java.util.Optional" %>
+<%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
 <%
     List<ProductDto> productList = (List<ProductDto>) request.getAttribute("productList");
 %>
@@ -78,7 +79,7 @@
                         </a>
                     </div>
                     <div class="productPrice">
-                        <span class="price"><%=product.getPrice()%>원</span>
+                        <span class="price"><%=CurrencyFormatter.toCurrencyFormat(product.getPrice())%>원</span>
                     </div>
                 </div>
             </div>
