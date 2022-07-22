@@ -1,72 +1,80 @@
 package com.needle.FsoFso.review.dto;
 
+import com.needle.FsoFso.product.dto.ProductDto;
+import com.needle.FsoFso.review.dto.Review;
 import java.time.Instant;
 
 public class ReviewDto {
 
-	private long id;
-	private long memberId;
-	private long productId;
-	private String content;
-	private Instant createdAt;
-	private Instant updatedAt;
+    private Long id;
+    private Long memberId;
 
-	public ReviewDto(long id, long memberId, long productId, String content, Instant createdAt, Instant updatedAt) {
-		super();
-		this.id = id;
-		this.memberId = memberId;
-		this.productId = productId;
-		this.content = content;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
+    private String content;
+    private Instant createdAt;
+    private Instant updatedAt;
 
-	public long getId() {
-		return id;
-	}
+    private Long productId;
+    private String name;
+    private String thumbnailUrl;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public ReviewDto() {
+    }
 
-	public long getMemberId() {
-		return memberId;
-	}
+    public ReviewDto(Review review, ProductDto productDto) {
+        this(
+                review.getId(),
+                review.getMemberId(),
+                review.getContent(),
+                review.getCreatedAt(),
+                review.getUpdatedAt(),
+                review.getProductId(),
+                productDto.getName(),
+                productDto.getthumbnailUrl()
+        );
+    }
 
-	public void setMemberId(long memberId) {
-		this.memberId = memberId;
-	}
+    public ReviewDto(Long id, Long memberId, String content, Instant createdAt,
+            Instant updatedAt,
+            Long productId, String name, String thumbnailUrl) {
+        this.id = id;
+        this.memberId = memberId;
+        this.content = content;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.productId = productId;
+        this.name = name;
+        this.thumbnailUrl = thumbnailUrl;
+    }
 
-	public long getProductId() {
-		return productId;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setProductId(long productId) {
-		this.productId = productId;
-	}
+    public Long getMemberId() {
+        return memberId;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 
-	public Instant getCreatedAt() {
-		return createdAt;
-	}
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public void setCreatedAt(Instant createdAt) {
-		this.createdAt = createdAt;
-	}
+    public Long getProductId() {
+        return productId;
+    }
 
-	public Instant getUpdatedAt() {
-		return updatedAt;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setUpdatedAt(Instant updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
 }

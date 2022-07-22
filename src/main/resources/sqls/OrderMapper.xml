@@ -1,37 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needle.FsoFso.order.repository.mybatis.OrderMapper">
-    <insert id="orderSave" parameterType="com.needle.FsoFso.order.domain.Order" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into orders(member_id, total_price, ordered_at, updated_at)
-        values (#{memberId}, #{totalPrice}, now(), now())
-    </insert>
+  <insert id="orderSave" parameterType="com.needle.FsoFso.order.domain.Order"
+    useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into orders(member_id, total_price, ordered_at, updated_at)
+    values (#{memberId}, #{totalPrice}, now(), now())
+  </insert>
 
-    <update id="updateOrderPrice">
-        update orders
-        set total_price = #{updateParam.totalPrice},
-            updated_at=now()
-        where id = #{id}
-    </update>
+  <update id="updateOrderPrice">
+    update orders
+    set total_price = #{updateParam.totalPrice},
+        updated_at=now()
+    where id = #{id}
+  </update>
 
-    <select id="orderFindById" resultType="com.needle.FsoFso.order.domain.Order">
-        select id, member_id as memberId, total_price as totalPrice, ordered_at as orderedAt, updated_at as updatedAt
-        from orders
-        where id = #{id}
-    </select>
+  <select id="orderFindById" resultType="com.needle.FsoFso.order.domain.Order">
+    select id,
+           member_id   as memberId,
+           total_price as totalPrice,
+           ordered_at  as orderedAt,
+           updated_at  as updatedAt
+    from orders
+    where id = #{id}
+  </select>
 
-    <select id="findUserChoiceProductId">
-        select id, member_id as memberId, total_price as totalPrice, updated_at as updateAt, ordered_at as orderAt
-        from orders
-    </select>
+  <select id="findUserChoiceProductId">
+    select id,
+           member_id   as memberId,
+           total_price as totalPrice,
+           updated_at  as updateAt,
+           ordered_at  as orderAt
+    from orders
+  </select>
 
-    <select id="findOrders" resultType="com.needle.FsoFso.order.domain.Order">
-        select id, member_id as memberId, total_price as totalPrice, updated_at as updateAt, ordered_at as orderAt
-        from orders
-        <where>
-            <if test="maxPrice != null">
-                and total_Price &lt;= #{maxPrice}
-            </if>
-        </where>
-    </select>
+  <select id="findOrders" resultType="com.needle.FsoFso.order.domain.Order">
+    select id, member_id as memberId, total_price as totalPrice, updated_at as updateAt, ordered_at
+    as orderAt
+    from orders
+    <where>
+      <if test="maxPrice != null">
+        and total_Price &lt;= #{maxPrice}
+      </if>
+    </where>
+  </select>
+
+  <resultMap id="orderResult" type="com.needle.FsoFso.order.dto.OrderResponse">
+    <result property="id" column="id"/>
+    <result property="memberId" column="member_id"/>
+    <result property="totalPrice" column="total_price"/>
+    <result property="orderedAt" column="ordered_at"/>
+    <result property="updatedAt" column="updated_at"/>
+    <collection
+      property="orderProducts" column="id" javaType="java.util.ArrayList"
+      ofType="com.needle.FsoFso.order.dto.OrderProductResponse"
+      select="findOrderProductsByOrderId"
+    />
+  </resultMap>
+
+  <select id="findByMemberId" resultMap="orderResult" parameterType="Long">
+    select id, member_id, total_price, ordered_at, updated_at
+    from orders
+    where member_id = #{id};
+  </select>
+
+  <select id="findOrderProductsByOrderId"
+    resultType="com.needle.FsoFso.order.dto.OrderProductResponse">
+    select op.id           as orderProductId,
+           op.product_id   as productId,
+           op.quantity     as quantity,
+           op.unit_price   as unitPrice,
+           p.name          as name,
+           p.thumbnail_url as thumbnailUrl
+    from order_product op
+           join products p on p.id = op.product_id
+    where order_id = #{orderId};
+  </select>
 </mapper>
