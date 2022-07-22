@@ -12,6 +12,7 @@ public class ShopDto {
     private String name;
     private Long price;
     private Long stock;
+    private String imgSrc;
 
     public Long getId() {
         return id;
@@ -69,7 +70,15 @@ public class ShopDto {
         this.stock = stock;
     }
 
-    public ShopDto(Long id, Long memberId, Long productId, Long quantity, String name, Long price, Long stock) {
+    public String getImgSrc() {
+        return imgSrc;
+    }
+
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
+    }
+
+    public ShopDto(Long id, Long memberId, Long productId, Long quantity, String name, Long price, Long stock, String imgSrc) {
         this.id = id;
         this.memberId = memberId;
         this.productId = productId;
@@ -77,6 +86,7 @@ public class ShopDto {
         this.name = name;
         this.price = price;
         this.stock = stock;
+        this.imgSrc = imgSrc;
     }
 
     @Override
@@ -89,6 +99,7 @@ public class ShopDto {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", stock=" + stock +
+                ", imgSrc='" + imgSrc + '\'' +
                 '}';
     }
 }
