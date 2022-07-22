@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -33,9 +34,12 @@ public class OrderController {
     }
 
     @GetMapping("order.do")
-
     public String orderPage(Model model, HttpServletRequest request) {
-        Long userId = getUserId(request);
+        Optional<Long> userIdInfo = getUserId(request);
+        if(userIdInfo == null){
+            return "productlist.main.jsp";
+        }
+        Long userId = userIdInfo.get();
         System.out.println("userId = " + userId);
         List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
 
@@ -55,10 +59,8 @@ public class OrderController {
      */
     @Transactional
     @PostMapping("orderProduct.do")
-
     public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model, HttpServletRequest request) {
-        Long userId = getUserId(request);
-
+        Long userId = getUserId(request).get();
         List<Long> productsId = productId.get("id");
         List<ShopDto> products = shopService.findShopInfo(userId, productsId);
 
@@ -75,7 +77,7 @@ public class OrderController {
      */
     @PostMapping("cartNumReplace.do")
     public String cartNumReplace(HttpServletRequest request, Long changeItemCnt, Long productId, Model model) {
-        Long userId = getUserId(request);
+        Long userId = getUserId(request).get();
 //        Long userId = 12L;
         System.out.println("userId = " + userId + " changeItemCnt : " + changeItemCnt + " productId : " + productId);
 
@@ -94,10 +96,10 @@ public class OrderController {
         return "order.tiles";
     }
 
-    private Long getUserId(HttpServletRequest request) {
+    private Optional<Long> getUserId(HttpServletRequest request) {
         Member member = (Member) request.getSession().getAttribute("member");
-        Long userId = member.getId();
-        return userId;
+        Optional<Long> id = Optional.ofNullable(member.getId());
+        return id;
     }
 
     /**

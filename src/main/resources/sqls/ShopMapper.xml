@@ -18,4 +18,8 @@
     <update id="changeUserProductCnt">
         update cart set quantity=#{changeItemCnt} where member_id=#{userId} and product_id=#{productId}
     </update>
+
+    <delete id="">
+        delete from cart where
+    </delete>
 </mapper>
