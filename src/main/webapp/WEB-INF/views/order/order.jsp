@@ -278,7 +278,7 @@
 
                 $("input:checkbox[name=check]").each(function () {
 
-                    sumVal += parseInt($(this).attr('data-cat'));
+                    sumVal += (parseInt($(this).attr('data-cat')) * $(this).parent().parent().find(".cart__list__numberinput").attr('value'));
                 })
                 let productPrice = sumVal;
                 let totalPrice = sumVal + parseInt(3000);
@@ -339,7 +339,6 @@
             console.log(productId);
             $.ajax({
                 url: '<%=request.getContextPath()%>/orderProduct.do',
-                // url: 'http://localhost:8080/orderProduct.do',
                 contentType: 'application/json',
                 method: 'POST',
                 data: JSON.stringify({
@@ -352,7 +351,7 @@
                 },
                 error: function () {
                     console.log('error');
-                    <%--location.href="<%=request.getContextPath()%>/order.do";--%>
+                    location.href="<%=request.getContextPath()%>/order.do";
                 },
             });
         });
@@ -363,19 +362,26 @@
             $("input:checkbox[name=check]").each(function () {
                 if (this.checked) {
                     deleteList.push($(this).attr('value'));
+                    // console.log($(this).attr('value'));
                     count = count + 1;
                 }
             });
+            // console.log(count);
             if (count > 0) {
                 $.ajax({
-                    type: "POST",
                     url: "<%=request.getContextPath()%>/cartDeleteProduct.do",
-                    data: {"productId": JSON.stringify(deleteList)},
-                    success: function (msg) {
+                    contentType: 'application/json',
+                    type: "POST",
+                    data: JSON.stringify({
+                        'productId': deleteList
+                    }),
+                    // data: {"productId": JSON.stringify(deleteList)},
+                    success: function () {
                         location.href = "<%=request.getContextPath()%>/order.do";
                     },
                     error: function () {
-                        alert("삭제에 실패했습니다.");
+                        // alert("삭제에 실패했습니다.");
+                        console.log(data);
                         location.href = "<%=request.getContextPath()%>/order.do";
                     }
                 })

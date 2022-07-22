@@ -86,11 +86,14 @@ public class OrderController {
     @PostMapping("cartDeleteProduct.do")
     public void cartDeleteProduct(@RequestBody Map<String,List<Long>> productId, HttpServletRequest request){
         Long userId = getUserId(request);
+        System.out.println("userId = " + userId);
+        System.out.println("chekckPoint1");
         List<Long> idList = productId.get("productId");
         for (Long aLong : idList) {
             System.out.println("aLong = " + aLong);
         }
         shopService.deleteCartProduct(idList,userId);
+
     }
 
 
