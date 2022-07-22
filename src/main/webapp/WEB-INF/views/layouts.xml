@@ -40,7 +40,7 @@
 
 <definition name="adminOrderList.tiles" extends="admin.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/admin/adminOrderList.jsp"/>
-</definition>
+</definition>https://github.com/Lotte-Niddles/5so4so/pull/66/conflict?name=src%252Fmain%252Fwebapp%252FWEB-INF%252Fviews%252Forder%252Forder.jsp&ancestor_oid=ed5cf4b4aecb2bf411f3b0827398e55308982f65&base_oid=ba18109517df3a2ee87c755cb1a79ab878eb0e5d&head_oid=2d26ae232a9cc4aa191e90fe958abbc3e9bc7192
 
 <definition name="adminOrderProductList.tiles" extends="admin.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/admin/adminOrderProductList.jsp"/>
@@ -63,7 +63,6 @@
         <put-attribute name="bottom_inc" value="/WEB-INF/views/commons/bottom_inc.jsp"/>
     </definition>
 
-
 <!-- Review -->
 <definition name="addReview.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
@@ -84,3 +83,4 @@
 	<put-attribute name="main" value="/WEB-INF/views/member/mypage.jsp"/>
 </definition>
 </tiles-definitions>
+
