@@ -34,8 +34,8 @@ public class OrderController {
         this.shopService = shopService;
     }
 
+    @MemberOnly
     @GetMapping("order.do")
-
     public String orderPage(Model model, HttpServletRequest request) {
         Member member = (Member) request.getSession().getAttribute("member");
         Long userId = member.getId();
@@ -58,7 +58,6 @@ public class OrderController {
     @MemberOnly
     @Transactional
     @PostMapping("orderProduct.do")
-
     public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model, HttpServletRequest request) {
         Member member = (Member) request.getSession().getAttribute("member");
         Long userId = member.getId();

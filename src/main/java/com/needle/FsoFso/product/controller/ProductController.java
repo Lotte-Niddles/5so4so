@@ -1,5 +1,6 @@
 package com.needle.FsoFso.product.controller;
 
+import com.needle.FsoFso.common.aop.AdminOnly;
 import com.needle.FsoFso.common.aop.MemberOnly;
 import com.needle.FsoFso.common.util.AttributeContainer;
 import java.util.ArrayList;
@@ -97,11 +98,9 @@ public class ProductController {
 		model.addAttribute("nicknameList", nicknameList);
 	}
 
+	@AdminOnly
 	@GetMapping("delProduct.do")
 	public String delProduct(HttpServletRequest request) {
-		if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
-			return "redirect:/login.do";
-		}
 		final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
 		long productId = Long.parseLong(request.getParameter("productId"));
