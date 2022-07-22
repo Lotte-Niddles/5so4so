@@ -37,7 +37,7 @@ public class OrderController {
     public String orderPage(Model model, HttpServletRequest request) {
         Optional<Long> userIdInfo = getUserId(request);
         if(userIdInfo == null){
-            return "productlist.main.jsp";
+            return "productList.tiles";
         }
         Long userId = userIdInfo.get();
         System.out.println("userId = " + userId);
