@@ -10,10 +10,6 @@ import com.needle.FsoFso.order.dto.Shop.DisplayShopDto;
 import com.needle.FsoFso.order.dto.Shop.ShopDto;
 import com.needle.FsoFso.order.service.OrderService;
 import com.needle.FsoFso.order.service.ShopService;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -21,6 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class OrderController {
@@ -37,15 +38,7 @@ public class OrderController {
     @GetMapping("order.do")
     public String orderPage(Model model, HttpServletRequest request) {
         Member member = (Member) request.getSession().getAttribute("member");
-        Long userId = member.getId();
-
-        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
-
-        Long allPrice = shopService.getAllPrice(allDisplayDto);
-
-        model.addAttribute("stockFlag", 0);
-        model.addAttribute("allDisplayDto", allDisplayDto);
-        model.addAttribute("allPrice", allPrice);
+        viewRander(model, member.getId());
         return "order.tiles";
     }
 
@@ -75,6 +68,7 @@ public class OrderController {
     }
 
 
+    @MemberOnly
     @GetMapping("cartNumReplace.do")
     public String cartNumReplace(Long changeItemCnt, Long productId, Model model,
             HttpServletRequest request) {
@@ -94,12 +88,25 @@ public class OrderController {
         return "order.tiles";
     }
 
+    @MemberOnly
     @PostMapping("cartDeleteProduct.do")
-    public void cartDeleteProduct(@RequestBody Map<String, List<Long>> productId,
-            HttpServletRequest request) {
+    public String cartDeleteProduct(@RequestBody Map<String, List<Long>> productId,
+            HttpServletRequest request, Model model) {
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
         List<Long> idList = productId.get("productId");
-        shopService.deleteCartProduct(idList, member.getId());
+        shopService.deleteCartProduct(idList,member.getId());
+        viewRander(model, member.getId());
+        return "redirect:/order.do";
+    }
+
+    private void viewRander(Model model, Long userId) {
+        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
+
+        Long allPrice = shopService.getAllPrice(allDisplayDto);
+
+        model.addAttribute("stockFlag", 0);
+        model.addAttribute("allDisplayDto", allDisplayDto);
+        model.addAttribute("allPrice", allPrice);
     }
 
     /**
@@ -107,7 +114,9 @@ public class OrderController {
      */
     @GetMapping("orderFindId.do")
     public void orderFindOrder(Long id) {
+        System.out.println("Long = " + id);
         orderService.findOrder(id);
+        System.out.println("out signal");
     }
 
     /**
@@ -115,6 +124,11 @@ public class OrderController {
      */
     @GetMapping("orderCmpPriceFind.do")
     public void orderCmpPriceFind(@ModelAttribute OrderSearchCond orderSearchCond) {
+        System.out.println("OrderSearchCond = " + orderSearchCond);
         List<Order> orderCmpPriceFind = orderService.findOrderCmpPriceFind(orderSearchCond);
+        for (Order order : orderCmpPriceFind) {
+            System.out.println(order);
+        }
+        System.out.println("out signal");
     }
 }

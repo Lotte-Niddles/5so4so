@@ -13,7 +13,9 @@
 
     <select id="findAllDisplayDto" resultType="com.needle.FsoFso.order.dto.Shop.DisplayShopDto">
         select p.id as id,c.product_id as productId, thumbnail_url as imageSrc, name as itemName, price, quantity
-        from products p inner join cart c on p.id = c.product_id where c.member_id = #{userId}
+        from products p inner join cart c on p.id = c.product_id 
+        where c.member_id = #{userId}
+        and p.status = 1
     </select>
 
     <update id="changeUserProductCnt">
