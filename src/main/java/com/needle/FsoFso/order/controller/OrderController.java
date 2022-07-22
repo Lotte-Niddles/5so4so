@@ -1,5 +1,6 @@
 package com.needle.FsoFso.order.controller;
 
+import com.needle.FsoFso.common.aop.MemberOnly;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.order.domain.Order;
 import com.needle.FsoFso.order.dto.Order.OrderSearchCond;
@@ -52,6 +53,7 @@ public class OrderController {
     /**
      * 상품 결제 버튼 로직
      */
+    @MemberOnly
     @Transactional
     @PostMapping("orderProduct.do")
     public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model, HttpServletRequest request) {

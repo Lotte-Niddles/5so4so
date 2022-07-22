@@ -15,4 +15,8 @@ public class AdminMembers {
     public List<String> getAdminUsers() {
         return adminUsers;
     }
+
+    public boolean contains(Long id) {
+        return adminUsers.contains(String.valueOf(id));
+    }
 }

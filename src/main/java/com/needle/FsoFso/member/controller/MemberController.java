@@ -1,5 +1,6 @@
 package com.needle.FsoFso.member.controller;
 
+import com.needle.FsoFso.common.aop.MemberOnly;
 import com.needle.FsoFso.common.util.AttributeContainer;
 import com.needle.FsoFso.member.controller.dto.NicknameRequest;
 import com.needle.FsoFso.member.kakao.dto.KakaoOauthInfo;
@@ -67,12 +68,9 @@ public class MemberController {
         return "redirect:/productList.do";
     }
 
+    @MemberOnly
     @GetMapping("/logout.do")
     public String logout(Long id, HttpServletRequest request) {
-        if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
-            return "redirect:/login.do";
-        }
-
         final boolean logout = memberService.logout(id);
         if (logout) {
             request.getSession().removeAttribute("member");
@@ -80,11 +78,9 @@ public class MemberController {
         return "redirect:/productList.do";
     }
 
+    @MemberOnly
     @GetMapping("/withdrawal.do")
     public String exit(HttpServletRequest request) {
-        if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
-            return "redirect:/productList.do";
-        }
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
         memberService.withdrawal(member);
@@ -93,11 +89,9 @@ public class MemberController {
         return "redirect:/productList.do";
     }
 
+    @MemberOnly
     @GetMapping("/me.do")
     public String showMypage(Model model, HttpServletRequest request) {
-        if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
-            return "redirect:/login.do";
-        }
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
         List<ReviewDto> reviewList = reviewService.findReviewsByMemberId(member.getId());
@@ -108,11 +102,9 @@ public class MemberController {
         return "mypage.tiles";
     }
 
+    @MemberOnly
     @PostMapping("/me.do")
     public String updateNickname(@RequestBody NicknameRequest nickname, HttpServletRequest request) {
-        if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
-            return "redirect:/login.do";
-        }
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
         final Member updatedMember = new Member(member, nickname.getNickname());
