@@ -5,6 +5,8 @@ import com.needle.FsoFso.member.controller.dto.NicknameRequest;
 import com.needle.FsoFso.member.kakao.dto.KakaoOauthInfo;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
+import com.needle.FsoFso.order.service.OrderService;
+import com.needle.FsoFso.order.dto.OrderResponse;
 import com.needle.FsoFso.review.dto.ReviewDto;
 import com.needle.FsoFso.review.service.ReviewService;
 import java.util.List;
@@ -22,13 +24,15 @@ public class MemberController {
 
     private final MemberService memberService;
     private final ReviewService reviewService;
+    private final OrderService orderService;
     private final KakaoOauthInfo kakaoOauthInfo;
     private final AdminMembers adminMembers;
 
     public MemberController(MemberService memberService, ReviewService reviewService,
-            KakaoOauthInfo kakaoOauthInfo, AdminMembers adminMembers) {
+            OrderService orderService, KakaoOauthInfo kakaoOauthInfo, AdminMembers adminMembers) {
         this.memberService = memberService;
         this.reviewService = reviewService;
+        this.orderService = orderService;
         this.kakaoOauthInfo = kakaoOauthInfo;
         this.adminMembers = adminMembers;
     }
@@ -81,9 +85,11 @@ public class MemberController {
         }
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
-        List<ReviewDto> reviewList = reviewService.findReviewsByMemberId(member.getId());
+        List<ReviewDto> reviewList = reviewService.findReviewsByMemberId(12L);
+        List<OrderResponse> orderList = orderService.findOrderByMemberId(13L);
 
         model.addAttribute("reviewList", reviewList);
+        model.addAttribute("orderList", orderList);
         return "mypage.tiles";
     }
 
