@@ -1,10 +1,14 @@
-<%@page import="com.needle.FsoFso.admin.dto.AdminOrderDto"%>
-<%@page import="com.needle.FsoFso.admin.dto.AdminOrderListRequestDto"%>
-<%@page import="java.time.ZoneId"%>
-<%@page import="java.util.Locale"%>
-<%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="java.util.List"%>
-<%@page import="java.time.Instant"%>
+<%@ page import="com.needle.FsoFso.admin.dto.AdminOrderDto" %>
+<%@ page import="com.needle.FsoFso.admin.dto.AdminOrderListRequestDto" %>
+<%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
+
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Locale" %>
+
+<%@ page import="java.time.Instant" %>
+<%@ page import="java.time.ZoneId" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- 부트스트랩 -->
@@ -76,7 +80,7 @@ if (keyWord == null) {
 		<tr>
 			<td style="text-align: center;"><%=dto.getId()%></td>
 			<td style="text-align: center;"><%=dto.getMemberId()%></td>
-			<td style="text-align: right;"><%=dto.getTotalPrice()%>원</td>
+			<td style="text-align: right;"><%=CurrencyFormatter.toCurrencyFormat(dto.getTotalPrice())%>원</td>
 			<td style="text-align: center;"><%=dto.getProductCount()%> 종류</td>
 			<td style="text-align: center;"><%=formatter.format(dto.getOrderedAt())%></td>
 			<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
