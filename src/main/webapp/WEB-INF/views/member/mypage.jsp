@@ -7,6 +7,10 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.time.ZoneId" %>
+<%@ page import="com.needle.FsoFso.order.dto.OrderResponse" %>
+<%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
+<%@ page import="com.needle.FsoFso.order.dto.OrderProduct.OrderProduct" %>
+<%@ page import="com.needle.FsoFso.order.dto.OrderProductResponse" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
@@ -14,6 +18,9 @@
     final List<ReviewDto> reviews = Optional.ofNullable(
                     (List<ReviewDto>) AttributeContainer.attributeFrom(request, "reviewList"))
             .orElse(Collections.emptyList());
+    final List<OrderResponse> orders = Optional.ofNullable(
+            (List<OrderResponse>) AttributeContainer.attributeFrom(request, "orderList")
+    ).orElse(Collections.emptyList());
 
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             .withLocale(Locale.KOREA).withZone(ZoneId.of("UTC"));
@@ -68,11 +75,79 @@
                 <div onclick="handlePage()" class="content-head disabled pointer-cursor">나의 리뷰</div>
             </div>
             <div class="divider"></div>
+            <% if (orders.isEmpty()) {%>
             <div class="content-text">아직 주문 내역이 없어요.</div>
             <div class="content-text">쇼핑 하러 가기
                 <a href="<%=request.getContextPath()%>/productList.do"
                    style="color: #35c5f0">click!</a>
             </div>
+            <%
+            } else {
+                for (int i = 0; i < orders.size(); i++) {
+                    final OrderResponse order = orders.get(i);
+            %>
+            <div class="flex-col-center content-item" style="align-items: flex-start">
+                <div class="flex-col-center" style="align-items: flex-start">
+                    <div class="content-text" style="font-weight: 700; margin-right: 1rem">
+                        주문번호 <%=order.getId()%>
+                    </div>
+                    <div class="content-text">
+                        총 주문금액: <%=CurrencyFormatter.toCurrencyFormat(order.getTotalPrice())%> 원
+                    </div>
+                </div>
+                <div class="order-divider"></div>
+                <div class="flex-col-center" style="align-items: flex-start; width: 100%">
+                    <%
+                        List<OrderProductResponse> orderProducts = order.getOrderProducts();
+                        for (int j = 0; j < orderProducts.size(); j++) {
+                            OrderProductResponse orderProduct = orderProducts.get(j);
+                    %>
+                    <div class="flex-center content-item" style="padding: 0">
+                        <div>
+                            <img
+                                    class="content-img pointer-cursor"
+                                    src="<%=orderProduct.getThumbnailUrl()%>"
+                                    alt="<%=orderProduct.getName()%>"
+                                    onclick="toProduct(<%=orderProduct.getProductId()%>)"
+                            >
+                        </div>
+                        <div class="flex-col-center" style="align-items: flex-start">
+                            <div
+                                    style="font-weight: 700" class="content-text pointer-cursor"
+                                    onclick="toProduct(<%=orderProduct.getProductId()%>)"
+                            >
+                                <%=orderProduct.getName()%>
+                            </div>
+                            <div class="flex-center">
+                                <div class="content-text">개수: <%=orderProduct.getQuantity()%>
+                                </div>
+                                <div class="divider-col"></div>
+                                <div class="content-text">
+                                    금액: <%=CurrencyFormatter.toCurrencyFormat(
+                                        orderProduct.getUnitPrice())%>원
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% if (j != orderProducts.size() - 1) { %>
+                    <div class="order-product-divider"></div>
+                    <%
+                            }
+                        }
+                    %>
+                </div>
+                <%
+                    if (i != orders.size() - 1) {
+                %>
+                <div class="divider"></div>
+                <%
+                    }
+                %>
+            </div>
+            <%
+                    }
+                }
+            %>
         </div>
         <div class="flex-col-center mypage-contents mypage-border disabled-page">
             <div class="content-heads flex-center">
@@ -113,9 +188,9 @@
                         </div>
                         <div class="content-text"><%=review.getContent()%>
                         </div>
-
                     </div>
-                    <div class="flex-col-center review-date" style="justify-content: space-between">
+                    <div class="flex-col-center review-date"
+                         style="justify-content: space-between">
                         <div>
                             작성: <%=formatter.format(review.getCreatedAt())%>
                         </div>

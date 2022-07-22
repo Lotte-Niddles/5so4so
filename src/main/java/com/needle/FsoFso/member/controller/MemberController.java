@@ -85,8 +85,8 @@ public class MemberController {
         }
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
-        List<ReviewDto> reviewList = reviewService.findReviewsByMemberId(12L);
-        List<OrderResponse> orderList = orderService.findOrderByMemberId(13L);
+        List<ReviewDto> reviewList = reviewService.findReviewsByMemberId(member.getId());
+        List<OrderResponse> orderList = orderService.findOrderByMemberId(member.getId());
 
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("orderList", orderList);

@@ -195,11 +195,18 @@ a, a:hover {
     border-radius: 8px;
 }
 
-.divider {
+.order-divider {
+    width: 100%;
+    border-bottom: 1px solid #dadada;
+    margin: 0.5rem 0;
+}
+
+.order-product-divider {
     width: 100%;
     border-bottom: 1px solid #ebebeb;
-    margin: 2rem 0;
+    margin: 0.3rem 0;
 }
+
 
 .divider-col {
     color: #ebebeb;
