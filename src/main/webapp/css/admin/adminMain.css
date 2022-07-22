@@ -46,3 +46,10 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
+
+.table-hover tbody tr:hover{
+	background-color: #f7f9fa;
+}
+.table-hover td{
+	padding: 5px;
+}

@@ -32,6 +32,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    
     <style type="text/css">
     
     	.cart__information{
@@ -131,9 +132,14 @@
         } 
 
         .payment_right {
-            font-weight: bold;
+           /*  font-weight: bold; */
             font-size: 100%;
             margin: 20px 30px;
+        }
+        
+        .payment_right span{
+           display: inline-block; 
+           width: 100px;
         }
 
         .payment_right_back {
@@ -147,10 +153,21 @@
         .cart-tmp {
             width: 65%;
             margin: 0 auto 75px auto;
+            min-height: 400px;
+            font-family: 'JalpullineunOneul';
+            
         }
         
-        .cart__list td{
+        .cart__list td, .cart__list th{
         	text-align: center;
+        }
+        
+        .cart__list tr:first-child {
+        	height: 80px;
+        }
+        
+        .cart__list tr{
+        	height: 120px;
         }
         
     </style>
@@ -169,11 +186,11 @@
                     <table class="cart__list">
                             <thead>
                             <tr>
-                                <td width="80"><input type="checkbox" id="allCheck"></td>
-                                <td colspan="2" width="300">상품정보</td>
-                                <td width="150">수량</td>
-                                <td width="150">상품금액</td>
-                                <td width="50">배송비</td>
+                                <th width="80"><input type="checkbox" id="allCheck"></th>
+                                <th colspan="2" width="200">상품정보</th>
+                                <th width="150">수량</th>
+                                <th width="150">상품금액</th>
+                                <th width="50">배송비</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -186,17 +203,16 @@
                                 <td><input type="checkbox" name="check" data-cat="<%=nowDto.getPrice()%>" value="<%=nowDto.getProductId()%>"></td>
                                 <td><img src="<%=nowDto.getImageSrc()%>"
                                          alt="<%=nowDto.getItemName()%>" width="100" height="100"></td>
-                                <td><span class="cart__list__5SO4SO"> 5SO4SO</span>
+                                <td width="100"><span class="cart__list__5SO4SO"> 5SO4SO</span>
                                     <p><%=nowDto.getItemName()%>
                                     </p>
                                     <span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%>
                                     </span>
                                 </td>
                                 <td class="cart__list__option">
-                                    <input type="number" id="<%=nowDto.getProductId()%>" class="cart__list__numberinput" val="<%=nowDto.getQuantity() %>" min="0" >
+                                    <input type="number" id="<%=nowDto.getProductId()%>" class="cart__list__numberinput" val="<%=nowDto.getQuantity() %>" min="0"  style="width: 100px;">
                                 </td>
                                 <td><span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%></span><br>
-                                    <button class="cart__list__orderbtn">주문하기</button>
                                 </td>
                                 <td>무료</td>
                             </tr>
@@ -213,11 +229,23 @@
 
         <div class="float_right">
             <form>
-                <div class="cart__mainbtns payment_right_back">
-                    <div class="payment_right">총 상품금액 <span id="productPrice">0</span></div>
-                    <div class="payment_right">총 배송비 3,000</div>
-                    <div class="payment_right">총 할인금액 0</div>
-                    <div class="payment_right">총 결제액 <span id="totalPrice">3,000</span></div>
+                <div class="cart__mainbtns payment_right_back" style="font-weight: 100;">
+                    <div class="payment_right">
+                    	<span>총 상품금액</span>
+                    	<span id="productPrice">0</span>
+                    </div>
+                    <div class="payment_right">
+                    	<span>총 배송비</span>
+                    	3,000
+                    </div>
+                    <div class="payment_right">
+                    	<span>총 할인금액</span>
+                    	0
+                    </div>
+                    <div class="payment_right">
+	                    <span>총 결제액 </span>
+	                    <span id="totalPrice">3,000</span>
+	                </div>
                     	<input type="hidden" name="productTotalPrice" value="">
                     <button class="cart__bigorderbtn left">쇼핑 계속하기</button>
                     <button id="" class="cart__bigorderbtn right">주문하기</button>
