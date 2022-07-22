@@ -11,12 +11,14 @@ import com.needle.FsoFso.order.service.ShopService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -30,7 +32,7 @@ public class OrderController {
         this.shopService = shopService;
     }
 
-    //    @MemberId
+//    @MemberId
     @GetMapping("order.do")
     public String orderPage(Model model, HttpServletRequest request) {
         Long userId = getUserId(request);
@@ -51,12 +53,8 @@ public class OrderController {
     @PostMapping("orderProduct.do")
     public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model, HttpServletRequest request) {
         Long userId = getUserId(request);
-        List<Long> productsId = productId.get("proudctId");
+        List<Long> productsId = productId.get("productId");
         List<ShopDto> products = shopService.findShopInfo(userId, productsId);
-
-        for (ShopDto product : products) {
-            System.out.println("product = " + product);
-        }
         Long orderId = orderService.saveOrder(products, userId);
         orderService.saveOrderProduct(products, userId, orderId, productsId);
         List<OrderSuccessDto> orderSuccessDtoList = products.stream().map(shopDto -> (new OrderSuccessDto(shopDto.getQuantity(), shopDto.getName(), shopDto.getPrice(), shopDto.getImgSrc()))).collect(Collectors.toList());
@@ -68,7 +66,7 @@ public class OrderController {
      * 장바구니 수량 변경
      */
     @GetMapping("cartNumReplace.do")
-    public String cartNumReplace(HttpServletRequest request, Long changeItemCnt, Long productId, Model model) {
+    public String cartNumReplace(Long changeItemCnt, Long productId, Model model, HttpServletRequest request) {
         Long userId = getUserId(request);
 
         Integer stockFlag = shopService.changeUserProductCnt(changeItemCnt, productId, userId);
@@ -95,11 +93,13 @@ public class OrderController {
         shopService.deleteCartProduct(idList,userId);
     }
 
+
     private Long getUserId(HttpServletRequest request) {
         Member member = (Member) request.getSession().getAttribute("member");
         Long id = member.getId();
         return id;
     }
+
 
     /**
      * 적용 전, 동적 쿼리 필요시 사용

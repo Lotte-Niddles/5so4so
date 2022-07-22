@@ -2,7 +2,6 @@ package com.needle.FsoFso.order.repository.mybatis;
 
 import com.needle.FsoFso.order.dto.Shop.DisplayShopDto;
 import com.needle.FsoFso.order.dto.Shop.ShopDto;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

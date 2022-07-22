@@ -4,6 +4,7 @@ package com.needle.FsoFso.order.dto.Order;
  * 결제 완료 페이지에 보여줄 상품 정보
  */
 public class OrderSuccessDto {
+
     private Long quantity;
     private String name;
     private Long price;
