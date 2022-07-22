@@ -54,6 +54,9 @@ public class OrderController {
         List<Long> productsId = productId.get("proudctId");
         List<ShopDto> products = shopService.findShopInfo(userId, productsId);
 
+        for (ShopDto product : products) {
+            System.out.println("product = " + product);
+        }
         Long orderId = orderService.saveOrder(products, userId);
         orderService.saveOrderProduct(products, userId, orderId, productsId);
         List<OrderSuccessDto> orderSuccessDtoList = products.stream().map(shopDto -> (new OrderSuccessDto(shopDto.getQuantity(), shopDto.getName(), shopDto.getPrice(), shopDto.getImgSrc()))).collect(Collectors.toList());
@@ -64,7 +67,7 @@ public class OrderController {
     /**
      * 장바구니 수량 변경
      */
-    @PostMapping("cartNumReplace.do")
+    @GetMapping("cartNumReplace.do")
     public String cartNumReplace(HttpServletRequest request, Long changeItemCnt, Long productId, Model model) {
         Long userId = getUserId(request);
 
@@ -83,9 +86,12 @@ public class OrderController {
     }
 
     @PostMapping("cartDeleteProduct.do")
-    public void cartDeleteProduct(@RequestParam Map<String,List<Long>> productId, HttpServletRequest request){
+    public void cartDeleteProduct(@RequestBody Map<String,List<Long>> productId, HttpServletRequest request){
         Long userId = getUserId(request);
         List<Long> idList = productId.get("productId");
+        for (Long aLong : idList) {
+            System.out.println("aLong = " + aLong);
+        }
         shopService.deleteCartProduct(idList,userId);
     }
 
