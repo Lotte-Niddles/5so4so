@@ -18,7 +18,6 @@
 <%
     List<DisplayShopDto> displayShopDto = (List<DisplayShopDto>) request.getAttribute("allDisplayDto");
 
-    System.out.println("displayShopDto = " + displayShopDto.size());
     for (DisplayShopDto shopDto : displayShopDto) {
         System.out.println("shopDto = " + shopDto);
     }
@@ -26,22 +25,24 @@
 
     int productTotalPrice = 0;
     int deliveryFee = 3000;
+
 %>
 
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    
     <style type="text/css">
-
-        .cart__information {
-            width: 80%;
-            margin: auto;
-            padding: 30px;
-
-        }
-
-        .cart__information ul {
+    
+    	.cart__information{
+   		    width: 80%;
+		    margin: auto;
+		    padding: 30px;
+		    
+    	}
+    	
+    	.cart__information ul {
             background-color: whitesmoke;
             padding: 30px;
             margin-bottom: 50px;
@@ -50,11 +51,11 @@
             font-size: 13px;
             font-weight: 300;
         }
-
-        .cart__information ul li:first-child {
-            color: #35C5F0;
-        }
-
+    	
+    	.cart__information ul li:first-child{
+   		    color: #35C5F0;
+    	}
+    
         .cart__list__optionbtn {
             background-color: white;
             font-size: 10px;
@@ -64,13 +65,13 @@
 
         .cart__list__orderbtn {
             background-color: #35C5F0;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 4px 8px;
-            font-size: 12px;
-            margin-top: 5px;
-            vertical-align: top;
+		    color: white;
+		    border: none;
+		    border-radius: 5px;
+		    padding: 4px 8px;
+		    font-size: 12px;
+		    margin-top: 5px;
+		    vertical-align: top;
         }
 
         .cart__list__detail :nth-child(5),
@@ -123,17 +124,22 @@
         }
 
         .float_right {
-            position: fixed;
-            top: 300px;
-            width: 407px;
-            height: 277px;
-            right: 280px;
-        }
+		    position: fixed;
+		    top: 300px;
+		    width: 407px;
+		    height: 277px;
+		    right: 280px;
+        } 
 
         .payment_right {
-            font-weight: bold;
+           /*  font-weight: bold; */
             font-size: 100%;
             margin: 20px 30px;
+        }
+        
+        .payment_right span{
+           display: inline-block; 
+           width: 100px;
         }
 
         .payment_right_back {
@@ -147,12 +153,23 @@
         .cart-tmp {
             width: 65%;
             margin: 0 auto 75px auto;
+            min-height: 400px;
+            font-family: 'JalpullineunOneul';
+            
         }
-
-        .cart__list td {
-            text-align: center;
+        
+        .cart__list td, .cart__list th{
+        	text-align: center;
         }
-
+        
+        .cart__list tr:first-child {
+        	height: 80px;
+        }
+        
+        .cart__list tr{
+        	height: 120px;
+        }
+        
     </style>
 </head>
 <body>
@@ -165,60 +182,75 @@
     </div>
     <div class="cart-tmp">
         <div class="float_left">
-            <form action="/orderProduct.do" method="post">
-                <table class="cart__list">
-                    <thead>
-                    <tr>
-                        <td width="80"><input type="checkbox" id="allCheck"></td>
-                        <td colspan="2" width="300">상품정보</td>
-                        <td width="150">옵션</td>
-                        <td width="150">상품금액</td>
-                        <td width="50">배송비</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <%
-                        for (int i = 0; i < displayShopDto.size(); i++) {
-                            DisplayShopDto nowDto = displayShopDto.get(i);
-                    %>
-
-                    <tr class="cart__list__detail">
-                        <td><input type="checkbox" name="check" data-cat="<%=nowDto.getPrice()%>"
-                                   value="<%=nowDto.getPrice()%>"></td>
-                        <td><img src="<%=nowDto.getImageSrc()%>"
-                                 alt="<%=nowDto.getItemName()%>" width="100" height="100"></td>
-                        <td><span class="cart__list__5SO4SO"> 5SO4SO</span>
-                            <p><%=nowDto.getItemName()%></p>
-                            <span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%></span>
-                        </td>
-                        <td class="cart__list__option">
-                            <input type="number" val="<%=0 %>" min="0">
-                        </td>
-                        <td><span
-                                class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%></span><br>
-                            <button class="cart__list__orderbtn">주문하기</button>
-                        </td>
-                        <td>무료</td>
-                    </tr>
-                    <% } %>
-                    <tr>
+            <form>
+                <section class="inner_chart_cart">
+                    <table class="cart__list">
+                        <form>
+                            <thead>
+                            <tr>
+                                <th width="80"><input type="checkbox" id="allCheck"></th>
+                                <th colspan="2" width="200">상품정보</th>
+                                <th width="150">옵션</th>
+                                <th width="150">상품금액</th>
+                                <th width="50">배송비</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                                for (int i = 0; i < displayShopDto.size(); i++) {
+                                DisplayShopDto nowDto = displayShopDto.get(i);    
+                            %>
+                                
+                            <tr class="cart__list__detail">
+                                <td><input type="checkbox" name="check" data-cat="<%=nowDto.getPrice()%>" value="<%=nowDto.getPrice()%>"></td>
+                                <td><img src="<%=nowDto.getImageSrc()%>"
+                                         alt="<%=nowDto.getItemName()%>" width="100" height="100"></td>
+                                <td width="100"><span class="cart__list__5SO4SO"> 5SO4SO</span>
+                                    <p><%=nowDto.getItemName()%>
+                                    </p>
+                                    <span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%>
+                                    </span>
+                                </td>
+                                <td class="cart__list__option">
+                                    <input type="number" val="<%=0 %>" min="0" style="width: 100px;">
+                                </td>
+                                <td><span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%></span><br>
+                                </td>
+                                <td>무료</td>
+                            </tr>
+                            <% } %>
+                            <tr>
                         <td style="padding: 5px; text-align: right;" colspan="6">
-                            <button class="cart__list__optionbtn" style="font-size: 13px;">선택상품 삭제</button>
+                           <button class="cart__list__optionbtn" style="font-size: 13px;">선택상품 삭제</button>
                         </td>
-                    </tr>
-                    </tbody>
-                </table>
+                     </tr>
+                            </tbody>
+                        </form>
+                    </table>
+                </section>
             </form>
         </div>
 
         <div class="float_right">
             <form>
-                <div class="cart__mainbtns payment_right_back">
-                    <div class="payment_right">총 상품금액 <span id="productPrice">0</span></div>
-                    <div class="payment_right">총 배송비 3,000</div>
-                    <div class="payment_right">총 할인금액 0</div>
-                    <div class="payment_right">총 결제액 <span id="totalPrice">3,000</span></div>
-                    <input type="hidden" name="productTotalPrice" value="">
+                <div class="cart__mainbtns payment_right_back" style="font-weight: 100;">
+                    <div class="payment_right">
+                    	<span>총 상품금액</span>
+                    	<span id="productPrice">0</span>
+                    </div>
+                    <div class="payment_right">
+                    	<span>총 배송비</span>
+                    	3,000
+                    </div>
+                    <div class="payment_right">
+                    	<span>총 할인금액</span>
+                    	0
+                    </div>
+                    <div class="payment_right">
+	                    <span>총 결제액 </span>
+	                    <span id="totalPrice">3,000</span>
+	                </div>
+                    	<input type="hidden" name="productTotalPrice" value="">
                     <button class="cart__bigorderbtn left">쇼핑 계속하기</button>
                     <button class="cart__bigorderbtn right">주문하기</button>
                 </div>
@@ -229,51 +261,51 @@
 </body>
 
 <script type="text/javascript">
-    $(function () {
-        $("#allCheck").click(function () {
-            let sumVal = 0;
+$(function(){
+    $("#allCheck").click(function(){
+    	let sumVal = 0;
+    	
+		if($("#allCheck").prop("checked")) {
+			$("input[type=checkbox]").prop("checked",true);
+			
+			$("input:checkbox[name=check]").each(function(){
+			
+				sumVal += parseInt($(this).attr('data-cat'));
+		     })
+		     let productPrice = sumVal;
+		     let totalPrice = sumVal + parseInt(3000);
+		     
+		     productPrice = productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		     totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		     
+		     document.getElementById("productPrice").innerHTML = productPrice;
+		     document.getElementById("totalPrice").innerHTML = totalPrice;
 
-            if ($("#allCheck").prop("checked")) {
-                $("input[type=checkbox]").prop("checked", true);
+        } else {
+            $("input[type=checkbox]").prop("checked",false);
+            document.getElementById("productPrice").innerHTML = 0;
+            document.getElementById("totalPrice").innerHTML = "3,000";
+        } 
+     })
+    
+    $("input:checkbox[name=check]").click(function(){
+    	let sumVal = 0;
+    	$("#allCheck").prop("checked",false);
+	    $("input:checkbox[name=check]:checked").each(function(){
+	    	sumVal += parseInt($(this).attr('data-cat'));
+	     })
+	     let productPrice = sumVal;
+	     let totalPrice = sumVal + parseInt(3000);
+	     
+	     productPrice = productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	     totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		     
+	     document.getElementById("productPrice").innerHTML = productPrice;
+	     document.getElementById("totalPrice").innerHTML = totalPrice;
+	     document.getElementsByName("productTotalPrice")[0].setAttribute("value", sumVal + parseInt(3000));
 
-                $("input:checkbox[name=check]").each(function () {
-
-                    sumVal += parseInt($(this).attr('data-cat'));
-                })
-                let productPrice = sumVal;
-                let totalPrice = sumVal + parseInt(3000);
-
-                productPrice = productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-                document.getElementById("productPrice").innerHTML = productPrice;
-                document.getElementById("totalPrice").innerHTML = totalPrice;
-
-            } else {
-                $("input[type=checkbox]").prop("checked", false);
-                document.getElementById("productPrice").innerHTML = 0;
-                document.getElementById("totalPrice").innerHTML = "3,000";
-            }
-        })
-
-        $("input:checkbox[name=check]").click(function () {
-            let sumVal = 0;
-            $("#allCheck").prop("checked", false);
-            $("input:checkbox[name=check]:checked").each(function () {
-                sumVal += parseInt($(this).attr('data-cat'));
-            })
-            let productPrice = sumVal;
-            let totalPrice = sumVal + parseInt(3000);
-
-            productPrice = productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-            document.getElementById("productPrice").innerHTML = productPrice;
-            document.getElementById("totalPrice").innerHTML = totalPrice;
-            document.getElementsByName("productTotalPrice")[0].setAttribute("value", sumVal + parseInt(3000));
-
-        })
     })
+ })
 
 </script>
 

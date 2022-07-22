@@ -19,6 +19,7 @@
 <!-- 폰트 -->
 <link href="https://webfontworld.github.io/Jalpullineun/JalpullineunOneul.css" rel="stylesheet">
 
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/adminOrderProductList.css" />
 <%
 AdminOrderProductListRequestDto dtos = (AdminOrderProductListRequestDto) request.getAttribute("orderProductListDto");
 List<AdminOrderProductDto> orderProductList = dtos.getAdminOrders();
@@ -32,12 +33,6 @@ long orderId = sampleDto.getOrderId();
 Instant orderedAt = sampleDto.getOrderedAt();
 Instant updatedAt = sampleDto.getUpdatedAt();
 %>
-
-<style type="text/css">
-.table-hover tbody tr:hover{
-	background-color: #f7f9fa;
-}
-</style>
 
 <div id="admin-product-list" align="center">
 <h2 style="margin-top: 8px;">주문상세정보</h2>
