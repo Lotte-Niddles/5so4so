@@ -43,4 +43,10 @@ public class ShopService {
         }
         return 2;
     }
+
+    public void deleteCartProduct(List<Long> idList, Long userId){
+        for (Long productId : idList) {
+            shopRepository.deleteCartProduct(productId, userId);
+        }
+    }
 }

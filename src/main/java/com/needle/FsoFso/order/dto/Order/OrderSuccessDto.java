@@ -7,6 +7,7 @@ public class OrderSuccessDto {
     private Long quantity;
     private String name;
     private Long price;
+    private String imgSrc;
 
     public Long getQuantity() {
         return quantity;
@@ -32,10 +33,12 @@ public class OrderSuccessDto {
         this.price = price;
     }
 
-    public OrderSuccessDto(Long quantity, String name, Long price) {
-        this.quantity = quantity;
-        this.name = name;
-        this.price = price;
+    public String getImgSrc() {
+        return imgSrc;
+    }
+
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
     }
 
     @Override
@@ -44,6 +47,14 @@ public class OrderSuccessDto {
                 "quantity=" + quantity +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", imgSrc='" + imgSrc + '\'' +
                 '}';
+    }
+
+    public OrderSuccessDto(Long quantity, String name, Long price, String imgSrc) {
+        this.quantity = quantity;
+        this.name = name;
+        this.price = price;
+        this.imgSrc = imgSrc;
     }
 }
