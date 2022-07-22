@@ -25,6 +25,7 @@ List<String> nicknameList = (List<String>) request.getAttribute("nicknameList");
 <link href="//db.onlinewebfonts.com/c/cd0381aa3322dff4babd137f03829c8c?family=Tahoma" rel="stylesheet" type="text/css"/>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/product/productDetail.css" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	<div class="productDetailReview">
@@ -116,7 +117,18 @@ List<String> nicknameList = (List<String>) request.getAttribute("nicknameList");
 				alert("재고가 부족합니다");
 			}
 			else{
-				$("#detail").submit();
+				Swal.fire({
+					  title: '장바구니 담기 완료',
+					  text: '장바구니에 상품을 성공적으로 담았습니다.',
+					  imageUrl: '<%=product.getthumbnailUrl()%>',
+					  imageWidth: 400,
+					  imageHeight: 300,
+					  imageAlt: 'Custom image',
+					}).then(function(isConfirm){
+			            if(isConfirm){
+			            	$("#detail").submit();
+	                    }
+	              });
 			}
 		});
 		
