@@ -44,6 +44,11 @@ public class ProductDaoImpl implements ProductDao {
 	public void addCart(CartDto cart) {
 		session.insert(NAME_SPACE + "addCart", cart);
 	}
+	
+	@Override
+	public int checkCart(CartDto cart) {
+		return session.selectOne(NAME_SPACE + "checkCart", cart);
+	}
 
 	@Override
 	public void removeProductById(long productId) {
