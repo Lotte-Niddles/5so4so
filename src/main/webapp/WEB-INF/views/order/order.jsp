@@ -300,7 +300,7 @@
             let sumVal = 0;
             $("#allCheck").prop("checked", false);
             $("input:checkbox[name=check]:checked").each(function () {
-                sumVal += parseInt($(this).attr('data-cat'));
+                sumVal += (parseInt($(this).attr('data-cat')) * $(this).parent().parent().find(".cart__list__numberinput").attr('value'));
             })
             let productPrice = sumVal;
             let totalPrice = sumVal + parseInt(3000);
