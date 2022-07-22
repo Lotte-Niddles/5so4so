@@ -7,6 +7,7 @@ import com.needle.FsoFso.order.dto.Shop.ShopDto;
 import com.needle.FsoFso.order.repository.OrderProductRepository;
 import com.needle.FsoFso.order.repository.OrderRepository;
 import com.needle.FsoFso.order.repository.ProductsRepository;
+import com.needle.FsoFso.order.dto.OrderResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +53,10 @@ public class OrderService {
 
     public void updateStockQuantity(Long productId, Long stockQuantity) {
         productsRepository.updateStockProducts(productId, stockQuantity);
+    }
+
+    public List<OrderResponse> findOrderByMemberId(Long id) {
+        return orderRepository.findByMemberId(id);
     }
 
     /**

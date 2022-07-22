@@ -1,14 +1,17 @@
 package com.needle.FsoFso.review.service;
 
+import com.needle.FsoFso.review.dto.ReviewDto;
 import java.util.List;
 
 import com.needle.FsoFso.review.dto.MemberProductDto;
-import com.needle.FsoFso.review.dto.ReviewDto;
+import com.needle.FsoFso.review.dto.Review;
 
 public interface ReviewService {
-	List<ReviewDto> findReviewsByProductId(long productId);
+	List<Review> findReviewsByProductId(long productId);
 
-	void save(ReviewDto review);
+	void save(Review review);
 
 	int getCountByUserIdProductId(MemberProductDto memberProductDto);
+
+	List<ReviewDto> findReviewsByMemberId(long memberId);
 }

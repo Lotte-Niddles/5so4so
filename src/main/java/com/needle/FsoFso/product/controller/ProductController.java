@@ -17,11 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.needle.FsoFso.common.util.AttributeContainer;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
-import com.needle.FsoFso.product.dao.ProductDao;
-import com.needle.FsoFso.product.service.ProductService;
-import com.needle.FsoFso.review.dto.ReviewDto;
+import com.needle.FsoFso.review.dto.Review;
 import com.needle.FsoFso.review.service.ReviewService;
 
 @Controller
@@ -82,10 +81,10 @@ public class ProductController {
 
 	public void setProductDetailData(Model model, long productId) {
 		ProductDto product = productService.getProductById(productId);
-		List<ReviewDto> reviewList = reviewService.findReviewsByProductId(productId);
+		List<Review> reviewList = reviewService.findReviewsByProductId(productId);
 		List<String> nicknameList = new ArrayList<String>();
 
-		for (ReviewDto review : reviewList) {
+		for (Review review : reviewList) {
 			Optional<Member> member = memberService.findById(review.getMemberId());
 			nicknameList.add(member.orElse(new Member(0L, "", "", "")).getNickname());
 		}
@@ -93,5 +92,19 @@ public class ProductController {
 		model.addAttribute("product", product);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("nicknameList", nicknameList);
+	}
+
+	@GetMapping("delProduct.do")
+	public String delProduct(HttpServletRequest request) {
+		if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
+			return "redirect:/login.do";
+		}
+		final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+
+		long productId = Long.parseLong(request.getParameter("productId"));
+		productService.removeProductById(productId);
+		productService.removeCartByMemberIdProductId(new CartDto(0L, member.getId(), productId, 0));
+
+		return "redirect:/adminProductList.do";
 	}
 }

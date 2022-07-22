@@ -89,13 +89,14 @@ if (keyWord == null) {
 
 <script type="text/javascript">
 $(function() {
+	const enterKey = 13;
 	$(document).keypress(function(e) {
-		if (e.keyCode == 13) {
+		if (e.keyCode === enterKey) {
 			e.preventDefault();
 		}
 	});
 	$('#searchBtn').click(function(e) {
-		const keyWord = $('#search').val()
+		const keyWord = $('#search').val().trim();
 		if (keyWord != '') {
 			location.href='adminMemberList.do?keyword=' + keyWord;
 		} else {
@@ -104,8 +105,8 @@ $(function() {
 	});
 	$('#search').keypress(function(e) {
 		const key = e.which;
-		const keyWord = $('#search').val();
-		if (key == 13){
+		const keyWord = $('#search').val().trim();
+		if (key === enterKey){
 			if (keyWord != '') {
 				location.href='adminMemberList.do?keyword=' + keyWord;
 			} else {

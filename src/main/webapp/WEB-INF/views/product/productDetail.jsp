@@ -1,13 +1,13 @@
 <%@page import="com.needle.FsoFso.common.util.CurrencyFormatter"%>
 <%@page import="com.needle.FsoFso.member.service.Member"%>
-<%@page import="com.needle.FsoFso.review.dto.ReviewDto"%>
+<%@page import="com.needle.FsoFso.review.dto.Review"%>
 <%@page import="java.util.List"%>
 <%@page import="com.needle.FsoFso.product.dto.ProductDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 ProductDto product = (ProductDto) request.getAttribute("product");
-List<ReviewDto> reviewList = (List<ReviewDto>) request.getAttribute("reviewList");
+List<Review> reviewList = (List<Review>) request.getAttribute("reviewList");
 List<String> nicknameList = (List<String>) request.getAttribute("nicknameList");
 %>
 <!DOCTYPE html>

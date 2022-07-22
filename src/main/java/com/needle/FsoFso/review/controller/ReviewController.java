@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.needle.FsoFso.product.dto.ProductDto;
 import com.needle.FsoFso.product.service.ProductService;
 import com.needle.FsoFso.review.dto.MemberProductDto;
-import com.needle.FsoFso.review.dto.ReviewDto;
+import com.needle.FsoFso.review.dto.Review;
 import com.needle.FsoFso.review.service.ReviewService;
 
 @Controller
@@ -47,7 +47,7 @@ public class ReviewController {
 		long productId = Long.parseLong(req.getParameter("productId"));
 		String content = req.getParameter("content");
 		
-		ReviewDto review = new ReviewDto(0L, memberId, productId, content, null, null);
+		Review review = new Review(0L, memberId, productId, content, null, null);
 		
 		reviewService.save(review);
 		
