@@ -17,8 +17,8 @@ public class MemberDao {
         this.session = session;
     }
 
-    public void save(Member member) {
-        session.insert(NAME_SPACE + "save", member);
+    public int save(Member member) {
+        return session.insert(NAME_SPACE + "save", member);
     }
 
     public Optional<Member> findByProviderId(Long providerId) {
@@ -28,5 +28,12 @@ public class MemberDao {
     public Optional<Member> findById(Long id) {
         return Optional.ofNullable(session.selectOne(NAME_SPACE + "findById", id));
     }
-    
+
+	public void updateMemberById(Member member) {
+		session.update(NAME_SPACE + "updateMemberById", member);
+	}
+
+    public void deleteByProviderId(Long kakaoId) {
+        session.delete(NAME_SPACE + "deleteByProviderId", kakaoId);
+    }
 }

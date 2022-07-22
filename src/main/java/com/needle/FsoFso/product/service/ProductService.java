@@ -16,4 +16,8 @@ public interface ProductService {
 	ProductDto getProductById(long id);
 	
 	void addCart(CartDto cart);
+
+	void removeProductById(long productId);
+
+	void removeCartByMemberIdProductId(CartDto cartDto);
 }

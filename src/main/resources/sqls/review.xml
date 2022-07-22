@@ -4,23 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Review">
 
-	<select id="findReviewsByProductId" parameterType="Long"
-		resultType="com.needle.FsoFso.review.dto.ReviewDto">
-		select id, member_id, product_id, content, created_at, updated_at
-		from reviews
-		where product_id = #{productId}
-	</select>
-	
-	<select id="getCountByUserIdProductId" parameterType="com.needle.FsoFso.review.dto.MemberProductDto"
-		resultType="Integer">
-		select count(*)
-		from order_product
-		where product_id = #{productId} and member_id = #{memberId}
-	</select>
-	
-	<insert id="save" parameterType="com.needle.FsoFso.review.dto.ReviewDto">
-		insert into reviews (member_id, product_id, content, created_at, updated_at)
-		values(#{memberId}, #{productId}, #{content}, now(), now())
-	</insert>
+  <select id="findReviewsByProductId" parameterType="Long"
+    resultType="com.needle.FsoFso.review.dto.Review">
+    select id, member_id, product_id, content, created_at, updated_at
+    from reviews
+    where product_id = #{productId}
+  </select>
 
+  <select id="getCountByUserIdProductId"
+    parameterType="com.needle.FsoFso.review.dto.MemberProductDto"
+    resultType="Integer">
+    select count(*)
+    from order_product
+    where product_id = #{productId}
+      and member_id = #{memberId}
+  </select>
+
+  <insert id="save" parameterType="com.needle.FsoFso.review.dto.Review">
+    insert into reviews (member_id, product_id, content, created_at, updated_at)
+    values (#{memberId}, #{productId}, #{content}, now(), now())
+  </insert>
+
+  <select id="findReviewsByMemberId" parameterType="Long"
+    resultType="com.needle.FsoFso.review.dto.ReviewDto">
+    select r.id, r.member_id, r.product_id, r.content, r.created_at, r.updated_at, p.name, p.thumbnail_url
+    from reviews r
+           join products p on r.product_id = p.id
+    where member_id = #{memberId}
+  </select>
 </mapper>

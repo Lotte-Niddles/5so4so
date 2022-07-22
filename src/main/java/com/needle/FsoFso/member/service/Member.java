@@ -1,6 +1,7 @@
 package com.needle.FsoFso.member.service;
 
 import java.time.Instant;
+import java.util.Optional;
 
 public class Member {
 
@@ -35,8 +36,24 @@ public class Member {
         this.updatedAt = Instant.now();
     }
 
+    public Member(Member member, String nickname) {
+        this(
+                member.getId(),
+                member.getProviderId(),
+                nickname,
+                Optional.ofNullable(member.getGender()).orElseGet(() -> null),
+                Optional.ofNullable(member.getAgeRange()).orElseGet(() -> null),
+                member.getCreatedAt(),
+                Instant.now()
+        );
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getProviderId() {

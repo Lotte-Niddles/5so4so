@@ -63,6 +63,9 @@
         <div class="productListItems">
             <%
                 for (ProductDto product : productList) {
+                	if(product.getStock() <= 0){
+                		continue;
+                	}
             %>
             <div class="productWrapper">
                 <div class="productImage">
