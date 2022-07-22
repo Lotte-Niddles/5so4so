@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     boolean isLoggedIn = AttributeContainer.hasSessionAttributeOf(request, "member");
+    System.out.println(isLoggedIn);
     final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
 	String keyWord = (String) request.getAttribute("keyWord");
@@ -33,7 +34,6 @@
                     </div>
                 </div>
                 <div class="header-links">
-                    <%--TODO: 장바구니 링크--%>
                     <a class="header-link-item" href="<%=request.getContextPath()%>/order.do">
                         <img alt="" src="<%=request.getContextPath()%>/images/cart.png">
                     </a>

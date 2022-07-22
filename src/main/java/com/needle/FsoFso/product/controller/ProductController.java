@@ -1,5 +1,8 @@
 package com.needle.FsoFso.product.controller;
 
+import com.needle.FsoFso.common.aop.AdminOnly;
+import com.needle.FsoFso.common.aop.MemberOnly;
+import com.needle.FsoFso.common.util.AttributeContainer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.needle.FsoFso.common.util.AttributeContainer;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
 import com.needle.FsoFso.review.dto.Review;
@@ -64,6 +66,7 @@ public class ProductController {
 		return "productDetail.tiles";
 	}
 
+	@MemberOnly
 	@PostMapping("addCart.do")
 	public String addCart(Model model, HttpServletRequest req) {
 		if (!AttributeContainer.hasSessionAttributeOf(req, "member")) {
@@ -81,6 +84,7 @@ public class ProductController {
 		return "redirect:/productDetail.do?id=" + productId;
 	}
 
+	@MemberOnly
 	public void setProductDetailData(Model model, long productId) {
 		ProductDto product = productService.getProductById(productId);
 		List<Review> reviewList = reviewService.findReviewsByProductId(productId);
@@ -96,11 +100,9 @@ public class ProductController {
 		model.addAttribute("nicknameList", nicknameList);
 	}
 
+	@AdminOnly
 	@GetMapping("delProduct.do")
 	public String delProduct(HttpServletRequest request) {
-		if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
-			return "redirect:/login.do";
-		}
 		final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
 		long productId = Long.parseLong(request.getParameter("productId"));

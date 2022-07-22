@@ -3,18 +3,16 @@ package com.needle.FsoFso.order.service;
 import com.needle.FsoFso.order.domain.Order;
 import com.needle.FsoFso.order.dto.Order.OrderSearchCond;
 import com.needle.FsoFso.order.dto.OrderProduct.OrderProduct;
+import com.needle.FsoFso.order.dto.OrderResponse;
 import com.needle.FsoFso.order.dto.Shop.ShopDto;
 import com.needle.FsoFso.order.repository.OrderProductRepository;
 import com.needle.FsoFso.order.repository.OrderRepository;
 import com.needle.FsoFso.order.repository.ProductsRepository;
-import com.needle.FsoFso.order.dto.OrderResponse;
 import com.needle.FsoFso.order.repository.ShopRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OrderService {
@@ -24,7 +22,12 @@ public class OrderService {
     private final ProductsRepository productsRepository;
     private final ShopRepository shopRepository;
 
-    public OrderService(OrderRepository orderRepository, OrderProductRepository orderProductRepository, ProductsRepository productsRepository, ShopRepository shopRepository) {
+    public OrderService(
+            OrderRepository orderRepository,
+            OrderProductRepository orderProductRepository,
+            ProductsRepository productsRepository,
+            ShopRepository shopRepository
+    ) {
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
         this.productsRepository = productsRepository;
@@ -33,34 +36,35 @@ public class OrderService {
 
     @Transactional
     public Long saveOrder(List<ShopDto> products, Long memberId) {
-        Long totalPrice = products.stream().map(shopDto -> shopDto.getPrice()).collect(Collectors.toList()).stream().mapToLong(Long::longValue).sum();
+        Long totalPrice = products.stream()
+                .mapToLong(ShopDto::getPrice)
+                .sum();
         Order order = new Order(memberId, totalPrice);
         return orderRepository.save(order);
     }
 
     @Transactional
-    public void saveOrderProduct(List<ShopDto> order, Long userId, Long orderId, List<Long> productsId) throws RuntimeException {
+    public void saveOrderProduct(List<ShopDto> order, Long userId, Long orderId,
+            List<Long> productsId) throws RuntimeException {
         for (ShopDto shopDto : order) {
-            Long stock = productsRepository.findStock(shopDto.getProductId());
+            checkStockOf(shopDto.getProductId(), shopDto.getQuantity());
 
-            if(stock < shopDto.getQuantity()){
-                throw new RuntimeException("재고 부족");
-            }
-
-            orderProductSave(orderProductRepository).save(new OrderProduct(orderId, userId, shopDto.getProductId(), shopDto.getQuantity(), shopDto.getPrice()));
-            updateStockQuantity(shopDto.getProductId(), shopDto.getQuantity());
+            orderProductRepository.save(
+                    new OrderProduct(orderId, userId, shopDto.getProductId(), shopDto.getQuantity(),
+                            shopDto.getPrice()));
+            productsRepository.updateStockProducts(shopDto.getProductId(), shopDto.getQuantity());
         }
         for (Long productId : productsId) {
             shopRepository.deleteCartProduct(productId, userId);
         }
     }
 
-    private OrderProductRepository orderProductSave(OrderProductRepository orderProductRepository) {
-        return orderProductRepository;
-    }
+    private void checkStockOf(Long productId, Long quantity) {
+        Long stock = productsRepository.findStock(productId);
 
-    public void updateStockQuantity(Long productId, Long stockQuantity) {
-        productsRepository.updateStockProducts(productId, stockQuantity);
+        if (stock < quantity) {
+            throw new RuntimeException("재고 부족");
+        }
     }
 
     public List<OrderResponse> findOrderByMemberId(Long id) {

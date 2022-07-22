@@ -40,14 +40,15 @@
                         연령
                     </div>
                     <div class="profile-text">
-                        <%=member.getAgeRange()%>
+                        <%=member.getAgeRange() == null ? "동의 안함" : member.getAgeRange()%>
                     </div>
                     <div class="divider-col">|</div>
                     <div class="profile-contents-label profile-text">
                         성별
                     </div>
                     <div class="profile-text">
-                        <%="female".equals(member.getGender()) ? "여성" : "남성"%>
+                        <%="female".equals(member.getGender()) ? "여성" :
+                                "male".equals(member.getGender()) ? "남성" : "동의 안함"%>
                     </div>
                 </div>
             </div>
@@ -57,12 +58,6 @@
                          onclick="handleLogout(<%=member.getId()%>)"
                     >
                         로그아웃
-                    </div>
-                    <div class="divider-col">|</div>
-                    <div class="profile-text pointer-cursor" style="color: #ebebeb"
-                         onclick="handleWithdrawal(<%=member.getId()%>)"
-                    >
-                        회원탈퇴
                     </div>
                 </div>
             </div>
@@ -232,13 +227,6 @@
     const conf = confirm('로그아웃 하시겠습니까?')
     if (conf) {
       location.href = '<%=request.getContextPath()%>/logout.do?id=' + member_id;
-    }
-  }
-
-  function handleWithdrawal(member_id) {
-    const conf = confirm('모든 정보가 삭제됩니다. \n정말 탈퇴하시겠습니까?')
-    if (conf) {
-      location.href = '<%=request.getContextPath()%>/withdrawal.do?id=' + member_id;
     }
   }
 

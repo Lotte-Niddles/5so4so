@@ -1,5 +1,6 @@
 package com.needle.FsoFso.review.controller;
 
+import com.needle.FsoFso.common.aop.MemberOnly;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,8 @@ public class ReviewController {
 		
 		return "addReview.tiles";
 	}
-	
+
+	@MemberOnly
 	@PostMapping("/addReview.do")
 	public String addReview(Model model, HttpServletRequest req) {
 		if (!AttributeContainer.hasSessionAttributeOf(req, "member")) {
@@ -57,7 +59,8 @@ public class ReviewController {
 		
 		return "redirect:/productDetail.do?id="+productId;
 	}
-	
+
+	@MemberOnly
 	@GetMapping("/checkBuyMember.do")
 	@ResponseBody
 	public String isBuyMemeber(@RequestParam Map<String, Object> map, HttpServletRequest req) {

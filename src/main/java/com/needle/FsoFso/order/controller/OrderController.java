@@ -1,5 +1,7 @@
 package com.needle.FsoFso.order.controller;
 
+import com.needle.FsoFso.common.aop.MemberOnly;
+import com.needle.FsoFso.common.util.AttributeContainer;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.order.domain.Order;
 import com.needle.FsoFso.order.dto.Order.OrderSearchCond;
@@ -32,39 +34,48 @@ public class OrderController {
         this.shopService = shopService;
     }
 
-//    @MemberId
+    @MemberOnly
     @GetMapping("order.do")
     public String orderPage(Model model, HttpServletRequest request) {
-        Long userId = getUserId(request);
-        viewRander(model, userId);
+        Member member = (Member) request.getSession().getAttribute("member");
+        viewRander(model, member.getId());
         return "order.tiles";
     }
 
-    /**
-     * 상품 결제 버튼 로직
-     */
+    @MemberOnly
     @Transactional
     @PostMapping("orderProduct.do")
-    public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model, HttpServletRequest request) {
-        Long userId = getUserId(request);
+    public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model,
+            HttpServletRequest request) {
+        Member member = (Member) request.getSession().getAttribute("member");
+        Long userId = member.getId();
+
         List<Long> productsId = productId.get("productId");
         List<ShopDto> products = shopService.findShopInfo(userId, productsId);
         Long orderId = orderService.saveOrder(products, userId);
         orderService.saveOrderProduct(products, userId, orderId, productsId);
-        List<OrderSuccessDto> orderSuccessDtoList = products.stream().map(shopDto -> (new OrderSuccessDto(shopDto.getQuantity(), shopDto.getName(), shopDto.getPrice(), shopDto.getImgSrc()))).collect(Collectors.toList());
+        List<OrderSuccessDto> orderSuccessDtoList = products.stream()
+                .map(shopDto -> (
+                        new OrderSuccessDto(
+                                shopDto.getQuantity(),
+                                shopDto.getName(),
+                                shopDto.getPrice(),
+                                shopDto.getImgSrc())
+                ))
+                .collect(Collectors.toList());
         model.addAttribute("orderSuccessDtoList", orderSuccessDtoList);
         return "orderSuccess.tiles";
     }
 
-    /**
-     * 장바구니 수량 변경
-     */
-    @GetMapping("cartNumReplace.do")
-    public String cartNumReplace(Long changeItemCnt, Long productId, Model model, HttpServletRequest request) {
-        Long userId = getUserId(request);
 
-        Integer stockFlag = shopService.changeUserProductCnt(changeItemCnt, productId, userId);
-        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
+    @MemberOnly
+    @GetMapping("cartNumReplace.do")
+    public String cartNumReplace(Long changeItemCnt, Long productId, Model model,
+            HttpServletRequest request) {
+        final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+        Integer stockFlag = shopService.changeUserProductCnt(changeItemCnt, productId,
+                member.getId());
+        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(member.getId());
         Long allPrice = shopService.getAllPrice(allDisplayDto);
 
         if (stockFlag == 1) {
@@ -77,13 +88,15 @@ public class OrderController {
         return "order.tiles";
     }
 
+    @MemberOnly
     @PostMapping("cartDeleteProduct.do")
-    public String cartDeleteProduct(@RequestBody Map<String,List<Long>> productId, HttpServletRequest request, Model model){
-        Long userId = getUserId(request);
+    public String cartDeleteProduct(@RequestBody Map<String, List<Long>> productId,
+            HttpServletRequest request, Model model) {
+        final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
         List<Long> idList = productId.get("productId");
-        shopService.deleteCartProduct(idList,userId);
-        viewRander(model, userId);
-        return "redirect:order.do";
+        shopService.deleteCartProduct(idList,member.getId());
+        viewRander(model, member.getId());
+        return "redirect:/order.do";
     }
 
     private void viewRander(Model model, Long userId) {
@@ -95,14 +108,6 @@ public class OrderController {
         model.addAttribute("allDisplayDto", allDisplayDto);
         model.addAttribute("allPrice", allPrice);
     }
-
-
-    private Long getUserId(HttpServletRequest request) {
-        Member member = (Member) request.getSession().getAttribute("member");
-        Long id = member.getId();
-        return id;
-    }
-
 
     /**
      * 적용 전, 동적 쿼리 필요시 사용

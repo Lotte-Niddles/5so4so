@@ -1,5 +1,6 @@
 package com.needle.FsoFso.admin.controller;
 
+import com.needle.FsoFso.common.aop.AdminOnly;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,8 @@ public class SellerProductController {
 	
 	@Autowired
 	private SellerProductService sellerProductService;
-	
+
+	@AdminOnly
 	@RequestMapping(value = "/product.do", method = RequestMethod.POST)
 	public String addSellerProduct(SellerProductDto sellerProductDto,
 			@RequestParam(value = "fileload", required = false) MultipartFile fileload,
@@ -41,7 +43,8 @@ public class SellerProductController {
 		
 		return "redirect:/adminProductList.do";
 	}
-	
+
+	@AdminOnly
 	@RequestMapping(value = "/product.do", method = RequestMethod.GET)
 	public String getAllProduct(Model model) {
 		
