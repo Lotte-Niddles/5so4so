@@ -9,7 +9,6 @@
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="com.needle.FsoFso.order.dto.OrderResponse" %>
 <%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
-<%@ page import="com.needle.FsoFso.order.dto.OrderProduct.OrderProduct" %>
 <%@ page import="com.needle.FsoFso.order.dto.OrderProductResponse" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -160,11 +159,15 @@
             <div class="divider"></div>
             <% if (reviews.isEmpty()) {%>
             <div class="content-text">작성한 리뷰가 없어요.</div>
+            <%
+                if (!orders.isEmpty()) {
+            %>
             <div class="content-text">첫 리뷰 쓰러 가기
-                <a href="<%=request.getContextPath()%>/productList.do"
+                <a href="<%=request.getContextPath()%>/productDetail.do?id=<%=orders.get(0).getFirstProduct()%>"
                    style="color: #35c5f0">click!</a>
             </div>
             <%
+                }
             } else {
                 for (int i = 0; i < reviews.size(); i++) {
                     ReviewDto review = reviews.get(i);

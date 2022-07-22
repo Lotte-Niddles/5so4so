@@ -27,6 +27,10 @@ public class OrderResponse {
         this.orderProducts = orderProducts;
     }
 
+    public Long getFirstProduct() {
+        return orderProducts.get(0).getProductId();
+    }
+
     public Long getId() {
         return id;
     }
