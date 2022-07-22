@@ -12,6 +12,7 @@
 				created_at as createdAt, updated_at as updatedAt
 		 	FROM products
 			WHERE name like concat('%',#{keyWord},'%')
+			and status = 1
 			ORDER BY id desc) search
 		WHERE rnum between ${startNum} and ${endNum}
 	</select>
@@ -19,5 +20,6 @@
 		SELECT ifnull(count(*), 0)
 		FROM products
 		WHERE name like concat('%',#{keyWord},'%')
+		and status = 1
 	</select>
 </mapper>
