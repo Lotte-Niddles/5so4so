@@ -59,6 +59,7 @@ if (keyWord == null) {
 		<col width="100px">
 		<col width="200px">
 		<col width="200px">
+		<col width="200px">
 		<thead>
 		<tr style="color: #35C5F0; text-align: center;" >
 			<th>상품번호</th>
@@ -68,6 +69,7 @@ if (keyWord == null) {
 			<th>판매건 수</th>
 			<th>상품등록일시</th>
 			<th>상품수정일시</th>
+			<th>상품 삭제</th>
 		</tr>
 		</thead>
 		<tbody style="font-family: 'JalpullineunOneul';">
@@ -76,13 +78,14 @@ if (keyWord == null) {
 				for (AdminProductDto dto : productList) {
 		%>
 					<tr>
-						<td style="text-align: center;"><%=dto.getProductId()%></td>
-						<td style="text-align: center;"><img src="<%=dto.getImgUrl()%>" width="30px" height="30px"></td>
-						<td><%=dto.getProductName()%></td>
+						<td style="text-align: center;"><a href="<%=request.getContextPath()%>/productDetail.do?id=<%=dto.getProductId()%>"><%=dto.getProductId()%></a></td>
+						<td style="text-align: center;"><a href="<%=request.getContextPath()%>/productDetail.do?id=<%=dto.getProductId()%>"><img src="<%=dto.getImgUrl()%>" width="30px" height="30px"></a></td>
+						<td><a href="<%=request.getContextPath()%>/productDetail.do?id=<%=dto.getProductId()%>"><%=dto.getProductName()%></a></td>
 						<td style="text-align: right;"><%=dto.getStock()%></td>
 						<td style="text-align: right;"><%=dto.getSalesCount()%>회</td>
 						<td style="text-align: center;"><%=formatter.format(dto.getCreatedAt())%></td>
 						<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
+						<td style="text-align: center;"> <button onclick="deleteProduct(<%=dto.getProductId()%>)">삭제</button> </td>
 					</tr>
 		<%
 				}
@@ -128,4 +131,11 @@ $(function() {
 		}		
 	});
 });
+function deleteProduct(productId){
+	if(confirm("상품을 삭제하시겠습니까?")){
+		location.href='delProduct.do?productId=' + productId;
+	}else{
+		return;	
+	}
+}
 </script>

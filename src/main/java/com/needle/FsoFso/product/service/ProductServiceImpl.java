@@ -42,4 +42,14 @@ public class ProductServiceImpl implements ProductService {
 	public void addCart(CartDto cart) {
 		productDao.addCart(cart);
 	}
+
+	@Override
+	public void removeProductById(long productId) {
+		productDao.removeProductById(productId);
+	}
+
+	@Override
+	public void removeCartByMemberIdProductId(CartDto cartDto) {
+		productDao.removeCartByMemberIdProductId(cartDto);
+	}
 }
