@@ -39,8 +39,8 @@
                     </a>
                     <% if (isLoggedIn) { %>
                     <a class="header-link-item"
-                       href="<%=request.getContextPath()%>/logout.do?id=<%=member.getId()%>">
-                        로그아웃
+                       href="<%=request.getContextPath()%>/me.do">
+                        마이페이지
                     </a>
                     <% } else { %>
                     <a class="header-link-item" href="<%=request.getContextPath()%>/login.do">
