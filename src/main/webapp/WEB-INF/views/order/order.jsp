@@ -3,16 +3,28 @@
 <%@ page import="com.needle.FsoFso.order.dto.Shop.DisplayShopDto" %>
 <%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
 
-<%--
-  Created by IntelliJ IDEA.
-  User: namhyeop
-  Date: 2022/07/18
-  Time: 4:47 PM
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+
+	if(request.getAttribute("stockFlag") != null) {
+		int flag = (int)request.getAttribute("stockFlag");
+		if(flag == 1) {
+			%>
+			<script>
+			alert("수량이 변경되었습니다.");
+			</script>
+			<%
+		} else if(flag == 2) {
+			%>
+			<script>
+			alert("수량이 변경실패했습니다. 다시 시도해주세요");
+			</script>
+			<%
+		} else if(flag == 0) {
+			// none
+		}
+	}
+
     List<DisplayShopDto> displayShopDto = (List<DisplayShopDto>) request.getAttribute("allDisplayDto");
 
     /* for (DisplayShopDto shopDto : displayShopDto) {
@@ -22,7 +34,6 @@
 
     int productTotalPrice = 0;
     int deliveryFee = 3000;
-
 %>
 
 <html>
@@ -122,12 +133,12 @@
         }
 
         .float_right {
-            position: fixed;
-            top: 300px;
-            width: 407px;
-            height: 277px;
-            right: 280px;
-        }
+		    position: fixed;
+		    top: 422px;
+		    width: 407px;
+		    height: 277px;
+		    right: 24px;
+        } 
 
         .payment_right {
             /*  font-weight: bold; */
@@ -207,17 +218,16 @@
                             </p>
                             <span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%>
                                     </span>
-                        </td>
-                        <td class="cart__list__option">
-                            <input type="number" id="<%=nowDto.getProductId()%>" class="cart__list__numberinput"
-                                   val="<%=nowDto.getQuantity() %>" min="0" style="width: 100px;">
-                        </td>
-                        <td><span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%></span><br>
-                        </td>
-                        <td>무료</td>
-                    </tr>
-                    <% } %>
-                    <tr>
+                                </td>
+                                <td class="cart__list__option">
+                                    <input type="number" id="<%=nowDto.getProductId()%>" class="cart__list__numberinput" value="<%=nowDto.getQuantity() %>" min="0"  style="width: 100px;">
+                                </td>
+                                <td><span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%></span><br>
+                                </td>
+                                <td>무료</td>
+                            </tr>
+                            <% } %>
+                            <tr>
                         <td style="padding: 5px; text-align: right;" colspan="6">
                             <button type="button" id="cart__list__deletebtn" class="cart__list__optionbtn"
                                     style="font-size: 13px;">선택상품 삭제
@@ -374,7 +384,6 @@
             }
         });
     });
-
 </script>
 
 
