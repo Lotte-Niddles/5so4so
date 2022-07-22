@@ -1,10 +1,12 @@
+<%@ page import="java.util.List" %>
+
+<%@ page import="com.needle.FsoFso.order.dto.Shop.ShopDto" %>
+<%@ page import="com.needle.FsoFso.order.dto.Shop.DisplayShopDto" %>
 <%@ page import="com.needle.FsoFso.order.service.ShopService" %>
 <%@ page import="com.needle.FsoFso.order.repository.ShopRepository" %>
-<%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
-<%@ page import="com.needle.FsoFso.order.dto.Shop.ShopDto" %>
-<%@ page import="java.util.List" %>
-<%@ page import="static java.awt.SystemColor.text" %>
-<%@ page import="com.needle.FsoFso.order.dto.Shop.DisplayShopDto" %><%--
+<%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
+
+<%--
   Created by IntelliJ IDEA.
   User: namhyeop
   Date: 2022/07/18
@@ -20,6 +22,8 @@
     }
     Long allPrice = (Long) request.getAttribute("allPrice");
 
+    int productTotalPrice = 0;
+    int deliveryFee = 3000;
 %>
 
 <html>
@@ -89,7 +93,6 @@
         .cart__mainbtns {
             width: 420px;
             height: 200px;
-            padding-top: 40px;
             /*display: block;*/
             margin: auto;
         }
@@ -117,10 +120,18 @@
             display: flex;
         }
 
+        .float_right {
+		    position: fixed;
+		    top: 300px;
+		    width: 407px;
+		    height: 277px;
+		    right: 280px;
+        } 
+
         .payment_right {
             font-weight: bold;
             font-size: 100%;
-            margin: 10px 10px 10px 10px;
+            margin: 20px 30px;
         }
 
         .payment_right_back {
@@ -132,9 +143,6 @@
         }
 
         .cart-tmp {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
             width: 65%;
             margin: 0 auto 75px auto;
         }
@@ -161,35 +169,43 @@
                         <form>
                             <thead>
                             <tr>
-                                <td width="80"><input type="checkbox"></td>
+                                <td width="80"><input type="checkbox" id="allCheck"></td>
                                 <td colspan="2" width="300">상품정보</td>
                                 <td width="150">옵션</td>
                                 <td width="150">상품금액</td>
-                                <td>배송비</td>
+                                <td width="50">배송비</td>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                                for (int i = 0; i < displayShopDto.size(); i++) {%>
+                                for (int i = 0; i < displayShopDto.size(); i++) {
+                                DisplayShopDto nowDto = displayShopDto.get(i);    
+                            %>
+                                
                             <tr class="cart__list__detail">
-                                <td><input type="checkbox"></td>
-                                <td><img src="<%=displayShopDto.get(i).getImageSrc()%>"
-                                         alt="<%=displayShopDto.get(i).getItemName()%>" width="100" height="100"></td>
+                                <td><input type="checkbox" name="check" data-cat="<%=nowDto.getPrice()%>" value="<%=nowDto.getPrice()%>"></td>
+                                <td><img src="<%=nowDto.getImageSrc()%>"
+                                         alt="<%=nowDto.getItemName()%>" width="100" height="100"></td>
                                 <td><span class="cart__list__5SO4SO"> 5SO4SO</span>
-                                    <p><%=displayShopDto.get(i).getItemName()%>
+                                    <p><%=nowDto.getItemName()%>
                                     </p>
-                                    <sapn class="price"><%=displayShopDto.get(i).getPrice()%>
+                                    <span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%>
                                     </sapn>
                                 </td>
                                 <td class="cart__list__option">
-                                    <button class="cart__list__optionbtn">주문조건 추가/변경</button>
+                                    <input type="number" val="<%=0 %>" min="0" >
                                 </td>
-                                <td><span class="price"><%=displayShopDto.get(i).getPrice()%></span><br>
+                                <td><span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%></span><br>
                                     <button class="cart__list__orderbtn">주문하기</button>
                                 </td>
                                 <td>무료</td>
                             </tr>
                             <% } %>
+                            <tr>
+                        <td style="padding: 5px; text-align: right;" colspan="6">
+                           <button class="cart__list__optionbtn" style="font-size: 13px;">선택상품 삭제</button>
+                        </td>
+                     </tr>
                             </tbody>
                         </form>
                     </table>
@@ -200,10 +216,11 @@
         <div class="float_right">
             <form>
                 <div class="cart__mainbtns payment_right_back">
-                    <div class="payment_right">총 상품금액 <%=allPrice%></div>
-                    <div class="payment_right">총 배송비 0</div>
+                    <div class="payment_right">총 상품금액 <span id="productPrice">0</span></div>
+                    <div class="payment_right">총 배송비 3,000</div>
                     <div class="payment_right">총 할인금액 0</div>
-                    <div class="payment_right">총 결제액 <%=allPrice%> </div>
+                    <div class="payment_right">총 결제액 <span id="totalPrice">3,000</span></div>
+                    	<input type="hidden" name="productTotalPrice" value="">
                     <button class="cart__bigorderbtn left">쇼핑 계속하기</button>
                     <button class="cart__bigorderbtn right">주문하기</button>
                 </div>
@@ -212,4 +229,55 @@
     </div>
 </div>
 </body>
+
+<script type="text/javascript">
+$(function(){
+    $("#allCheck").click(function(){
+    	let sumVal = 0;
+    	
+		if($("#allCheck").prop("checked")) {
+			$("input[type=checkbox]").prop("checked",true);
+			
+			$("input:checkbox[name=check]").each(function(){
+			
+				sumVal += parseInt($(this).attr('data-cat'));
+		     })
+		     let productPrice = sumVal;
+		     let totalPrice = sumVal + parseInt(3000);
+		     
+		     productPrice = productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		     totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		     
+		     document.getElementById("productPrice").innerHTML = productPrice;
+		     document.getElementById("totalPrice").innerHTML = totalPrice;
+
+        } else {
+            $("input[type=checkbox]").prop("checked",false);
+            document.getElementById("productPrice").innerHTML = 0;
+            document.getElementById("totalPrice").innerHTML = "3,000";
+        } 
+     })
+    
+    $("input:checkbox[name=check]").click(function(){
+    	let sumVal = 0;
+    	$("#allCheck").prop("checked",false);
+	    $("input:checkbox[name=check]:checked").each(function(){
+	    	sumVal += parseInt($(this).attr('data-cat'));
+	     })
+	     let productPrice = sumVal;
+	     let totalPrice = sumVal + parseInt(3000);
+	     
+	     productPrice = productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	     totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		     
+	     document.getElementById("productPrice").innerHTML = productPrice;
+	     document.getElementById("totalPrice").innerHTML = totalPrice;
+	     document.getElementsByName("productTotalPrice")[0].setAttribute("value", sumVal + parseInt(3000));
+
+    })
+ })
+
+</script>
+
+
 </html>
