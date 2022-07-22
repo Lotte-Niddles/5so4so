@@ -46,7 +46,7 @@ public class ReviewController {
 			return "redirect:/login.do";
 		}
 		final Member member = (Member) AttributeContainer.sessionAttributeFrom(req, "member");
-		
+
 		long productId = Long.parseLong(req.getParameter("productId"));
 		String content = req.getParameter("content");
 		
@@ -60,12 +60,18 @@ public class ReviewController {
 	
 	@GetMapping("/checkBuyMember.do")
 	@ResponseBody
-	public String isBuyMemeber(@RequestParam Map<String, Object> map) {
+	public String isBuyMemeber(@RequestParam Map<String, Object> map, HttpServletRequest req) {
 		String answer = "true";
-		long memberId = Long.parseLong((String) map.get("memberId"));
+
+		if (!AttributeContainer.hasSessionAttributeOf(req, "member")) {
+			return "redirect:/login.do";
+		}
+		final Member member = (Member) AttributeContainer.sessionAttributeFrom(req, "member");
+
+		
 		long productId = Long.parseLong((String) map.get("productId"));
 		
-		int buyCount = reviewService.getCountByUserIdProductId(new MemberProductDto(memberId,productId));
+		int buyCount = reviewService.getCountByUserIdProductId(new MemberProductDto(member.getId(),productId));
 		
 		if(0 == buyCount) {
 			answer = "false";

@@ -98,7 +98,7 @@ List<String> nicknameList = (List<String>) request.getAttribute("nicknameList");
 				<tr height="40">
 					<td><%=nicknameList.get(i)%></td>
 					<td><%=reviewList.get(i).getContent()%></td>
-					<td><%=reviewList.get(i).getCreatedAt()%></td>
+					<td><%=reviewList.get(i).getCreatedAt().toString().substring(0,10) %></td>
 				</tr>
 				<%
 				}
@@ -144,8 +144,6 @@ List<String> nicknameList = (List<String>) request.getAttribute("nicknameList");
 				url: "checkBuyMember.do",
 				type: "get",
 				data: { 
-					<%-- "memberId" : "<%= ((Member)request.getSession().getAttribute("Member")).getId() %>", --%>
-					"memberId" : "12",
 					"productId" : "<%=product.getId()%>"},
 				dataType : "text",
 				success: function(result){
