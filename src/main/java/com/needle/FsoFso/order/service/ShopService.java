@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ShopService {
+
     private final ShopRepository shopRepository;
 
     public ShopService(ShopRepository shopRepository) {

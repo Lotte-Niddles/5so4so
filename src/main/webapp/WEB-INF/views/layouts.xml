@@ -31,22 +31,26 @@
         <put-attribute name="main" value="/WEB-INF/views/admin/adminProductList.jsp"/>
     </definition>
 
+    <definition name="adminMemberList.tiles" extends="admin.tiles">
+        <put-attribute name="main" value="/WEB-INF/views/admin/adminMemberList.jsp"/>
+    </definition>
 
-<definition name="adminOrderList.tiles" extends="admin.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/admin/adminOrderList.jsp"/>
-</definition>
+    <definition name="adminAddProduct.tiles" extends="admin.tiles">
+        <put-attribute name="main" value="/WEB-INF/views/admin/addProduct.jsp"/>
+    </definition>
+    
+    <definition name="adminOrderList.tiles" extends="admin.tiles">
+		<put-attribute name="main" value="/WEB-INF/views/admin/adminOrderList.jsp"/>
+	</definition>
 
-<definition name="adminOrderProductList.tiles" extends="admin.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/admin/adminOrderProductList.jsp"/>
-</definition>
+	<definition name="adminOrderProductList.tiles" extends="admin.tiles">
+		<put-attribute name="main" value="/WEB-INF/views/admin/adminOrderProductList.jsp"/>
+	</definition>
 
-<definition name="adminAddProduct.tiles" extends="admin.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/admin/addProduct.jsp"/>
-</definition>
 
-<definition name="adminMemberList.tiles" extends="admin.tiles">
-    <put-attribute name="main" value="/WEB-INF/views/admin/adminMemberList.jsp"/>
-</definition>
+	<definition name="adminMemberList.tiles" extends="admin.tiles">
+	    <put-attribute name="main" value="/WEB-INF/views/admin/adminMemberList.jsp"/>
+	</definition>
 
     <definition name="adminAddProduct.tiles" extends="admin.tiles">
         <put-attribute name="main" value="/WEB-INF/views/admin/addProduct.jsp"/>
@@ -67,6 +71,7 @@
         <put-attribute name="main" value="/WEB-INF/views/review/addReview.jsp"/>
         <put-attribute name="bottom_inc" value="/WEB-INF/views/commons/bottom_inc.jsp"/>
     </definition>
+
 
     <!-- Login -->
     <definition name="login.tiles" extends="productList.tiles">

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface ShopMapper {
+
     ShopDto findUserChoiceProductId(@Param("shopUserId") Long shopUserId, @Param("productsId")Long productsId);
 
     List<Long> findUserProductIdList(Long userId);

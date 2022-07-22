@@ -1,10 +1,14 @@
-<%@page import="com.needle.FsoFso.admin.dto.AdminOrderDto"%>
-<%@page import="com.needle.FsoFso.admin.dto.AdminOrderListRequestDto"%>
-<%@page import="java.time.ZoneId"%>
-<%@page import="java.util.Locale"%>
-<%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="java.util.List"%>
-<%@page import="java.time.Instant"%>
+<%@ page import="com.needle.FsoFso.admin.dto.AdminOrderDto" %>
+<%@ page import="com.needle.FsoFso.admin.dto.AdminOrderListRequestDto" %>
+<%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
+
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Locale" %>
+
+<%@ page import="java.time.Instant" %>
+<%@ page import="java.time.ZoneId" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- 부트스트랩 -->
@@ -49,7 +53,6 @@ if (keyWord == null) {
 <input type="text" id="search" value="<%=keyWord%>">
 <input type="button" id="searchBtn" value="검색">
 </div>
-
 	<table id="admin-order-list-table" class="table table-hover">
 		<col width="100px">
 		<col width="100px">
@@ -71,35 +74,52 @@ if (keyWord == null) {
 		</thead>
 		<tbody style="font-family: 'JalpullineunOneul';">
 		<%
-		for (AdminOrderDto dto : orderList) {
+			if (orderList.size() > 0) {
+				for (AdminOrderDto dto : orderList) {
 		%>
-		<tr>
-			<td style="text-align: center;"><%=dto.getId()%></td>
-			<td style="text-align: center;"><%=dto.getMemberId()%></td>
-			<td style="text-align: right;"><%=dto.getTotalPrice()%>원</td>
-			<td style="text-align: center;"><%=dto.getProductCount()%> 종류</td>
-			<td style="text-align: center;"><%=formatter.format(dto.getOrderedAt())%></td>
-			<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
-			<td style="text-align: center;">
-				<button type="button" class="btn" onclick="location.href='adminOrderProductList.do?orderId=<%=dto.getId()%>'">상세정보</button>
-			</td>
-		</tr>
+          <tr>
+            <td style="text-align: center;"><%=dto.getId()%></td>
+            <td style="text-align: center;"><%=dto.getMemberId()%></td>
+            <td style="text-align: right;"><%=dto.getTotalPrice()%>원</td>
+            <td style="text-align: center;"><%=dto.getProductCount()%> 종류</td>
+            <td style="text-align: center;"><%=formatter.format(dto.getOrderedAt())%></td>
+            <td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
+            <td style="text-align: center;">
+              <button type="button" class="btn" onclick="location.href='adminOrderProductList.do?orderId=<%=dto.getId()%>'">상세정보</button>
+            </td>
+          </tr>
 		<%
-		}
+				}
 		%>
-</tbody>
-	</table>
+				</tbody>
+		</table>
+		<% 
+				} else {
+		%>
+			</tbody>
+		</table>
+				<p style="text-align:center;margin-top:200px;">앗! 찾으시는 결과가 없네요.</p>
+		<%
+			}
+		%>
 </div>
 
 <script type="text/javascript">
-$(function() {
+ $(function() {
+	const enterKey = 13;
 	$(document).keypress(function(e) {
-		if (e.keyCode == 13) {
+		if (e.keyCode === enterKey) {
 			e.preventDefault();
 		}
 	});
 	$('#searchBtn').click(function(e) {
 		const keyWord = $('#search').val()
+		let str = keyWord;
+		let check = /^[0-9]+$/; 
+		if (!check.test(str)) {
+			alert("숫자만 입력 가능합니다.");
+			return;
+		}
 		if (keyWord != '') {
 			location.href='adminOrderList.do?keyWord=' + keyWord;
 		} else {
@@ -109,7 +129,13 @@ $(function() {
 	$('#search').keypress(function(e) {
 		const key = e.which;
 		const keyWord = $('#search').val();
-		if (key == 13){
+		if (key === enterKey){
+			let str = keyWord;
+			let check = /^[0-9]+$/; 
+			if (!check.test(str)) {
+				alert("숫자만 입력 가능합니다.");
+				return;
+			}
 			if (keyWord != '') {
 				location.href='adminOrderList.do?keyWord=' + keyWord;
 			} else {

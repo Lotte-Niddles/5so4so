@@ -1,6 +1,7 @@
 package com.needle.FsoFso.order.dto.Order;
 
 public class OrderUpdateDto {
+
     private Long totalPrice;
 
     public Long getTotalPrice() {

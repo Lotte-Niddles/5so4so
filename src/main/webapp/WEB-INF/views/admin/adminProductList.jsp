@@ -1,10 +1,13 @@
-<%@page import="java.time.ZoneId"%>
-<%@page import="java.util.Locale"%>
-<%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="java.util.List"%>
-<%@page import="java.time.Instant"%>
-<%@page import="com.needle.FsoFso.admin.dto.AdminProductDto"%>
-<%@page import="com.needle.FsoFso.admin.dto.AdminProductListRequestDto"%>
+<%@ page import="com.needle.FsoFso.admin.dto.AdminProductDto" %>
+<%@ page import="com.needle.FsoFso.admin.dto.AdminProductListRequestDto" %>
+
+<%@ page import="java.time.ZoneId" %>
+<%@ page import="java.time.Instant" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Locale" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- 부트스트랩 -->
@@ -93,14 +96,15 @@ if (keyWord == null) {
 	</table>
 			<p style="text-align:center;margin-top:200px;">앗! 찾으시는 결과가 없네요.</p>
 		<%
-				}
+			}
 		%>
 </div>
 
 <script type="text/javascript">
 $(function() {
+	const enterKey = 13;
 	$(document).keypress(function(e) {
-		if (e.keyCode == 13) {
+		if (e.keyCode === enterKey) {
 			e.preventDefault();
 		}
 	});
@@ -115,7 +119,7 @@ $(function() {
 	$('#search').keypress(function(e) {
 		const key = e.which;
 		const keyWord = $('#search').val();
-		if (key == 13){
+		if (key === enterKey){
 			if (keyWord != '') {
 				location.href='adminProductList.do?keyWord=' + keyWord;
 			} else {

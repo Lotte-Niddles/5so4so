@@ -4,9 +4,17 @@
 <%@ page import="com.needle.FsoFso.order.dto.Shop.DisplayShopDto" %>
 <%@ page import="com.needle.FsoFso.order.service.ShopService" %>
 <%@ page import="com.needle.FsoFso.order.repository.ShopRepository" %>
+<<<<<<< HEAD
 <%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
 
 <%--
+=======
+<%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
+<%@ page import="com.needle.FsoFso.order.dto.Shop.ShopDto" %>
+<%@ page import="java.util.List" %>
+<%@ page import="static java.awt.SystemColor.text" %>
+<%@ page import="com.needle.FsoFso.order.dto.Shop.DisplayShopDto" %><%--
+>>>>>>> daa152550b3d453bd170e2f0dc970eb92e73929a
   Created by IntelliJ IDEA.
   User: namhyeop
   Date: 2022/07/18
@@ -17,6 +25,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     List<DisplayShopDto> displayShopDto = (List<DisplayShopDto>) request.getAttribute("allDisplayDto");
+
     for (DisplayShopDto shopDto : displayShopDto) {
         System.out.println("shopDto = " + shopDto);
     }
@@ -24,6 +33,7 @@
 
     int productTotalPrice = 0;
     int deliveryFee = 3000;
+
 %>
 
 <html>
