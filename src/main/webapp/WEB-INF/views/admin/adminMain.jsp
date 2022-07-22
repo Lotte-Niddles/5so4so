@@ -129,6 +129,48 @@ String sMindate = formatter.format(mindate);
 	</div>
 </div>
 
+<div id="admin-main" align="center" style="display: flex; padding: 10px; width: 1200px; margin:0 auto;">
+	<div id="admin-left-chart" style="width: 700px; margin:10px; padding: 5px; background-color: gray;">
+		<div id="genderContainer"></div>
+	</div>
+	<div id="admin-right-chart" style="width: 700px; margin:10px; padding: 5px; background-color: gray;">
+		<div id="daily-sales-detail" style="background-color: white; height: 400px;">
+			<div id="daily-sales-detail-title"><p style="font-size: 20px; font:bold;">주간 일별 요약</p></div>
+			<table id="daily-sales-detail-table" class="table table-hover">
+			<col width="100px"><col width="140px"><col width="90px"><col width="90px">
+			<thead>
+				<tr style="color: #35C5F0; text-align: center;" >
+					<th>일자</th>
+					<th>매출액</th>
+					<th>주문수</th>
+					<th>가입</th>
+				</tr>
+			</thead>
+			<tbody style="font-family: 'JalpullineunOneul';">
+			<%
+				totalSales = 0;
+				for(DailyDetailDto dto : detailList) {
+					totalSales += dto.getSales();
+					%>
+						<tr>
+							<td style="text-align: center;"><%=dto.getDate().toString().substring(0, 10)%></td>
+							<td style="text-align: right;"><%=CurrencyFormatter.toCurrencyFormat(dto.getSales())%>원</td>
+							<td style="text-align: right;"><%=dto.getSalesCnt()%>건</td>
+							<td style="text-align: right;"><%=dto.getSigninCnt()%>명</td>
+						</tr>
+					<%
+				}
+			%>
+			</tbody>
+			</table>
+			<div id="daily-sales-detail-totalSales">
+				<p style="margin-top:8px; font-family: 'JalpullineunOneul'; text-align: left; padding: 20px; border-top: double;">총 : <%=totalSales %></p>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
 
 <script type="text/javascript">
 const chart = Highcharts.chart('container', {
@@ -148,4 +190,47 @@ const chart = Highcharts.chart('container', {
         showInLegend: false
     }]
 });
+
+const genderChart = Highcharts.chart('genderContainer', {
+	  chart: {
+	    plotBackgroundColor: null,
+	    plotBorderWidth: null,
+	    plotShadow: false,
+	    type: 'pie'
+	  },
+	  title: {
+	    text: '회원 성별'
+	  },
+	  tooltip: {
+	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	  },
+	  accessibility: {
+	    point: {
+	      valueSuffix: '%'
+	    }
+	  },
+	  plotOptions: {
+	    pie: {
+	      allowPointSelect: true,
+	      cursor: 'pointer',
+	      dataLabels: {
+	        enabled: true,
+	        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+	      }
+	    }
+	  },
+	  series: [{
+	    name: 'Gender',
+	    colorByPoint: true,
+	    data: [{
+	      name: '남',
+	      y: 11.41,
+	      sliced: true,
+	      selected: true
+	    }, {
+	      name: '여',
+	      y: 1.84
+	    }]
+	  }]
+	});
 </script>
