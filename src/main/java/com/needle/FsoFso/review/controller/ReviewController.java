@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.needle.FsoFso.common.util.AttributeContainer;
+import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.product.dto.ProductDto;
 import com.needle.FsoFso.product.service.ProductService;
 import com.needle.FsoFso.review.dto.MemberProductDto;
@@ -41,13 +43,15 @@ public class ReviewController {
 	@PostMapping("/addReview.do")
 	public String addReview(Model model, HttpServletRequest req) {
 		
-		// TODO userID Session에서 받아오는 값으로 변경 예정
-		long memberId = 12;
-		
+		if (!AttributeContainer.hasSessionAttributeOf(req, "member")) {
+			return "redirect:/login.do";
+		}
+		final Member member = (Member) AttributeContainer.sessionAttributeFrom(req, "member");
+
 		long productId = Long.parseLong(req.getParameter("productId"));
 		String content = req.getParameter("content");
 		
-		Review review = new Review(0L, memberId, productId, content, null, null);
+		Review review = new Review(0L, member.getId(), productId, content, null, null);
 		
 		reviewService.save(review);
 		
@@ -57,12 +61,18 @@ public class ReviewController {
 	
 	@GetMapping("/checkBuyMember.do")
 	@ResponseBody
-	public String isBuyMemeber(@RequestParam Map<String, Object> map) {
+	public String isBuyMemeber(@RequestParam Map<String, Object> map, HttpServletRequest req) {
 		String answer = "true";
-		long memberId = Long.parseLong((String) map.get("memberId"));
+
+		if (!AttributeContainer.hasSessionAttributeOf(req, "member")) {
+			return "redirect:/login.do";
+		}
+		final Member member = (Member) AttributeContainer.sessionAttributeFrom(req, "member");
+
+		
 		long productId = Long.parseLong((String) map.get("productId"));
 		
-		int buyCount = reviewService.getCountByUserIdProductId(new MemberProductDto(memberId,productId));
+		int buyCount = reviewService.getCountByUserIdProductId(new MemberProductDto(member.getId(),productId));
 		
 		if(0 == buyCount) {
 			answer = "false";
