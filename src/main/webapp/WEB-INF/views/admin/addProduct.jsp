@@ -10,27 +10,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- 폰트 -->
 <link href="https://webfontworld.github.io/Jalpullineun/JalpullineunOneul.css" rel="stylesheet">
-<style type="text/css">
-.table-hover tbody tr:hover{
-   background-color: #f7f9fa;
-}
 
-#product-input{
-	width: 65%;
-	margin: 150px auto calc(100vh - 795px) auto;
-}
-
-#product-input #addProductBtn{
-		width: 150px;
-		height: 50px;
-		background-color: #35c5f0;
-	    border: none;
-	    border-radius: 5px;
-	    color: #fff;
-	    font-size: 20px;
-	    cursor: pointer;
-}
-</style>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/addProduct.css" />
 
 <div id="product-input" align="center">
 <h2 style="margin: 35px 0;">상품등록</h2>

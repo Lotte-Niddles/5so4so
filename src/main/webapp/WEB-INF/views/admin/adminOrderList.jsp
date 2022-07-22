@@ -19,6 +19,7 @@
 <!-- 폰트 -->
 <link href="https://webfontworld.github.io/Jalpullineun/JalpullineunOneul.css" rel="stylesheet">
 
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/adminOrderList.css">
 <%
 AdminOrderListRequestDto dtos = (AdminOrderListRequestDto) request.getAttribute("OrderListDto");
 List<AdminOrderDto> orderList = dtos.getAdminOrders();
@@ -31,18 +32,6 @@ if (keyWord == null) {
 	keyWord = "";
 }
 %>
-
-<style type="text/css">
-.table-hover tbody tr:hover{
-	background-color: #f7f9fa;
-}
-
-.searchBar{
-	display: flex;
-	justify-content: end;
-	margin: 15px;
-}
-</style>
 
 <div id="admin-product-list" align="center">
 <h2 style="margin-top: 8px;">주문관리</h2>

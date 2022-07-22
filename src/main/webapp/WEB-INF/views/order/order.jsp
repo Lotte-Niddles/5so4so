@@ -40,6 +40,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    
     <style type="text/css">
     
     	.cart__information{

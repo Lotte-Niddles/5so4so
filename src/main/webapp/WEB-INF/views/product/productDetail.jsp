@@ -1,3 +1,4 @@
+<%@page import="com.needle.FsoFso.common.util.CurrencyFormatter"%>
 <%@page import="com.needle.FsoFso.member.service.Member"%>
 <%@page import="com.needle.FsoFso.review.dto.ReviewDto"%>
 <%@page import="java.util.List"%>
@@ -16,105 +17,16 @@ List<String> nicknameList = (List<String>) request.getAttribute("nicknameList");
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- Link Swiper's CSS -->
-<link rel="stylesheet"
-	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 <!-- thoma폰트 -->
 <link href="//db.onlinewebfonts.com/c/cd0381aa3322dff4babd137f03829c8c?family=Tahoma" rel="stylesheet" type="text/css"/>
 
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/product/productDetail.css" />
 </head>
 <body>
-	<style>
-	.productDetailReview{
-		width: 65%;
-		margin: 0 auto 20px auto;
-		font-family: 'JalpullineunOneul';
-	}
-	
-	.detailWrapper{	
-		height: 550px;
-		padding-top: 3%;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-	}
-	
-	.detailLeft img{
-	 	border-radius: 5px;
-	}
-	
-	.detailRight{
-	 	text-align: left;
-	 	margin: 80px 100px 0 0;
-	}
-	
-	.detailRight .detailTitle{
-		width: 260px;
-	 	font-size: 25px;
-	    line-height: 33px;
-	    min-height: 43px;
-	    margin: 15px 92px 25px 0;
-	}
-	
-	.detailRight .swiper{
-		margin: 0;
-	    margin-top: 50px;
-	}
-	
-	.detailRight .detailPrice{
-		line-height: 1;
-	    font-size: 20px;
-	    font-weight: 700;
-	    margin-top: 5px;
-	}
-	
-	.detailRight .detailPrice .detailPriceContent{
-		margin: 20px 0px;
-		font-family: Tahoma,Tahoma For Number;
-	}
-	
-	.grade{
-		color: #35c5f0;
-	}
-	
-	.detailRight .detailStock{
-		font-size: 14px;
-	    line-height: 21px;
-	    color: #828c94;
-	}
-	
-	.detailRight form [type="button"]{
-		width: 260px;
-		background-color: #35c5f0;
-	    border: none;
-	    border-radius: 5px;
-	    color: #fff;
-	    font-size: 20px;
-	    cursor: pointer;
-	}
-	
-	.detailOrder{
-		margin: 20px 0;
-	}
-	
-	.review{
-		margin: 50px 260px 0 70px;
-	}
-	
-	.review button{
-		width: 130px;
-		height: 45px;
-		background-color: #35c5f0;
-	    border: none;
-	    border-radius: 5px;
-	    color: #fff;
-	    font-size: 20px;
-	    cursor: pointer;
-	}
-	
-	</style>
 	<div class="productDetailReview">
 		<div class="detailWrapper" align="center">
 			<div class="detailLeft">
@@ -128,10 +40,10 @@ List<String> nicknameList = (List<String>) request.getAttribute("nicknameList");
 				
 				<div class="detailPrice">
 					<div class="detailPriceContent">
-						<span>정가 : <%=product.getPrice()%>원</span>
+						<span>정가 : <%=CurrencyFormatter.toCurrencyFormat((int)(product.getPrice()*1.1))%>원</span>
 					</div>
 					<div class="detailPriceContent grade">
-						<span>회원 등급 적용가 : <%=product.getPrice()%>원</span>
+						<span>회원 적용가 : <%=CurrencyFormatter.toCurrencyFormat(product.getPrice())%>원</span>
 					</div>
 				</div>
 				

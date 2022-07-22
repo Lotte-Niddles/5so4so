@@ -14,18 +14,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- 폰트 -->
 <link href="https://webfontworld.github.io/Jalpullineun/JalpullineunOneul.css" rel="stylesheet">
-<style type="text/css">
-.table-hover tbody tr:hover{
-	background-color: #f7f9fa;
-}
 
-.searchBar{
-	display: flex;
-	justify-content: end;
-	margin: 15px;
-}
-</style>
-
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/adminMemberList.css">
 <%
 AdminMemberListRequestDto dtos = (AdminMemberListRequestDto)request.getAttribute("MemberListDto");
 List<AdminMemberDto> memberList = dtos.getAdminMembers();
