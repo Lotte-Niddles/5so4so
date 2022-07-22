@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CommonController {
 
     @GetMapping("/404.do")
+    public String showPageNotFound() {
+        return "404.tiles";
+    }
+
+    @GetMapping("/error.do")
     public String showErrorPage() {
         return "error.tiles";
     }
