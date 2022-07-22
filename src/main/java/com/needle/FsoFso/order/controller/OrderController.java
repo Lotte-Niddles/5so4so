@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.http.HttpRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,15 +34,15 @@ public class OrderController {
 
     @GetMapping("order.do")
     public String orderPage(Model model, HttpServletRequest request) {
-        Member member = (Member) request.getSession().getAttribute("member");
-        Long userId = member.getId();
-
+        Long userId = getUserId(request);
+        System.out.println("userId = " + userId);
         List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
         Long allPrice = shopService.getAllPrice(allDisplayDto);
 
         for (DisplayShopDto displayShopDto : allDisplayDto) {
             System.out.println("displayShopDto = " + displayShopDto);
         }
+        model.addAttribute("stockFlag", 0);
         model.addAttribute("allDisplayDto", allDisplayDto);
         model.addAttribute("allPrice", allPrice);
         return "order.tiles";
@@ -55,11 +54,11 @@ public class OrderController {
     @Transactional
     @PostMapping("orderProduct.do")
     public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model, HttpServletRequest request) {
-        Member member = (Member) request.getSession().getAttribute("member");
-        Long userId = member.getId();
+        Long userId = getUserId(request);
 
         List<Long> productsId = productId.get("id");
         List<ShopDto> products = shopService.findShopInfo(userId, productsId);
+
         Long orderId = orderService.saveOrder(products, userId);
         orderService.saveOrderProduct(products, userId, orderId);
 
@@ -71,10 +70,31 @@ public class OrderController {
     /**
      * 장바구니 수량 변경 작업중
      */
-    @GetMapping("cartNumReplace")
-    public String cartNumReplace(HttpRequest request) {
-//        request.
-        return "orderSuccess.tiles";
+    @PostMapping("cartNumReplace.do")
+    public String cartNumReplace(HttpServletRequest request, Long changeItemCnt, Long productId, Model model) {
+        Long userId = getUserId(request);
+//        Long userId = 12L;
+        System.out.println("userId = " + userId + " changeItemCnt : " + changeItemCnt + " productId : " + productId);
+
+        Integer stockFlag = shopService.changeUserProductCnt(changeItemCnt, productId, userId);
+        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
+        Long allPrice = shopService.getAllPrice(allDisplayDto);
+
+        if(stockFlag == 1){
+            model.addAttribute("stockFlag", 1);
+        }else{
+            model.addAttribute("stockFlag", 2);
+        }
+        model.addAttribute("allDisplayDto", allDisplayDto);
+        model.addAttribute("allPrice", allPrice);
+        System.out.println("model = " + model);
+        return "order.tiles";
+    }
+
+    private Long getUserId(HttpServletRequest request) {
+        Member member = (Member) request.getSession().getAttribute("member");
+        Long userId = member.getId();
+        return userId;
     }
 
     /**
