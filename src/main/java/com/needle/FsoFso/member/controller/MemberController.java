@@ -38,7 +38,18 @@ public class MemberController {
     }
 
     @GetMapping("/login.do")
-    public String login(Model model) {
+    public String login(Model model, HttpServletRequest request) {
+        if (AttributeContainer.hasSessionAttributeOf(request, "member")) {
+            final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+
+            final List<String> adminUsers = adminMembers.getAdminUsers();
+            if (adminUsers.contains(member.getProviderId().toString())) {
+                return "redirect:/admin.do";
+            }
+
+            return "redirect:/productList.do";
+        }
+
         model.addAttribute("kakaoInfo", kakaoOauthInfo);
         return "login.tiles";
     }
@@ -58,6 +69,10 @@ public class MemberController {
 
     @GetMapping("/logout.do")
     public String logout(Long id, HttpServletRequest request) {
+        if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
+            return "redirect:/login.do";
+        }
+
         final boolean logout = memberService.logout(id);
         if (logout) {
             request.getSession().removeAttribute("member");
@@ -96,7 +111,7 @@ public class MemberController {
     @PostMapping("/me.do")
     public String updateNickname(@RequestBody NicknameRequest nickname, HttpServletRequest request) {
         if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
-            return "redirect:/productList.do";
+            return "redirect:/login.do";
         }
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
