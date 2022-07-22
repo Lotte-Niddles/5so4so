@@ -19,6 +19,7 @@ import com.needle.FsoFso.admin.dto.AdminOrderListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminProductDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
+import com.needle.FsoFso.admin.dto.AgeChartDto;
 import com.needle.FsoFso.admin.dto.GenderChartDto;
 import com.needle.FsoFso.admin.service.AdminService;
 import com.needle.FsoFso.product.service.ProductService;
@@ -41,10 +42,11 @@ public class AdminController {
 
 		AdminMainRequestDto dto = service.adminWeekStatusRequest();
 		List<GenderChartDto> genderDtoList = service.findGenderCount();
+		List<AgeChartDto> ageChartDtoList = service.findAgeCount();
 		
 		model.addAttribute("adminMainDto", dto);
 		model.addAttribute("genderDtoList", genderDtoList);
-		
+		model.addAttribute("ageChartDtoList", ageChartDtoList);
 		return "admin.tiles";
 	}
 

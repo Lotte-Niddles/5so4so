@@ -1,3 +1,4 @@
+<%@page import="com.needle.FsoFso.admin.dto.AgeChartDto"%>
 <%@page import="com.needle.FsoFso.admin.dto.GenderChartDto"%>
 <%@ page import="java.time.temporal.ChronoUnit" %>
 <%@ page import="java.time.ZoneId" %>
@@ -30,7 +31,17 @@
 <link href="https://webfontworld.github.io/Jalpullineun/JalpullineunOneul.css" rel="stylesheet">
 
 <%
+List<AgeChartDto> ageChartDtoList = (List<AgeChartDto>) request.getAttribute("ageChartDtoList");
 List<GenderChartDto> genderChartList = (List<GenderChartDto>) request.getAttribute("genderDtoList");
+String ageChartCategory = "";
+String ageChartData = "";
+for(int i = 0; i < ageChartDtoList.size(); i++){
+	ageChartCategory += "'" + ageChartDtoList.get(i).getAge() + "'" + ",";
+	ageChartData += ageChartDtoList.get(i).getCount()+ ",";
+}
+ageChartCategory = ageChartCategory.substring(0, ageChartCategory.lastIndexOf(","));
+ageChartData = ageChartData.substring(0, ageChartData.lastIndexOf(","));
+
 AdminMainRequestDto requestDto = (AdminMainRequestDto) request.getAttribute("adminMainDto");
 List<DailyDetailDto> detailList = requestDto.getDailyDetails();
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd")
@@ -197,18 +208,15 @@ const genderChart = Highcharts.chart('genderContainer', {
 	
 const ageChart = Highcharts.chart('ageContainer', {
 	  title: {
-		    text: '회원 성별'
-		  },
-		  subtitle: {
-		    text: 'Plain'
+		    text: '회원 나이대'
 		  },
 		  xAxis: {
-		    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+		    categories: [<%=ageChartCategory %>]
 		  },
 		  series: [{
 		    type: 'column',
 		    colorByPoint: true,
-		    data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+		    data: [<%=ageChartData %>],
 		    showInLegend: false
 		  }]
 		});

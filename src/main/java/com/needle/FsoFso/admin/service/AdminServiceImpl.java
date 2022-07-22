@@ -12,6 +12,7 @@ import com.needle.FsoFso.admin.dto.AdminOrderListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminProductDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
+import com.needle.FsoFso.admin.dto.AgeChartDto;
 import com.needle.FsoFso.admin.dto.GenderChartDto;
 
 @Service
@@ -48,6 +49,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<GenderChartDto> findGenderCount() {
 		return dao.findGenderCount();
+	}
+
+	@Override
+	public List<AgeChartDto> findAgeCount() {
+		return dao.findAgeCount();
 	}
 
 }
