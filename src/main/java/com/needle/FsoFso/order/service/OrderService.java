@@ -8,6 +8,7 @@ import com.needle.FsoFso.order.repository.OrderProductRepository;
 import com.needle.FsoFso.order.repository.OrderRepository;
 import com.needle.FsoFso.order.repository.ProductsRepository;
 import com.needle.FsoFso.order.dto.OrderResponse;
+import com.needle.FsoFso.order.repository.ShopRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +22,13 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
     private final ProductsRepository productsRepository;
+    private final ShopRepository shopRepository;
 
-    public OrderService(OrderRepository orderRepository, OrderProductRepository orderProductRepository, ProductsRepository productsRepository) {
+    public OrderService(OrderRepository orderRepository, OrderProductRepository orderProductRepository, ProductsRepository productsRepository, ShopRepository shopRepository) {
         this.orderRepository = orderRepository;
-        this.orderProductRepository = orderProductSave(orderProductRepository);
+        this.orderProductRepository = orderProductRepository;
         this.productsRepository = productsRepository;
+        this.shopRepository = shopRepository;
     }
 
     @Transactional
@@ -36,14 +39,19 @@ public class OrderService {
     }
 
     @Transactional
-    public void saveOrderProduct(List<ShopDto> order, Long userId, Long orderId) throws RuntimeException {
+    public void saveOrderProduct(List<ShopDto> order, Long userId, Long orderId, List<Long> productsId) throws RuntimeException {
         for (ShopDto shopDto : order) {
             Long stock = productsRepository.findStock(shopDto.getProductId());
+
             if(stock < shopDto.getQuantity()){
                 throw new RuntimeException("재고 부족");
             }
+
             orderProductSave(orderProductRepository).save(new OrderProduct(orderId, userId, shopDto.getProductId(), shopDto.getQuantity(), shopDto.getPrice()));
             updateStockQuantity(shopDto.getProductId(), shopDto.getQuantity());
+        }
+        for (Long productId : productsId) {
+            shopRepository.deleteCartProduct(productId, userId);
         }
     }
 

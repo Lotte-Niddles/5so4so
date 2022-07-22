@@ -36,4 +36,9 @@ public class ShopRepository {
     public void changeUserProductCnt(Long changeItemCnt, Long productId, Long userId) {
         shopMapper.changeUserProductCnt(changeItemCnt, productId, userId);
     }
+
+    public void deleteCartProduct(Long productId, Long userId){
+        shopMapper.deleteCartProduct(productId, userId);
+    }
+
 }

@@ -42,7 +42,6 @@ public class ReviewController {
 	
 	@PostMapping("/addReview.do")
 	public String addReview(Model model, HttpServletRequest req) {
-		
 		if (!AttributeContainer.hasSessionAttributeOf(req, "member")) {
 			return "redirect:/login.do";
 		}

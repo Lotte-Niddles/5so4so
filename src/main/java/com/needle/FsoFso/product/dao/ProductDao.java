@@ -20,4 +20,6 @@ public interface ProductDao {
 	void removeProductById(long productId);
 
 	void removeCartByMemberIdProductId(CartDto cartDto);
+
+	int checkCart(CartDto cart);
 }
