@@ -1,15 +1,7 @@
 package com.needle.FsoFso.admin.controller;
 
-import com.needle.FsoFso.admin.dto.AdminMainRequestDto;
-import com.needle.FsoFso.admin.dto.AdminMemberListRequestDto;
-import com.needle.FsoFso.admin.dto.AdminOrderListRequestDto;
-import com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto;
-import com.needle.FsoFso.admin.dto.AdminProductDto;
-import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
-import com.needle.FsoFso.admin.service.AdminService;
-import com.needle.FsoFso.common.aop.AdminOnly;
-import com.needle.FsoFso.product.service.ProductService;
 import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.needle.FsoFso.admin.dto.AdminMainRequestDto;
+import com.needle.FsoFso.admin.dto.AdminMemberListRequestDto;
+import com.needle.FsoFso.admin.dto.AdminOrderListRequestDto;
+import com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto;
+import com.needle.FsoFso.admin.dto.AdminProductDto;
+import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
+import com.needle.FsoFso.admin.service.AdminService;
+import com.needle.FsoFso.product.service.ProductService;
 
 @Controller
 public class AdminController {
@@ -33,11 +34,17 @@ public class AdminController {
 
 	@AdminOnly
 	@RequestMapping(value = "admin.do", method = RequestMethod.GET)
-	public String adminWeekStatus(Model model) {
+	public String adminWeekStatus(Model model){
+
 		logger.info("AdminController adminWeekStatus() " + new Date());
 
 		AdminMainRequestDto dto = service.adminWeekStatusRequest();
+		List<GenderChartDto> genderDtoList = service.findGenderCount();
+		List<AgeChartDto> ageChartDtoList = service.findAgeCount();
+
 		model.addAttribute("adminMainDto", dto);
+		model.addAttribute("genderDtoList", genderDtoList);
+		model.addAttribute("ageChartDtoList", ageChartDtoList);
 		return "admin.tiles";
 	}
 
@@ -52,7 +59,6 @@ public class AdminController {
 		return "adminProductList.tiles";
 	}
 
-	@AdminOnly
 	@RequestMapping(value = "adminMemberList.do", method = RequestMethod.GET)
 	public String adminMemberList(Model model, @RequestParam(value = "keyword", required = false) String keyword) {
 		logger.info("AdminController adminMemberList() " + new Date());

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.http.HttpRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,17 +43,12 @@ public class OrderController {
 
         Long allPrice = shopService.getAllPrice(allDisplayDto);
 
-        for (DisplayShopDto displayShopDto : allDisplayDto) {
-            System.out.println("displayShopDto = " + displayShopDto);
-        }
+        model.addAttribute("stockFlag", 0);
         model.addAttribute("allDisplayDto", allDisplayDto);
         model.addAttribute("allPrice", allPrice);
         return "order.tiles";
     }
 
-    /**
-     * 상품 결제 버튼 로직
-     */
     @MemberOnly
     @Transactional
     @PostMapping("orderProduct.do")
@@ -62,33 +56,64 @@ public class OrderController {
         Member member = (Member) request.getSession().getAttribute("member");
         Long userId = member.getId();
 
-        List<Long> productsId = productId.get("id");
+        List<Long> productsId = productId.get("productId");
         List<ShopDto> products = shopService.findShopInfo(userId, productsId);
         Long orderId = orderService.saveOrder(products, userId);
-        orderService.saveOrderProduct(products, userId, orderId);
-
-        List<OrderSuccessDto> orderSuccessDtoList = products.stream().map(shopDto -> (new OrderSuccessDto(shopDto.getQuantity(), shopDto.getName(), shopDto.getPrice()))).collect(Collectors.toList());
+        orderService.saveOrderProduct(products, userId, orderId, productsId);
+        List<OrderSuccessDto> orderSuccessDtoList = products.stream()
+                .map(shopDto -> (
+                        new OrderSuccessDto(
+                                shopDto.getQuantity(),
+                                shopDto.getName(),
+                                shopDto.getPrice(),
+                                shopDto.getImgSrc())
+                ))
+                .collect(Collectors.toList());
         model.addAttribute("orderSuccessDtoList", orderSuccessDtoList);
         return "orderSuccess.tiles";
     }
 
-    /**
-     * 장바구니 수량 변경 작업중
-     */
-    @GetMapping("cartNumReplace")
-    public String cartNumReplace(HttpRequest request) {
-//        request.
-        return "orderSuccess.tiles";
+
+    @GetMapping("cartNumReplace.do")
+    public String cartNumReplace(Long changeItemCnt, Long productId, Model model, HttpServletRequest request) {
+        Integer stockFlag = shopService.changeUserProductCnt(changeItemCnt, productId, userId);
+        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
+        Long allPrice = shopService.getAllPrice(allDisplayDto);
+
+        if (stockFlag == 1) {
+            model.addAttribute("stockFlag", 1);
+        } else {
+            model.addAttribute("stockFlag", 2);
+        }
+        model.addAttribute("allDisplayDto", allDisplayDto);
+        model.addAttribute("allPrice", allPrice);
+        return "order.tiles";
     }
+
+    @PostMapping("cartDeleteProduct.do")
+    public void cartDeleteProduct(@RequestBody Map<String,List<Long>> productId, HttpServletRequest request){
+        Long userId = getUserId(request);
+        List<Long> idList = productId.get("productId");
+        for (Long aLong : idList) {
+            System.out.println("aLong = " + aLong);
+        }
+        shopService.deleteCartProduct(idList,userId);
+    }
+
+
+    private Long getUserId(HttpServletRequest request) {
+        Member member = (Member) request.getSession().getAttribute("member");
+        Long id = member.getId();
+        return id;
+    }
+
 
     /**
      * 적용 전, 동적 쿼리 필요시 사용
      */
     @GetMapping("orderFindId.do")
     public void orderFindOrder(Long id) {
-        System.out.println("Long = " + id);
         orderService.findOrder(id);
-        System.out.println("out signal");
     }
 
     /**
@@ -96,11 +121,6 @@ public class OrderController {
      */
     @GetMapping("orderCmpPriceFind.do")
     public void orderCmpPriceFind(@ModelAttribute OrderSearchCond orderSearchCond) {
-        System.out.println("OrderSearchCond = " + orderSearchCond);
         List<Order> orderCmpPriceFind = orderService.findOrderCmpPriceFind(orderSearchCond);
-        for (Order order : orderCmpPriceFind) {
-            System.out.println(order);
-        }
-        System.out.println("out signal");
     }
 }

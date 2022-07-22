@@ -29,7 +29,16 @@ public class ShopRepository {
         return shopMapper.findUserProductIdList(userId);
     }
 
-    public List<DisplayShopDto> findAllDisplayDto(Long userId){
+    public List<DisplayShopDto> findAllDisplayDto(Long userId) {
         return shopMapper.findAllDisplayDto(userId);
     }
+
+    public void changeUserProductCnt(Long changeItemCnt, Long productId, Long userId) {
+        shopMapper.changeUserProductCnt(changeItemCnt, productId, userId);
+    }
+
+    public void deleteCartProduct(Long productId, Long userId){
+        shopMapper.deleteCartProduct(productId, userId);
+    }
+
 }

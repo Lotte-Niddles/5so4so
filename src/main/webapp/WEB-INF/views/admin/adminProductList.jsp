@@ -18,6 +18,7 @@
 <!-- 폰트 -->
 <link href="https://webfontworld.github.io/Jalpullineun/JalpullineunOneul.css" rel="stylesheet">
 
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/adminProductList.css" />
 <%
 AdminProductListRequestDto dtos = (AdminProductListRequestDto) request.getAttribute("productListDto");
 List<AdminProductDto> productList = dtos.getAdminProducts();
@@ -29,18 +30,6 @@ if (keyWord == null) {
 	keyWord = "";
 }
 %>
-
-<style type="text/css">
-.table-hover tbody tr:hover{
-	background-color: #f7f9fa;
-}
-
-.searchBar{
-	display: flex;
-	justify-content: end;
-	margin: 15px;
-}
-</style>
 
 <div id="admin-product-list" align="center">
 <h2 style="margin-top: 8px;">상품관리</h2>
@@ -117,6 +106,7 @@ $(function() {
 			location.href='adminProductList.do?keyWord=' + keyWord;
 		} else {
 			alert('검색어를 입력해 주세요!');
+			$('#search').focus();
 		}
 	});
 	$('#search').keypress(function(e) {

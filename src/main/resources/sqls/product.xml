@@ -39,6 +39,13 @@
 		values(#{memberId}, #{productId}, #{quantity})
 	</insert>
 	
+	<select id="checkCart" parameterType="com.needle.FsoFso.product.dto.CartDto"
+				resultType="int">
+		select count(*)
+		from cart
+		where member_id=#{memberId} and product_id=#{productId};
+	</select>
+	
 	<update id="removeProductById" parameterType="Long">
 		update products
 		set status = 0
