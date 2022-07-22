@@ -12,7 +12,6 @@ public class Review {
 	private Instant updatedAt;
 
 	public Review(long id, long memberId, long productId, String content, Instant createdAt, Instant updatedAt) {
-		super();
 		this.id = id;
 		this.memberId = memberId;
 		this.productId = productId;
