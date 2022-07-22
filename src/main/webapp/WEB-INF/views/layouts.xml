@@ -41,13 +41,23 @@
 	<put-attribute name="main" value="/WEB-INF/views/admin/adminOrderProductList.jsp"/>
 </definition>
 
-<!-- Product -->
-<definition name="productDetail.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
-	<put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
-	<put-attribute name="top_inc" value="/WEB-INF/views/commons/top_inc.jsp"/>
-	<put-attribute name="main" value="/WEB-INF/views/product/productDetail.jsp"/>
-	<put-attribute name="bottom_inc" value="/WEB-INF/views/commons/bottom_inc.jsp"/>
-</definition>
+
+	<definition name="adminMemberList.tiles" extends="admin.tiles">
+	    <put-attribute name="main" value="/WEB-INF/views/admin/adminMemberList.jsp"/>
+	</definition>
+
+    <definition name="adminAddProduct.tiles" extends="admin.tiles">
+        <put-attribute name="main" value="/WEB-INF/views/admin/addProduct.jsp"/>
+    </definition>
+
+    <!-- Product -->
+    <definition name="productDetail.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
+        <put-attribute name="top_inc" value="/WEB-INF/views/commons/top_inc.jsp"/>
+        <put-attribute name="main" value="/WEB-INF/views/product/productDetail.jsp"/>
+        <put-attribute name="bottom_inc" value="/WEB-INF/views/commons/bottom_inc.jsp"/>
+    </definition>
+
 
 <!-- Review -->
 <definition name="addReview.tiles" template="/WEB-INF/views/layouts-tiles.jsp">

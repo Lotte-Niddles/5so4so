@@ -34,11 +34,13 @@ public class OrderController {
     }
 
     @GetMapping("order.do")
+
     public String orderPage(Model model, HttpServletRequest request) {
         Member member = (Member) request.getSession().getAttribute("member");
         Long userId = member.getId();
 
         List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
+
         Long allPrice = shopService.getAllPrice(allDisplayDto);
 
         for (DisplayShopDto displayShopDto : allDisplayDto) {
@@ -54,6 +56,7 @@ public class OrderController {
      */
     @Transactional
     @PostMapping("orderProduct.do")
+
     public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model, HttpServletRequest request) {
         Member member = (Member) request.getSession().getAttribute("member");
         Long userId = member.getId();
