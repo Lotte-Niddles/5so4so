@@ -23,7 +23,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-<div class="productList">
+<div class="productList" id="productList">
 	<div class="productListInner">
 		<div class="productListItems">
 			<%
@@ -52,7 +52,10 @@
 					}
 				} else {
 			%>
-				<p style="text-align:center;margin-top:200px;">앗! 찾으시는 결과가 없네요.</p>
+				<script type="text/javascript">
+					$('<p>').css({'text-align':'center', 'margin-top':'200px'})
+					.text('앗! 찾으시는 결과가 없네요!').attr('id', 'nodata').prependTo($('#productList'));
+				</script>
 			<%
 				}
 			%>
