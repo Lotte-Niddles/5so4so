@@ -29,8 +29,7 @@ public class MemberService {
                             kakaoUserInfo.getGender(),
                             kakaoUserInfo.getAgeRange()
                     );
-                    final int savedId = memberDao.save(member);
-                    member.setId((long) savedId);
+                    memberDao.save(member);
                     return member;
                 });
     }

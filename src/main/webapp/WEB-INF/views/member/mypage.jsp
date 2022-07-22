@@ -40,14 +40,15 @@
                         연령
                     </div>
                     <div class="profile-text">
-                        <%=member.getAgeRange()%>
+                        <%=member.getAgeRange() == null ? "동의 안함" : member.getAgeRange()%>
                     </div>
                     <div class="divider-col">|</div>
                     <div class="profile-contents-label profile-text">
                         성별
                     </div>
                     <div class="profile-text">
-                        <%="female".equals(member.getGender()) ? "여성" : "남성"%>
+                        <%="female".equals(member.getGender()) ? "여성" :
+                                "male".equals(member.getGender()) ? "남성" : "동의 안함"%>
                     </div>
                 </div>
             </div>
