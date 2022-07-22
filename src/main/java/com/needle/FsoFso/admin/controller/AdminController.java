@@ -1,6 +1,7 @@
 package com.needle.FsoFso.admin.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,8 @@ import com.needle.FsoFso.admin.dto.AdminOrderListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminProductDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
+import com.needle.FsoFso.admin.dto.AgeChartDto;
+import com.needle.FsoFso.admin.dto.GenderChartDto;
 import com.needle.FsoFso.admin.service.AdminService;
 import com.needle.FsoFso.product.service.ProductService;
 
@@ -33,12 +36,17 @@ public class AdminController {
 	ProductService productService;
 
 	@RequestMapping(value = "admin.do", method = RequestMethod.GET)
-	public String adminWeekStatus(Model model) {
+	public String adminWeekStatus(Model model){
 
 		logger.info("AdminController adminWeekStatus() " + new Date());
 
 		AdminMainRequestDto dto = service.adminWeekStatusRequest();
+		List<GenderChartDto> genderDtoList = service.findGenderCount();
+		List<AgeChartDto> ageChartDtoList = service.findAgeCount();
+		
 		model.addAttribute("adminMainDto", dto);
+		model.addAttribute("genderDtoList", genderDtoList);
+		model.addAttribute("ageChartDtoList", ageChartDtoList);
 		return "admin.tiles";
 	}
 

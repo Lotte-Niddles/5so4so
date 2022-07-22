@@ -1,3 +1,5 @@
+<%@page import="com.needle.FsoFso.admin.dto.AgeChartDto"%>
+<%@page import="com.needle.FsoFso.admin.dto.GenderChartDto"%>
 <%@ page import="java.time.temporal.ChronoUnit" %>
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="java.time.Instant" %>
@@ -27,16 +29,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- 폰트 -->
 <link href="https://webfontworld.github.io/Jalpullineun/JalpullineunOneul.css" rel="stylesheet">
-<style type="text/css">
-.table-hover tbody tr:hover{
-	background-color: #f7f9fa;
-}
-.table-hover td{
-	padding: 5px;
-}
-</style>
 
 <%
+List<AgeChartDto> ageChartDtoList = (List<AgeChartDto>) request.getAttribute("ageChartDtoList");
+List<GenderChartDto> genderChartList = (List<GenderChartDto>) request.getAttribute("genderDtoList");
+String ageChartCategory = "";
+String ageChartData = "";
+for(int i = 0; i < ageChartDtoList.size(); i++){
+	ageChartCategory += "'" + ageChartDtoList.get(i).getAge() + "'" + ",";
+	ageChartData += ageChartDtoList.get(i).getCount()+ ",";
+}
+ageChartCategory = ageChartCategory.substring(0, ageChartCategory.lastIndexOf(","));
+ageChartData = ageChartData.substring(0, ageChartData.lastIndexOf(","));
+
 AdminMainRequestDto requestDto = (AdminMainRequestDto) request.getAttribute("adminMainDto");
 List<DailyDetailDto> detailList = requestDto.getDailyDetails();
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd")
@@ -129,6 +134,15 @@ String sMindate = formatter.format(mindate);
 	</div>
 </div>
 
+<div id="admin-main" align="center" style="display: flex; padding: 10px; width: 1200px; margin:0 auto;">
+	<div id="admin-left-chart" style="width: 700px; margin:10px; padding: 5px; background-color: gray;">
+		<div id="genderContainer"></div>
+	</div>
+	<div id="admin-right-chart" style="width: 700px; margin:10px; padding: 5px; background-color: gray;">
+		<div id="ageContainer"></div>
+	</div>
+</div>
+
 
 <script type="text/javascript">
 const chart = Highcharts.chart('container', {
@@ -148,4 +162,99 @@ const chart = Highcharts.chart('container', {
         showInLegend: false
     }]
 });
+
+const genderChart = Highcharts.chart('genderContainer', {
+	  chart: {
+	    plotBackgroundColor: null,
+	    plotBorderWidth: null,
+	    plotShadow: false,
+	    type: 'pie'
+	  },
+	  title: {
+	    text: '회원 성별'
+	  },
+	  tooltip: {
+	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	  },
+	  accessibility: {
+	    point: {
+	      valueSuffix: '%'
+	    }
+	  },
+	  plotOptions: {
+	    pie: {
+	      allowPointSelect: true,
+	      cursor: 'pointer',
+	      dataLabels: {
+	        enabled: true,
+	        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+	      }
+	    }
+	  },
+	  series: [{
+	    name: 'Gender',
+	    colorByPoint: true,
+	    data: [{
+	      name: '<%=genderChartList.get(0).getGender() %>',
+	      y: <%=genderChartList.get(0).getCount() %>,
+	      sliced: true,
+	      selected: true
+	    }, {
+	      name: '<%=genderChartList.get(1).getGender() %>',
+	      y: <%=genderChartList.get(1).getCount() %>
+	    }]
+	  }]
+	});
+	
+const ageChart = Highcharts.chart('ageContainer', {
+	  title: {
+		    text: '회원 나이대'
+		  },
+		  xAxis: {
+		    categories: [<%=ageChartCategory %>]
+		  },
+		  series: [{
+		    type: 'column',
+		    colorByPoint: true,
+		    data: [<%=ageChartData %>],
+		    showInLegend: false
+		  }]
+		});
+
+		document.getElementById('plain').addEventListener('click', () => {
+		  chart.update({
+		    chart: {
+		      inverted: false,
+		      polar: false
+		    },
+		    subtitle: {
+		      text: 'Plain'
+		    }
+		  });
+		});
+
+		document.getElementById('inverted').addEventListener('click', () => {
+		  chart.update({
+		    chart: {
+		      inverted: true,
+		      polar: false
+		    },
+		    subtitle: {
+		      text: 'Inverted'
+		    }
+		  });
+		});
+
+		document.getElementById('polar').addEventListener('click', () => {
+		  chart.update({
+		    chart: {
+		      inverted: false,
+		      polar: true
+		    },
+		    subtitle: {
+		      text: 'Polar'
+		    }
+		  });
+		});
+	
 </script>
