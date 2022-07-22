@@ -109,7 +109,7 @@ $(function() {
 		}
 	});
 	$('#searchBtn').click(function(e) {
-		const keyWord = $('#search').val()
+		const keyWord = $('#search').val().trim();
 		if (keyWord != '') {
 			location.href='adminProductList.do?keyWord=' + keyWord;
 		} else {
@@ -118,7 +118,7 @@ $(function() {
 	});
 	$('#search').keypress(function(e) {
 		const key = e.which;
-		const keyWord = $('#search').val();
+		const keyWord = $('#search').val().trim();
 		if (key === enterKey){
 			if (keyWord != '') {
 				location.href='adminProductList.do?keyWord=' + keyWord;

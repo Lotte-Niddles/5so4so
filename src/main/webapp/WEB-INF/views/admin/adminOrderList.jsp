@@ -113,7 +113,7 @@ if (keyWord == null) {
 		}
 	});
 	$('#searchBtn').click(function(e) {
-		const keyWord = $('#search').val()
+		const keyWord = $('#search').val().trim();
 		let str = keyWord;
 		let check = /^[0-9]+$/; 
 		if (!check.test(str)) {
@@ -128,7 +128,7 @@ if (keyWord == null) {
 	});
 	$('#search').keypress(function(e) {
 		const key = e.which;
-		const keyWord = $('#search').val();
+		const keyWord = $('#search').val().trim();
 		if (key === enterKey){
 			let str = keyWord;
 			let check = /^[0-9]+$/; 
