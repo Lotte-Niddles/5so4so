@@ -117,6 +117,7 @@ $(function() {
 			location.href='adminProductList.do?keyWord=' + keyWord;
 		} else {
 			alert('검색어를 입력해 주세요!');
+			$('#search').focus();
 		}
 	});
 	$('#search').keypress(function(e) {

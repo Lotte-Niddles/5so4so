@@ -38,7 +38,7 @@
 		on c.id = d.product_id
 		where c.status = 1
 		<if test="keyWord !='' and keyWord != null">
-			where c.name like concat('%',#{keyWord},'%')
+			and c.name like concat('%',#{keyWord},'%')
 		</if>
 	</select>
 	

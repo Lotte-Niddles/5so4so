@@ -118,12 +118,14 @@ if (keyWord == null) {
 		let check = /^[0-9]+$/; 
 		if (!check.test(str)) {
 			alert("숫자만 입력 가능합니다.");
+			$('#search').val('').focus();
 			return;
 		}
 		if (keyWord != '') {
 			location.href='adminOrderList.do?keyWord=' + keyWord;
 		} else {
 			alert('검색어를 입력해 주세요!');
+			$('#search').focus();
 		}
 	});
 	$('#search').keypress(function(e) {
@@ -134,6 +136,7 @@ if (keyWord == null) {
 			let check = /^[0-9]+$/; 
 			if (!check.test(str)) {
 				alert("숫자만 입력 가능합니다.");
+				$('#search').val('').focus();
 				return;
 			}
 			if (keyWord != '') {
