@@ -47,4 +47,9 @@ public class ProductServiceImpl implements ProductService {
 	public void removeProductById(long productId) {
 		productDao.removeProductById(productId);
 	}
+
+	@Override
+	public void removeCartByMemberIdProductId(CartDto cartDto) {
+		productDao.removeCartByMemberIdProductId(cartDto);
+	}
 }

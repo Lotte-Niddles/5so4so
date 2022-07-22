@@ -18,4 +18,6 @@ public interface ProductService {
 	void addCart(CartDto cart);
 
 	void removeProductById(long productId);
+
+	void removeCartByMemberIdProductId(CartDto cartDto);
 }

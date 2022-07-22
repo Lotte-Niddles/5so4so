@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.needle.FsoFso.common.util.AttributeContainer;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
 import com.needle.FsoFso.review.dto.Review;
@@ -92,14 +93,18 @@ public class ProductController {
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("nicknameList", nicknameList);
 	}
-	
+
 	@GetMapping("delProduct.do")
-	public String delProduct(HttpServletRequest req) {
-		
-		long productId = Long.parseLong(req.getParameter("productId"));
-				
+	public String delProduct(HttpServletRequest request) {
+		if (!AttributeContainer.hasSessionAttributeOf(request, "member")) {
+			return "redirect:/login.do";
+		}
+		final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+
+		long productId = Long.parseLong(request.getParameter("productId"));
 		productService.removeProductById(productId);
-		
+		productService.removeCartByMemberIdProductId(new CartDto(0L, member.getId(), productId, 0));
+
 		return "redirect:/adminProductList.do";
 	}
 }

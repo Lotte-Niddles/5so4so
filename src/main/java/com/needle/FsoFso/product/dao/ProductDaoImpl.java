@@ -49,5 +49,10 @@ public class ProductDaoImpl implements ProductDao {
 	public void removeProductById(long productId) {
 		session.delete(NAME_SPACE + "removeProductById", productId);
 	}
+
+	@Override
+	public void removeCartByMemberIdProductId(CartDto cartDto) {
+		session.delete(NAME_SPACE + "removeCartByMemberIdProductId", cartDto);
+	}
 	
 }

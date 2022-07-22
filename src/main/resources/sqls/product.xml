@@ -45,4 +45,9 @@
 		where id = #{productId};
 	</update>
 	
+	<delete id="removeCartByMemberIdProductId" parameterType="com.needle.FsoFso.product.dto.CartDto">
+		delete from cart
+		where member_id = #{memberId} and product_id = #{productId};
+	</delete>
+	
 </mapper>
