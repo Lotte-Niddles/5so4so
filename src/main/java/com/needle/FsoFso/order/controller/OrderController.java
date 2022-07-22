@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -33,21 +32,14 @@ public class OrderController {
         this.shopService = shopService;
     }
 
+//    @MemberId
     @GetMapping("order.do")
     public String orderPage(Model model, HttpServletRequest request) {
-        Optional<Long> userIdInfo = getUserId(request);
-        if(userIdInfo == null){
-            return "productList.tiles";
-        }
-        Long userId = userIdInfo.get();
-        System.out.println("userId = " + userId);
+        Long userId = getUserId(request);
         List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
 
         Long allPrice = shopService.getAllPrice(allDisplayDto);
 
-        for (DisplayShopDto displayShopDto : allDisplayDto) {
-            System.out.println("displayShopDto = " + displayShopDto);
-        }
         model.addAttribute("stockFlag", 0);
         model.addAttribute("allDisplayDto", allDisplayDto);
         model.addAttribute("allPrice", allPrice);
@@ -60,47 +52,54 @@ public class OrderController {
     @Transactional
     @PostMapping("orderProduct.do")
     public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model, HttpServletRequest request) {
-        Long userId = getUserId(request).get();
-        List<Long> productsId = productId.get("id");
+        Long userId = getUserId(request);
+        List<Long> productsId = productId.get("productId");
         List<ShopDto> products = shopService.findShopInfo(userId, productsId);
-
         Long orderId = orderService.saveOrder(products, userId);
-        orderService.saveOrderProduct(products, userId, orderId);
-
-        List<OrderSuccessDto> orderSuccessDtoList = products.stream().map(shopDto -> (new OrderSuccessDto(shopDto.getQuantity(), shopDto.getName(), shopDto.getPrice()))).collect(Collectors.toList());
+        orderService.saveOrderProduct(products, userId, orderId, productsId);
+        List<OrderSuccessDto> orderSuccessDtoList = products.stream().map(shopDto -> (new OrderSuccessDto(shopDto.getQuantity(), shopDto.getName(), shopDto.getPrice(), shopDto.getImgSrc()))).collect(Collectors.toList());
         model.addAttribute("orderSuccessDtoList", orderSuccessDtoList);
         return "orderSuccess.tiles";
     }
 
     /**
-     * 장바구니 수량 변경 작업중
+     * 장바구니 수량 변경
      */
-    @PostMapping("cartNumReplace.do")
-    public String cartNumReplace(HttpServletRequest request, Long changeItemCnt, Long productId, Model model) {
-        Long userId = getUserId(request).get();
-//        Long userId = 12L;
-        System.out.println("userId = " + userId + " changeItemCnt : " + changeItemCnt + " productId : " + productId);
+    @GetMapping("cartNumReplace.do")
+    public String cartNumReplace(Long changeItemCnt, Long productId, Model model, HttpServletRequest request) {
+        Long userId = getUserId(request);
 
         Integer stockFlag = shopService.changeUserProductCnt(changeItemCnt, productId, userId);
         List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
         Long allPrice = shopService.getAllPrice(allDisplayDto);
 
-        if(stockFlag == 1){
+        if (stockFlag == 1) {
             model.addAttribute("stockFlag", 1);
-        }else{
+        } else {
             model.addAttribute("stockFlag", 2);
         }
         model.addAttribute("allDisplayDto", allDisplayDto);
         model.addAttribute("allPrice", allPrice);
-        System.out.println("model = " + model);
         return "order.tiles";
     }
 
-    private Optional<Long> getUserId(HttpServletRequest request) {
+    @PostMapping("cartDeleteProduct.do")
+    public void cartDeleteProduct(@RequestBody Map<String,List<Long>> productId, HttpServletRequest request){
+        Long userId = getUserId(request);
+        List<Long> idList = productId.get("productId");
+        for (Long aLong : idList) {
+            System.out.println("aLong = " + aLong);
+        }
+        shopService.deleteCartProduct(idList,userId);
+    }
+
+
+    private Long getUserId(HttpServletRequest request) {
         Member member = (Member) request.getSession().getAttribute("member");
-        Optional<Long> id = Optional.ofNullable(member.getId());
+        Long id = member.getId();
         return id;
     }
+
 
     /**
      * 적용 전, 동적 쿼리 필요시 사용

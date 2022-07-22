@@ -40,6 +40,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void addCart(CartDto cart) {
+		if(productDao.checkCart(cart) > 0) {
+			return;
+		}
 		productDao.addCart(cart);
 	}
 
