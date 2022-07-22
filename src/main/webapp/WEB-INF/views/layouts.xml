@@ -15,6 +15,11 @@
 	<put-attribute name="main" value="/WEB-INF/views/search/searchList.jsp"/>
 </definition>
 
+<!-- order -->
+<definition name="order.tiles" extends="productList.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/order/order.jsp"/>
+</definition>
+
 <!-- admin -->
 <definition name="admin.tiles" extends="productList.tiles">
 	<put-attribute name="top_inc" value="/WEB-INF/views/admin/adminTopInc.jsp"/>
@@ -58,7 +63,6 @@
         <put-attribute name="bottom_inc" value="/WEB-INF/views/commons/bottom_inc.jsp"/>
     </definition>
 
-
 <!-- Review -->
 <definition name="addReview.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
@@ -79,3 +83,4 @@
 	<put-attribute name="main" value="/WEB-INF/views/member/mypage.jsp"/>
 </definition>
 </tiles-definitions>
+
