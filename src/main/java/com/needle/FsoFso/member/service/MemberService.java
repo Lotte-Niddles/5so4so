@@ -29,7 +29,8 @@ public class MemberService {
                             kakaoUserInfo.getGender(),
                             kakaoUserInfo.getAgeRange()
                     );
-                    memberDao.save(member);
+                    final int savedId = memberDao.save(member);
+                    member.setId((long) savedId);
                     return member;
                 });
     }
@@ -42,8 +43,17 @@ public class MemberService {
         final Long unlinkedId = kakaoClient.logout(member.get());
         return unlinkedId.equals(member.get().getProviderId());
     }
+
+    public void withdrawal(Member member) {
+        final Long kakaoId = kakaoClient.unlink(member);
+        memberDao.deleteByProviderId(kakaoId);
+    }
     
     public Optional<Member> findById(Long id) {
     	return memberDao.findById(id);
     }
+
+	public void updateMemberById(Member member) {
+		memberDao.updateMemberById(member);
+	}
 }

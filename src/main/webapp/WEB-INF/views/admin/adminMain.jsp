@@ -1,12 +1,16 @@
-<%@page import="java.time.temporal.ChronoUnit"%>
-<%@page import="com.needle.FsoFso.admin.util.InstantUtil"%>
-<%@page import="java.time.ZoneId"%>
-<%@page import="java.util.Locale"%>
-<%@page import="java.time.Instant"%>
-<%@page import="com.needle.FsoFso.admin.dto.DailyDetailDto"%>
-<%@page import="com.needle.FsoFso.admin.dto.AdminMainRequestDto"%>
-<%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="java.util.List"%>
+<%@ page import="java.time.temporal.ChronoUnit" %>
+<%@ page import="java.time.ZoneId" %>
+<%@ page import="java.time.Instant" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.util.List" %>
+
+<%@ page import="com.needle.FsoFso.admin.dto.DailyDetailDto" %>
+<%@ page import="com.needle.FsoFso.admin.dto.AdminMainRequestDto" %>
+<%@ page import="com.needle.FsoFso.admin.util.InstantUtil" %>
+<%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- 하이차트 -->
@@ -108,7 +112,7 @@ String sMindate = formatter.format(mindate);
 					%>
 						<tr>
 							<td style="text-align: center;"><%=dto.getDate().toString().substring(0, 10)%></td>
-							<td style="text-align: right;"><%=dto.getSales()%>원</td>
+							<td style="text-align: right;"><%=CurrencyFormatter.toCurrencyFormat(dto.getSales())%>원</td>
 							<td style="text-align: right;"><%=dto.getSalesCnt()%>건</td>
 							<td style="text-align: right;"><%=dto.getSigninCnt()%>명</td>
 						</tr>
