@@ -6,16 +6,28 @@
 <%@ page import="com.needle.FsoFso.order.repository.ShopRepository" %>
 <%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
 
-<%--
-  Created by IntelliJ IDEA.
-  User: namhyeop
-  Date: 2022/07/18
-  Time: 4:47 PM
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+
+	if(request.getAttribute("stockFlag") != null) {
+		int flag = (int)request.getAttribute("stockFlag");
+		if(flag == 1) {
+			%>
+			<script>
+			alert("수량이 변경되었습니다.");
+			</script>
+			<%
+		} else if(flag == 2) {
+			%>
+			<script>
+			alert("수량이 변경실패했습니다. 다시 시도해주세요");
+			</script>
+			<%
+		} else if(flag == 0) {
+			// none
+		}
+	}
+
     List<DisplayShopDto> displayShopDto = (List<DisplayShopDto>) request.getAttribute("allDisplayDto");
 
     /* for (DisplayShopDto shopDto : displayShopDto) {
@@ -25,7 +37,6 @@
 
     int productTotalPrice = 0;
     int deliveryFee = 3000;
-
 %>
 
 <html>
@@ -210,7 +221,7 @@
                                     </span>
                                 </td>
                                 <td class="cart__list__option">
-                                    <input type="number" id="<%=nowDto.getProductId()%>" class="cart__list__numberinput" val="<%=nowDto.getQuantity() %>" min="0"  style="width: 100px;">
+                                    <input type="number" id="<%=nowDto.getProductId()%>" class="cart__list__numberinput" value="<%=nowDto.getQuantity() %>" min="0"  style="width: 100px;">
                                 </td>
                                 <td><span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%></span><br>
                                 </td>
@@ -325,6 +336,7 @@ $(function(){
     	  });
 
     	  console.log(productId);
+    	  
     	  $.ajax({
     	    url: '<%=request.getContextPath()%>/orderProduct.do',
     	    contentType: 'application/json',
@@ -347,12 +359,14 @@ $(function(){
     $("#cart__list__deletebtn").click(function() {
     	let deleteList = [];
     	let count = 0;
+    	
     	$("input:checkbox[name=check]").each(function() {
     		if(this.checked) {
     			deleteList.push($(this).attr('value'));
     			count = count + 1;
     		}
     	});
+    	
     	if(count > 0) {
 	    	$.ajax({
 	    		type:"POST",
