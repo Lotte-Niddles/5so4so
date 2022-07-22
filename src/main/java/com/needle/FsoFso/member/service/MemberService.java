@@ -44,7 +44,7 @@ public class MemberService {
         return unlinkedId.equals(member.get().getProviderId());
     }
 
-    public void exit(Member member) {
+    public void withdrawal(Member member) {
         final Long kakaoId = kakaoClient.unlink(member);
         memberDao.deleteByProviderId(kakaoId);
     }
