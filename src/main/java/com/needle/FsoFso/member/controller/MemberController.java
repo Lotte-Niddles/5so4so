@@ -6,8 +6,8 @@ import com.needle.FsoFso.member.controller.dto.NicknameRequest;
 import com.needle.FsoFso.member.kakao.dto.KakaoOauthInfo;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.member.service.MemberService;
-import com.needle.FsoFso.order.service.OrderService;
 import com.needle.FsoFso.order.dto.OrderResponse;
+import com.needle.FsoFso.order.service.OrderService;
 import com.needle.FsoFso.review.dto.ReviewDto;
 import com.needle.FsoFso.review.service.ReviewService;
 import java.util.List;
@@ -41,7 +41,8 @@ public class MemberController {
     @GetMapping("/login.do")
     public String login(Model model, HttpServletRequest request) {
         if (AttributeContainer.hasSessionAttributeOf(request, "member")) {
-            final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+            final Member member = (Member) AttributeContainer.sessionAttributeFrom(request,
+                    "member");
 
             final List<String> adminUsers = adminMembers.getAdminUsers();
             if (adminUsers.contains(member.getProviderId().toString())) {
@@ -104,7 +105,8 @@ public class MemberController {
 
     @MemberOnly
     @PostMapping("/me.do")
-    public String updateNickname(@RequestBody NicknameRequest nickname, HttpServletRequest request) {
+    public String updateNickname(@RequestBody NicknameRequest nickname,
+            HttpServletRequest request) {
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
 
         final Member updatedMember = new Member(member, nickname.getNickname());

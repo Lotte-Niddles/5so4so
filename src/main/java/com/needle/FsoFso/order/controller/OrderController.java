@@ -1,6 +1,7 @@
 package com.needle.FsoFso.order.controller;
 
 import com.needle.FsoFso.common.aop.MemberOnly;
+import com.needle.FsoFso.common.util.AttributeContainer;
 import com.needle.FsoFso.member.service.Member;
 import com.needle.FsoFso.order.domain.Order;
 import com.needle.FsoFso.order.dto.Order.OrderSearchCond;
@@ -9,6 +10,10 @@ import com.needle.FsoFso.order.dto.Shop.DisplayShopDto;
 import com.needle.FsoFso.order.dto.Shop.ShopDto;
 import com.needle.FsoFso.order.service.OrderService;
 import com.needle.FsoFso.order.service.ShopService;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -16,11 +21,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 public class OrderController {
@@ -52,7 +52,8 @@ public class OrderController {
     @MemberOnly
     @Transactional
     @PostMapping("orderProduct.do")
-    public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model, HttpServletRequest request) {
+    public String orderProduct(@RequestBody Map<String, List<Long>> productId, Model model,
+            HttpServletRequest request) {
         Member member = (Member) request.getSession().getAttribute("member");
         Long userId = member.getId();
 
@@ -75,9 +76,12 @@ public class OrderController {
 
 
     @GetMapping("cartNumReplace.do")
-    public String cartNumReplace(Long changeItemCnt, Long productId, Model model, HttpServletRequest request) {
-        Integer stockFlag = shopService.changeUserProductCnt(changeItemCnt, productId, userId);
-        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
+    public String cartNumReplace(Long changeItemCnt, Long productId, Model model,
+            HttpServletRequest request) {
+        final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+        Integer stockFlag = shopService.changeUserProductCnt(changeItemCnt, productId,
+                member.getId());
+        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(member.getId());
         Long allPrice = shopService.getAllPrice(allDisplayDto);
 
         if (stockFlag == 1) {
@@ -91,22 +95,12 @@ public class OrderController {
     }
 
     @PostMapping("cartDeleteProduct.do")
-    public void cartDeleteProduct(@RequestBody Map<String,List<Long>> productId, HttpServletRequest request){
-        Long userId = getUserId(request);
+    public void cartDeleteProduct(@RequestBody Map<String, List<Long>> productId,
+            HttpServletRequest request) {
+        final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
         List<Long> idList = productId.get("productId");
-        for (Long aLong : idList) {
-            System.out.println("aLong = " + aLong);
-        }
-        shopService.deleteCartProduct(idList,userId);
+        shopService.deleteCartProduct(idList, member.getId());
     }
-
-
-    private Long getUserId(HttpServletRequest request) {
-        Member member = (Member) request.getSession().getAttribute("member");
-        Long id = member.getId();
-        return id;
-    }
-
 
     /**
      * 적용 전, 동적 쿼리 필요시 사용
