@@ -36,13 +36,7 @@ public class OrderController {
     @GetMapping("order.do")
     public String orderPage(Model model, HttpServletRequest request) {
         Long userId = getUserId(request);
-        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
-
-        Long allPrice = shopService.getAllPrice(allDisplayDto);
-
-        model.addAttribute("stockFlag", 0);
-        model.addAttribute("allDisplayDto", allDisplayDto);
-        model.addAttribute("allPrice", allPrice);
+        viewRander(model, userId);
         return "order.tiles";
     }
 
@@ -84,16 +78,22 @@ public class OrderController {
     }
 
     @PostMapping("cartDeleteProduct.do")
-    public void cartDeleteProduct(@RequestBody Map<String,List<Long>> productId, HttpServletRequest request){
+    public String cartDeleteProduct(@RequestBody Map<String,List<Long>> productId, HttpServletRequest request, Model model){
         Long userId = getUserId(request);
-        System.out.println("userId = " + userId);
-        System.out.println("chekckPoint1");
         List<Long> idList = productId.get("productId");
-        for (Long aLong : idList) {
-            System.out.println("aLong = " + aLong);
-        }
         shopService.deleteCartProduct(idList,userId);
+        viewRander(model, userId);
+        return "redirect:order.do";
+    }
 
+    private void viewRander(Model model, Long userId) {
+        List<DisplayShopDto> allDisplayDto = shopService.findAllDisplayDto(userId);
+
+        Long allPrice = shopService.getAllPrice(allDisplayDto);
+
+        model.addAttribute("stockFlag", 0);
+        model.addAttribute("allDisplayDto", allDisplayDto);
+        model.addAttribute("allPrice", allPrice);
     }
 
 

@@ -376,11 +376,10 @@
                         'productId': deleteList
                     }),
                     // data: {"productId": JSON.stringify(deleteList)},
-                    success: function () {
+                    success: function (msg) {
                         location.href = "<%=request.getContextPath()%>/order.do";
                     },
                     error: function () {
-                        // alert("삭제에 실패했습니다.");
                         console.log(data);
                         location.href = "<%=request.getContextPath()%>/order.do";
                     }
