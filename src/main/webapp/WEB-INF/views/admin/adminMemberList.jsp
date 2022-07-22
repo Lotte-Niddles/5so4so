@@ -64,27 +64,37 @@ if (keyWord == null) {
 	</thead>
 	<tbody style="font-family: 'JalpullineunOneul';">
 		<%
-			for(AdminMemberDto dto: memberList) {
-				if(dto.getUpdatedAt() == null || dto.getCreatedAt() == null) continue;
-			%>
-			<tr>
-				<td style="text-align: center;"><%=dto.getId() %></td>
-				<td><%=dto.getNickname() %></td>
-				<td><%=dto.getProviderId() %></td>
-				<td style="text-align: center;"><%=dto.getAgeRange() == null ? "-" : dto.getAgeRange() %></td>
-				<td style="text-align: center;"><%=dto.getGender() == null ? "-" :
-							dto.getGender().equals("male") ? "남" : 
-							((dto.getGender().equals("female"))? "여" : "-")%></td>
-				<td style="text-align: right;"><%=dto.getPurchasesCount() %>회</td>
-				<td style="text-align: right;"><%=dto.getTotalPurchase() %>원</td>
-				<td><%=formatter.format(dto.getCreatedAt()) %></td>
-				<td><%=formatter.format(dto.getUpdatedAt()) %></td>
-			</tr>
-			<%
-			}
+			if (memberList.size() > 0) {
+				for(AdminMemberDto dto: memberList) {
+					if(dto.getUpdatedAt() == null || dto.getCreatedAt() == null) continue;
+		%>
+				<tr>
+					<td style="text-align: center;"><%=dto.getId() %></td>
+					<td><%=dto.getNickname() %></td>
+					<td><%=dto.getProviderId() %></td>
+					<td style="text-align: center;"><%=dto.getAgeRange() == null ? "-" : dto.getAgeRange() %></td>
+					<td style="text-align: center;"><%=dto.getGender() == null ? "-" :
+								dto.getGender().equals("male") ? "남" : 
+								((dto.getGender().equals("female"))? "여" : "-")%></td>
+					<td style="text-align: right;"><%=dto.getPurchasesCount() %>회</td>
+					<td style="text-align: right;"><%=dto.getTotalPurchase() %>원</td>
+					<td><%=formatter.format(dto.getCreatedAt()) %></td>
+					<td><%=formatter.format(dto.getUpdatedAt()) %></td>
+				</tr>
+		<%
+				}
 		%>
 	</tbody>
 </table>
+		<% 
+				} else {
+		%>
+	</tbody>
+</table>
+				<p style="text-align:center;margin-top:200px;">앗! 찾으시는 결과가 없네요.</p>
+		<%
+			}
+		%>
 </div>
 
 <script type="text/javascript">

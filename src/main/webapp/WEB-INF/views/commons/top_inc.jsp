@@ -34,7 +34,7 @@
                 </div>
                 <div class="header-links">
                     <%--TODO: 장바구니 링크--%>
-                    <a class="header-link-item" href="#">
+                    <a class="header-link-item" href="<%=request.getContextPath()%>/order.do">
                         <img alt="" src="<%=request.getContextPath()%>/images/cart.png">
                     </a>
                     <% if (isLoggedIn) { %>
@@ -54,8 +54,9 @@
 </header>
 <script>
 $(function() {
+	const enterKey = 13;
 	$(document).keypress(function(e) {
-		if (e.keyCode == 13) {
+		if (e.keyCode === enterKey) {
 			e.preventDefault();
 		}
 	});
@@ -70,7 +71,7 @@ $(function() {
 	$('#search').keypress(function(e) {
 		const key = e.which;
 		const keyWord = $('#search').val();
-		if (key == 13){
+		if (key === enterKey){
 			if (keyWord != '') {
 				location.href = 'searchList.do?keyWord=' + keyWord;
 			} else {

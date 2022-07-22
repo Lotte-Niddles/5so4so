@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public class ShopRepository {
+
     private final ShopMapper shopMapper;
 
     public ShopRepository(ShopMapper shopMapper) {
@@ -21,7 +22,6 @@ public class ShopRepository {
         for (Long id : productsId) {
             retShopDto.add(shopMapper.findUserChoiceProductId(userId, id));
         }
-//        retShopDto.stream().map(shopDto -> shopMapper.findUserChoiceProductId(userId, shopDto.getId()));
         return retShopDto;
     }
 

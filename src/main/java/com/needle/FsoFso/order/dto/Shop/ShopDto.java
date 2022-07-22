@@ -4,39 +4,14 @@ package com.needle.FsoFso.order.dto.Shop;
  * 장바구니 상품 조회 DTO
  */
 public class ShopDto {
-    Long id;
-    Long memberId;
-    Long productId;
-    Long quantity;
-    String name;
-    Long price;
-    Long stock;
 
-    public ShopDto() {
-    }
-
-    public ShopDto(Long id, Long memberId, Long productId, Long quantity, String name, Long price, Long stock) {
-        this.id = id;
-        this.memberId = memberId;
-        this.productId = productId;
-        this.quantity = quantity;
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
-    }
-
-    @Override
-    public String toString() {
-        return "ShopDto{" +
-                "id=" + id +
-                ", memberId=" + memberId +
-                ", productId=" + productId +
-                ", quantity=" + quantity +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", stock=" + stock +
-                '}';
-    }
+    private Long id;
+    private Long memberId;
+    private Long productId;
+    private Long quantity;
+    private String name;
+    private Long price;
+    private Long stock;
 
     public Long getId() {
         return id;
@@ -94,4 +69,26 @@ public class ShopDto {
         this.stock = stock;
     }
 
+    public ShopDto(Long id, Long memberId, Long productId, Long quantity, String name, Long price, Long stock) {
+        this.id = id;
+        this.memberId = memberId;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
+
+    @Override
+    public String toString() {
+        return "ShopDto{" +
+                "id=" + id +
+                ", memberId=" + memberId +
+                ", productId=" + productId +
+                ", quantity=" + quantity +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", stock=" + stock +
+                '}';
+    }
 }
