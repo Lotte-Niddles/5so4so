@@ -136,10 +136,10 @@
 
         .float_right {
 		    position: fixed;
-		    top: 300px;
+		    top: 422px;
 		    width: 407px;
 		    height: 277px;
-		    right: 280px;
+		    right: 24px;
         } 
 
         .payment_right {
