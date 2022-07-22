@@ -80,17 +80,6 @@ public class MemberController {
     }
 
     @MemberOnly
-    @GetMapping("/withdrawal.do")
-    public String exit(HttpServletRequest request) {
-        final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
-
-        memberService.withdrawal(member);
-        request.getSession().removeAttribute("member");
-
-        return "redirect:/productList.do";
-    }
-
-    @MemberOnly
     @GetMapping("/me.do")
     public String showMypage(Model model, HttpServletRequest request) {
         final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");

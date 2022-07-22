@@ -59,12 +59,6 @@
                     >
                         로그아웃
                     </div>
-                    <div class="divider-col">|</div>
-                    <div class="profile-text pointer-cursor" style="color: #ebebeb"
-                         onclick="handleWithdrawal(<%=member.getId()%>)"
-                    >
-                        회원탈퇴
-                    </div>
                 </div>
             </div>
         </div>
@@ -233,13 +227,6 @@
     const conf = confirm('로그아웃 하시겠습니까?')
     if (conf) {
       location.href = '<%=request.getContextPath()%>/logout.do?id=' + member_id;
-    }
-  }
-
-  function handleWithdrawal(member_id) {
-    const conf = confirm('모든 정보가 삭제됩니다. \n정말 탈퇴하시겠습니까?')
-    if (conf) {
-      location.href = '<%=request.getContextPath()%>/withdrawal.do?id=' + member_id;
     }
   }
 
