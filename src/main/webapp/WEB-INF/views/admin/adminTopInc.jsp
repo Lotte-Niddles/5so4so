@@ -1,11 +1,29 @@
-<%@ page import="com.needle.FsoFso.common.util.AttributeContainer" %>
+<%@ page import="java.util.List" %>
+
+<%@ page import="com.needle.FsoFso.member.controller.AdminMembers" %>
 <%@ page import="com.needle.FsoFso.member.service.Member" %>
+<%@ page import="com.needle.FsoFso.common.util.AttributeContainer" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     boolean isLoggedIn = AttributeContainer.hasSessionAttributeOf(request, "member");
     final Member member = (Member) AttributeContainer.sessionAttributeFrom(request, "member");
+    
+    List<String> adminMembers = new AdminMembers().getAdminUsers();
+    if (!isLoggedIn) {
+    	%>
+		alert("로그인이 필요합니다.");
+		location.href = "<%=request.getContextPath()%>/login.do";
+		<%
+    }
+    if (!adminMembers.contains(String.valueOf(member.getId()))) {
+    	%>
+    		alert("잘못된 접근입니다");
+    		location.href = "<%=request.getContextPath()%>/productList.do";
+    	<%
+    }
 %>
 <header>
     <div class="header-container">
