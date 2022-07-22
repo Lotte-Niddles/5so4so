@@ -36,6 +36,7 @@
 						where a.id = b.product_id
 						group by a.id) as d
 		on c.id = d.product_id
+		where c.status = 1
 		<if test="keyWord !='' and keyWord != null">
 			where c.name like concat('%',#{keyWord},'%')
 		</if>

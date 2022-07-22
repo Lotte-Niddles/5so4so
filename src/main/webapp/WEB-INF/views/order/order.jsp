@@ -23,43 +23,15 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style type="text/css">
-        body {
-            margin: 0;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        p,
-        span {
-            margin: 0;
-        }
-
-        a {
-            color: black;
-        }
-
-        img {
-            /*display: block;*/
-            width: 80%;
-            height: 80px;
-            margin: auto;
-        }
-
-        .cart {
-            width: 80%;
-            margin: auto;
-            padding: 30px;
-        }
-
-        .inner_chart_cart {
-            width: 100%;
-            margin: auto;
-            padding: 30px;
-        }
-
-        .cart ul {
+    
+    	.cart__information{
+   		    width: 80%;
+		    margin: auto;
+		    padding: 30px;
+		    
+    	}
+    	
+    	.cart__information ul {
             background-color: whitesmoke;
             padding: 30px;
             margin-bottom: 50px;
@@ -68,70 +40,11 @@
             font-size: 13px;
             font-weight: 300;
         }
-
-        .cart ul :first-child {
-            color: #35C5F0;
-        }
-
-        table {
-            border-top: solid 1.5px black;
-            border-collapse: collapse;
-            width: 100%;
-            font-size: 14px;
-        }
-
-        thead {
-            text-align: center;
-            font-weight: bold;
-        }
-
-        tbody {
-            font-size: 12px;
-        }
-
-        td {
-            padding: 15px 0px;
-            border-bottom: 1px solid lightgrey;
-        }
-
-        .cart__list__detail :nth-child(3) {
-            vertical-align: top;
-        }
-
-        .cart__list__detail :nth-child(3) a {
-            font-size: 12px;
-        }
-
-        .cart__list__detail :nth-child(3) p {
-            margin-top: 6px;
-            font-weight: bold;
-        }
-
-        .cart__list__5SO4SO {
-            font-size: 12px;
-            color: gray;
-        }
-
-        .cart__list__option {
-            vertical-align: top;
-            padding: 20px;
-        }
-
-        .cart__list__option p {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .cart__list__option p::after {
-            content: "";
-            width: 90%;
-            height: 1px;
-            background-color: lightgrey;
-            left: 0px;
-            top: 25px;
-            position: absolute;
-        }
-
+    	
+    	.cart__information ul li:first-child{
+   		    color: #35C5F0;
+    	}
+    
         .cart__list__optionbtn {
             background-color: white;
             font-size: 10px;
@@ -139,10 +52,15 @@
             padding: 7px;
         }
 
-        .cart__list__detail :nth-child(4),
-        .cart__list__detail :nth-child(5),
-        .cart__list__detail :nth-child(6) {
-            border-left: 2px solid whitesmoke;
+        .cart__list__orderbtn {
+            background-color: #35C5F0;
+		    color: white;
+		    border: none;
+		    border-radius: 5px;
+		    padding: 4px 8px;
+		    font-size: 12px;
+		    margin-top: 5px;
+		    vertical-align: top;
         }
 
         .cart__list__detail :nth-child(5),
@@ -167,7 +85,6 @@
         .cart__mainbtns {
             width: 420px;
             height: 200px;
-            padding-top: 40px;
             /*display: block;*/
             margin: auto;
         }
@@ -195,10 +112,18 @@
             display: flex;
         }
 
+        .float_right {
+		    position: fixed;
+		    top: 300px;
+		    width: 407px;
+		    height: 277px;
+		    right: 280px;
+        } 
+
         .payment_right {
             font-weight: bold;
             font-size: 100%;
-            margin: 10px 10px 10px 10px;
+            margin: 20px 30px;
         }
 
         .payment_right_back {
@@ -210,15 +135,19 @@
         }
 
         .cart-tmp {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            width: 65%;
+            margin: 0 auto 75px auto;
         }
+        
+        .cart__list td{
+        	text-align: center;
+        }
+        
     </style>
 </head>
 <body>
 <div>
-    <div class="cart cart__information">
+    <div class="cart__information">
         <ul>
             <li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
             <li>오늘출발 상품은 판매자 설정 시점에 따라 오늘출발 여부가 변경될 수 있으니 주문 시 꼭 다시 확인해 주시기 바랍니다.</li>
@@ -232,60 +161,58 @@
                         <form>
                             <thead>
                             <tr>
-                                <td><input type="checkbox"></td>
-                                <td colspan="2">상품정보</td>
-                                <td>옵션</td>
-                                <td>상품금액</td>
-                                <td>배송비</td>
+                                <td width="80"><input type="checkbox" id="allCheck"></td>
+                                <td colspan="2" width="300">상품정보</td>
+                                <td width="150">옵션</td>
+                                <td width="150">상품금액</td>
+                                <td width="50">배송비</td>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                                for (int i = 0; i < displayShopDto.size(); i++) {%>
+                                for (int i = 0; i < displayShopDto.size(); i++) {
+                                DisplayShopDto nowDto = displayShopDto.get(i);    
+                            %>
+                                
                             <tr class="cart__list__detail">
-                                <td><input type="checkbox"></td>
-                                <td><img src="<%=displayShopDto.get(i).getImageSrc()%>%"
-                                         alt="<%=displayShopDto.get(i).getItemName()%>"></td>
+                                <td><input type="checkbox" name="check" data-cat="<%=nowDto.getPrice()%>" value="<%=nowDto.getPrice()%>"></td>
+                                <td><img src="<%=nowDto.getImageSrc()%>"
+                                         alt="<%=nowDto.getItemName()%>" width="100" height="100"></td>
                                 <td><span class="cart__list__5SO4SO"> 5SO4SO</span>
-                                    <p><%=displayShopDto.get(i).getItemName()%>
+                                    <p><%=nowDto.getItemName()%>
                                     </p>
-                                    <sapn class="price"><%=displayShopDto.get(i).getPrice()%>
+                                    <span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%>
                                     </sapn>
                                 </td>
                                 <td class="cart__list__option">
-                                    <button class="cart__list__optionbtn">주문조건 추가/변경</button>
+                                    <input type="number" val="<%=0 %>" min="0" >
                                 </td>
-                                <td><span class="price"><%=displayShopDto.get(i).getPrice()%></span><br>
+                                <td><span class="price"><%=CurrencyFormatter.toCurrencyFormat(nowDto.getPrice())%></span><br>
                                     <button class="cart__list__orderbtn">주문하기</button>
                                 </td>
                                 <td>무료</td>
                             </tr>
                             <% } %>
-                            </tbody>
-                            <tfoot>
                             <tr>
-                                <td colspan="3"><input type="checkbox">
-                                    <button class="cart__list__optionbtn">선택상품 삭제</button>
-                                    <button class="cart__list__optionbtn">선택상품 찜</button>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </tfoot>
+                        <td style="padding: 5px; text-align: right;" colspan="6">
+                           <button class="cart__list__optionbtn" style="font-size: 13px;">선택상품 삭제</button>
+                        </td>
+                     </tr>
+                            </tbody>
                         </form>
                     </table>
                 </section>
             </form>
         </div>
 
-        <div class="float_left">
+        <div class="float_right">
             <form>
                 <div class="cart__mainbtns payment_right_back">
-                    <div class="payment_right">총 상품금액 <%=allPrice%></div>
-                    <div class="payment_right">총 배송비 0</div>
+                    <div class="payment_right">총 상품금액 <span id="productPrice">0</span></div>
+                    <div class="payment_right">총 배송비 3,000</div>
                     <div class="payment_right">총 할인금액 0</div>
-                    <div class="payment_right">총 결제액 <%=allPrice%> </div>
+                    <div class="payment_right">총 결제액 <span id="totalPrice">3,000</span></div>
+                    	<input type="hidden" name="productTotalPrice" value="">
                     <button class="cart__bigorderbtn left">쇼핑 계속하기</button>
                     <button class="cart__bigorderbtn right">주문하기</button>
                 </div>
@@ -294,4 +221,55 @@
     </div>
 </div>
 </body>
+
+<script type="text/javascript">
+$(function(){
+    $("#allCheck").click(function(){
+    	let sumVal = 0;
+    	
+		if($("#allCheck").prop("checked")) {
+			$("input[type=checkbox]").prop("checked",true);
+			
+			$("input:checkbox[name=check]").each(function(){
+			
+				sumVal += parseInt($(this).attr('data-cat'));
+		     })
+		     let productPrice = sumVal;
+		     let totalPrice = sumVal + parseInt(3000);
+		     
+		     productPrice = productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		     totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		     
+		     document.getElementById("productPrice").innerHTML = productPrice;
+		     document.getElementById("totalPrice").innerHTML = totalPrice;
+
+        } else {
+            $("input[type=checkbox]").prop("checked",false);
+            document.getElementById("productPrice").innerHTML = 0;
+            document.getElementById("totalPrice").innerHTML = "3,000";
+        } 
+     })
+    
+    $("input:checkbox[name=check]").click(function(){
+    	let sumVal = 0;
+    	$("#allCheck").prop("checked",false);
+	    $("input:checkbox[name=check]:checked").each(function(){
+	    	sumVal += parseInt($(this).attr('data-cat'));
+	     })
+	     let productPrice = sumVal;
+	     let totalPrice = sumVal + parseInt(3000);
+	     
+	     productPrice = productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	     totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		     
+	     document.getElementById("productPrice").innerHTML = productPrice;
+	     document.getElementById("totalPrice").innerHTML = totalPrice;
+	     document.getElementsByName("productTotalPrice")[0].setAttribute("value", sumVal + parseInt(3000));
+
+    })
+ })
+
+</script>
+
+
 </html>

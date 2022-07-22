@@ -1,11 +1,14 @@
+<%@ page import="com.needle.FsoFso.admin.dto.AdminOrderProductDto" %>
+<%@ page import="com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto" %>
+<%@ page import="com.needle.FsoFso.common.util.CurrencyFormatter" %>
 
-<%@page import="com.needle.FsoFso.admin.dto.AdminOrderProductDto"%>
-<%@page import="com.needle.FsoFso.admin.dto.AdminOrderProductListRequestDto"%>
-<%@page import="java.time.ZoneId"%>
-<%@page import="java.util.Locale"%>
-<%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="java.util.List"%>
-<%@page import="java.time.Instant"%>
+<%@ page import="java.time.ZoneId" %>
+<%@ page import="java.time.Instant" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Locale" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- 부트스트랩 -->
@@ -70,7 +73,7 @@ Instant updatedAt = sampleDto.getUpdatedAt();
 			<td><%=dto.getProductName()%></td>
 			<td style="text-align: center;"><img src="<%=dto.getProductThumbnailUrl()%>" width="30px" height="30px"></td>
 			<td style="text-align: right;"><%=dto.getQuantity()%>EA</td>
-			<td style="text-align: right;"><%=dto.getUnitPrice()%>원</td>
+			<td style="text-align: right;"><%=CurrencyFormatter.toCurrencyFormat(dto.getUnitPrice())%>원</td>
 			<td style="text-align: center;"><%=formatter.format(dto.getOrderedAt())%></td>
 			<td style="text-align: center;"><%=formatter.format(dto.getUpdatedAt())%></td>
 		</tr>

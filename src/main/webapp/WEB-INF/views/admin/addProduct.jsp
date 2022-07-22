@@ -14,11 +14,26 @@
 .table-hover tbody tr:hover{
    background-color: #f7f9fa;
 }
-#add
+
+#product-input{
+	width: 65%;
+	margin: 150px auto calc(100vh - 795px) auto;
+}
+
+#product-input #addProductBtn{
+		width: 150px;
+		height: 50px;
+		background-color: #35c5f0;
+	    border: none;
+	    border-radius: 5px;
+	    color: #fff;
+	    font-size: 20px;
+	    cursor: pointer;
+}
 </style>
 
 <div id="product-input" align="center">
-<h2 style="margin-top: 8px;">상품등록</h2>
+<h2 style="margin: 35px 0;">상품등록</h2>
 
 <form action="product.do" name="frmForm" id="frm" method="post" enctype="multipart/form-data">
 
@@ -52,7 +67,7 @@
 
 <tr align="center">
    <td colspan="2">
-      <button id="addProductBtn" type="button" style="background-color:#35C5F0; ">자료올리기</button>
+      <button id="addProductBtn" type="button">상품등록</button>
    </td>
 </tr>
 </table>

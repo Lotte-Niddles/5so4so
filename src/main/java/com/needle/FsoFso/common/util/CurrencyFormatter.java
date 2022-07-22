@@ -15,4 +15,12 @@ public class CurrencyFormatter {
     public static String toCurrencyFormat(String value) {
         return numberFormat.format(value);
     }
+    
+    public static String toCurrencyFormat(long value) {
+        return numberFormat.format(value);
+    }
+    
+    public static String toCurrencyFormat(Long value) {
+        return numberFormat.format(value);
+    }
 }

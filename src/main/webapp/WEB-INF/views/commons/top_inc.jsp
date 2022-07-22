@@ -39,8 +39,8 @@
                     </a>
                     <% if (isLoggedIn) { %>
                     <a class="header-link-item"
-                       href="<%=request.getContextPath()%>/logout.do?id=<%=member.getId()%>">
-                        로그아웃
+                       href="<%=request.getContextPath()%>/me.do">
+                        마이페이지
                     </a>
                     <% } else { %>
                     <a class="header-link-item" href="<%=request.getContextPath()%>/login.do">
@@ -61,7 +61,7 @@ $(function() {
 		}
 	});
 	$('#searchBtn').css('cursor', 'pointer').click(function(e) {
-		const keyWord = $('#search').val();
+		const keyWord = $('#search').val().trim();
 		if (keyWord != '') {
 			location.href = 'searchList.do?keyWord=' + keyWord;
 		} else {
@@ -70,7 +70,7 @@ $(function() {
 	});
 	$('#search').keypress(function(e) {
 		const key = e.which;
-		const keyWord = $('#search').val();
+		const keyWord = $('#search').val().trim();
 		if (key === enterKey){
 			if (keyWord != '') {
 				location.href = 'searchList.do?keyWord=' + keyWord;
