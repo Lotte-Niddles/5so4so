@@ -66,5 +66,12 @@
 			where c.id = #{keyWord};
 		</if>
 	</select>
+	
+	<select id="findGenderCount" resultType="com.needle.FsoFso.admin.dto.GenderChartDto">
+		select count(*) as count, gender
+		from members
+		where gender is not null
+		group by gender;
+	</select>
 
 </mapper>

@@ -1,3 +1,4 @@
+<%@page import="com.needle.FsoFso.admin.dto.GenderChartDto"%>
 <%@ page import="java.time.temporal.ChronoUnit" %>
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="java.time.Instant" %>
@@ -37,6 +38,7 @@
 </style>
 
 <%
+List<GenderChartDto> genderChartList = (List<GenderChartDto>) request.getAttribute("genderDtoList");
 AdminMainRequestDto requestDto = (AdminMainRequestDto) request.getAttribute("adminMainDto");
 List<DailyDetailDto> detailList = requestDto.getDailyDetails();
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd")
@@ -134,40 +136,7 @@ String sMindate = formatter.format(mindate);
 		<div id="genderContainer"></div>
 	</div>
 	<div id="admin-right-chart" style="width: 700px; margin:10px; padding: 5px; background-color: gray;">
-		<div id="daily-sales-detail" style="background-color: white; height: 400px;">
-			<div id="daily-sales-detail-title"><p style="font-size: 20px; font:bold;">주간 일별 요약</p></div>
-			<table id="daily-sales-detail-table" class="table table-hover">
-			<col width="100px"><col width="140px"><col width="90px"><col width="90px">
-			<thead>
-				<tr style="color: #35C5F0; text-align: center;" >
-					<th>일자</th>
-					<th>매출액</th>
-					<th>주문수</th>
-					<th>가입</th>
-				</tr>
-			</thead>
-			<tbody style="font-family: 'JalpullineunOneul';">
-			<%
-				totalSales = 0;
-				for(DailyDetailDto dto : detailList) {
-					totalSales += dto.getSales();
-					%>
-						<tr>
-							<td style="text-align: center;"><%=dto.getDate().toString().substring(0, 10)%></td>
-							<td style="text-align: right;"><%=CurrencyFormatter.toCurrencyFormat(dto.getSales())%>원</td>
-							<td style="text-align: right;"><%=dto.getSalesCnt()%>건</td>
-							<td style="text-align: right;"><%=dto.getSigninCnt()%>명</td>
-						</tr>
-					<%
-				}
-			%>
-			</tbody>
-			</table>
-			<div id="daily-sales-detail-totalSales">
-				<p style="margin-top:8px; font-family: 'JalpullineunOneul'; text-align: left; padding: 20px; border-top: double;">총 : <%=totalSales %></p>
-			</div>
-			
-		</div>
+		<div id="ageContainer"></div>
 	</div>
 </div>
 
@@ -223,14 +192,69 @@ const genderChart = Highcharts.chart('genderContainer', {
 	    name: 'Gender',
 	    colorByPoint: true,
 	    data: [{
-	      name: '남',
-	      y: 11.41,
+	      name: '<%=genderChartList.get(0).getGender() %>',
+	      y: <%=genderChartList.get(0).getCount() %>,
 	      sliced: true,
 	      selected: true
 	    }, {
-	      name: '여',
-	      y: 1.84
+	      name: '<%=genderChartList.get(1).getGender() %>',
+	      y: <%=genderChartList.get(1).getCount() %>
 	    }]
 	  }]
 	});
+	
+const ageChart = Highcharts.chart('ageContainer', {
+	  title: {
+		    text: '회원 성별'
+		  },
+		  subtitle: {
+		    text: 'Plain'
+		  },
+		  xAxis: {
+		    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+		  },
+		  series: [{
+		    type: 'column',
+		    colorByPoint: true,
+		    data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+		    showInLegend: false
+		  }]
+		});
+
+		document.getElementById('plain').addEventListener('click', () => {
+		  chart.update({
+		    chart: {
+		      inverted: false,
+		      polar: false
+		    },
+		    subtitle: {
+		      text: 'Plain'
+		    }
+		  });
+		});
+
+		document.getElementById('inverted').addEventListener('click', () => {
+		  chart.update({
+		    chart: {
+		      inverted: true,
+		      polar: false
+		    },
+		    subtitle: {
+		      text: 'Inverted'
+		    }
+		  });
+		});
+
+		document.getElementById('polar').addEventListener('click', () => {
+		  chart.update({
+		    chart: {
+		      inverted: false,
+		      polar: true
+		    },
+		    subtitle: {
+		      text: 'Polar'
+		    }
+		  });
+		});
+	
 </script>

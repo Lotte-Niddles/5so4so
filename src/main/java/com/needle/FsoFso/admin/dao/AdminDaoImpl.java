@@ -19,6 +19,7 @@ import com.needle.FsoFso.admin.dto.AdminOrderListRequestDto;
 import com.needle.FsoFso.admin.dto.AdminProductDto;
 import com.needle.FsoFso.admin.dto.AdminProductListRequestDto;
 import com.needle.FsoFso.admin.dto.DailyDetailDto;
+import com.needle.FsoFso.admin.dto.GenderChartDto;
 import com.needle.FsoFso.admin.util.InstantUtil;
 
 @Repository
@@ -71,6 +72,12 @@ public class AdminDaoImpl implements AdminDao {
 		List<AdminOrderDto> dtos = new ArrayList<>();
 		dtos = session.selectList(ns + "adminOrderList", keyWord);
 		return new AdminOrderListRequestDto(dtos);
+	}
+
+	@Override
+	public List<GenderChartDto> findGenderCount() {
+		// TODO Auto-generated method stub
+		return session.selectList(ns + "findGenderCount");
 	}
 
 }
