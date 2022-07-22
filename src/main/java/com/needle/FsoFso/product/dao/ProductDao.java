@@ -16,4 +16,6 @@ public interface ProductDao {
 	ProductDto getProductById(long id);
 	
 	void addCart(CartDto cart);
+
+	void removeProductById(long productId);
 }

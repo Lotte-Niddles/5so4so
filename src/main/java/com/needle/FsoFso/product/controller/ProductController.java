@@ -94,4 +94,14 @@ public class ProductController {
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("nicknameList", nicknameList);
 	}
+	
+	@GetMapping("delProduct.do")
+	public String delProduct(HttpServletRequest req) {
+		
+		long productId = Long.parseLong(req.getParameter("productId"));
+				
+		productService.removeProductById(productId);
+		
+		return "redirect:/adminProductList.do";
+	}
 }

@@ -15,6 +15,7 @@
 		from (	select row_number()over(order by updated_at desc) as rnum,
 				id, name, thumbnail_url, price, stock, created_at, updated_at 
 				from products
+				where status = 1
 				order by updated_at desc) a
 		where rnum between #{start} and #{start} + 11
 		order by updated_at desc;
@@ -24,17 +25,24 @@
 	<select id="getAllProduct" resultType="Integer">
 		select count(*) 
 		from products
+		where status = 1;
 	</select>
 
 	<select id="getProductById" parameterType="Long" resultType="com.needle.FsoFso.product.dto.ProductDto">
 		select id, name, thumbnail_url, price, stock, created_at, updated_at
 		from products
-		where id = #{id}
+		where id = #{id} and status = 1;
 	</select>
 	
 	<insert id="addCart" parameterType="com.needle.FsoFso.product.dto.CartDto">
 		insert into cart(member_id, product_id, quantity)
 		values(#{memberId}, #{productId}, #{quantity})
 	</insert>
+	
+	<update id="removeProductById" parameterType="Long">
+		update products
+		set status = 0
+		where id = #{productId};
+	</update>
 	
 </mapper>
