@@ -78,4 +78,8 @@
 <definition name="mypage.tiles" extends="productList.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/member/mypage.jsp"/>
 </definition>
+
+	<definition name="error.tiles" extends="productList.tiles">
+		<put-attribute name="main" value="/WEB-INF/views/error.jsp"/>
+	</definition>
 </tiles-definitions>
