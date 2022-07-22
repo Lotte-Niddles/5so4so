@@ -66,13 +66,15 @@ public class ProductController {
 
 	@PostMapping("addCart.do")
 	public String addCart(Model model, HttpServletRequest req) {
+		if (!AttributeContainer.hasSessionAttributeOf(req, "member")) {
+			return "redirect:/login.do";
+		}
+		final Member member = (Member) AttributeContainer.sessionAttributeFrom(req, "member");
+		
 		int productId = Integer.parseInt(req.getParameter("productId"));
-		int quantity = Integer.parseInt(req.getParameter("quantity"));
 		ProductDto product = productService.getProductById(productId);
-		// TODO : 세션에서 가져온 member 객체로 변경후 userService 제거
-		int memberId = 12;
-
-		CartDto cart = new CartDto(0, memberId, productId, quantity);
+		int quantity = Integer.parseInt(req.getParameter("quantity"));
+		CartDto cart = new CartDto(0, member.getId(), productId, quantity);
 		productService.addCart(cart);
 		model.addAttribute("product", product);
 
