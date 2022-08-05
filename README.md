@@ -33,17 +33,7 @@
 | 김남협 | 김진광 | 박세훈 | 서지훈 | 정은우 | 최솔지 |
 | --- | --- | --- | --- | --- | --- |
 | <img src="https://avatars.githubusercontent.com/u/53933920?s=96&v=4" width=200px alt="_"/> | <img src="https://avatars.githubusercontent.com/u/107083442?s=96&v=4" width=200px alt="_"/> | <img src="https://avatars.githubusercontent.com/u/45381362?s=96&v=4" width=200px alt="_"> | <img src="https://avatars.githubusercontent.com/u/63198415?s=96&v=4" width=200px alt="_"> | <img src="https://avatars.githubusercontent.com/u/52902010?s=96&v=4" width=200px alt="_"> | <img src="https://avatars.githubusercontent.com/u/52682603?s=96&v=4" width=200px alt="_"> |
-| - 상품 주문
-- 장바구니 & 결제 | - 상품목록 조회
-- 상품, 회원 주문 검색 | - 상품 상세 조회
-- 상품 등록
-- 마이페이지 | - 상품목록 조회 및 페이징
-- 메인 테마 및 전체 레이아웃
-- 메인 페이지 | - 관리자 페이지 메인
-- 관리자 페이지 테마
-- 회원 및 주문관리 | - 카카오 소셜 로그인
-- 페이지별 인증 처리
-- 마이페이지 |
+| 상품 주문 & 장바구니 & 결제 | 상품목록 조회 & 상품, 회원 주문 검색 | 상품 상세 조회 & 상품 등록 & 마이페이지 | 상품목록 조회 및 페이징 &메인 테마 및 전체 레이아웃 & 메인 페이지 | 관리자 페이지 메인 & 관리자 페이지 테마 & 회원 및 주문관리 | 카카오 소셜 로그인 & 페이지별 인증 처리 & 마이페이지 |
 
 ---
 
